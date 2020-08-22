@@ -1,9 +1,27 @@
 // See: https://sass-lang.com/
 
 body {
+
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 4rem;
   background-color: #EEE;
 
   h1, h2, h3, p {
   color: #244751;
   }
+
+  #form-content {
+
+    margin: auto;
+    // width: 40rem;
+
+  }
+
+  article > button {
+
+    margin-left: 1rem;
+
+  }
+
 }

@@ -53,56 +53,52 @@
     <h2 style="text-align: center; margin-top: 1rem; margin-right: 6rem; margin-left: 6rem;">ENTER YOUR DETAILS AND WE
       WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
     <form method="POST" action="">
-      <article>
-        <table class="grid d-flex justify-content-center">
-          <tr>
-            <td>
-              <p>Full name</p>
-            </td>
-            <td>
-              <textarea placeholder="Enter your name"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>e-mail</p>
-            </td>
-            <td>
-              <textarea placeholder="E-mail contact"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Bookie title</p>
-            </td>
-            <td>
-              <textarea placeholder="Name your bookie"></textarea>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <p>Bookie description</p>
-            </td>
-            <td>
-              <textarea placeholder="Describe your bookie"></textarea>
-            </td>
-        </table>
+      <article id="form-content">
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Full name</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">E-mail</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="E-mail address">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Bookie title</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Add your bookie title">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Bookie description</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+              placeholder="Briefly describe the bookie you're planning">
+          </div>
       </article>
-      <article id="time-slot" class="grid d-flex justify-content-center">
-        <div>
+      <article id="time-slot">
+        <div class="row">
+          Event starts:
           <input type="date" name="selected_date" />
           <span>
             <button type="button">📅</button>
           </span>
-        </div>
-        <div>
           <input type="time" name="selected_time" />
           <span>
             <button type="button">📅</button>
           </span>
+          Event ends:
+          <input type="date" name="selected_date" />
+          <span>
+            <button type="button">📅</button>
+          </span>
+          <input type="time" name="selected_time" />
+          <span>
+            <button type="button">📅</button>
+          </span>
+          <button type="submit" class="btn btn-primary">Add entry</button>
         </div>
       </article>
-      <button class="btn btn-primary" type="submit">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </section>
 </body>
