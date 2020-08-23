@@ -50,6 +50,11 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+// app.post('/create-bookie', (req, res) => {
+//   console.log(req.body)
+//   res.redirect('back')
+// })
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
