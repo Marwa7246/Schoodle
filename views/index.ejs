@@ -52,27 +52,31 @@
   <section class="justify-content-center">
     <h2 style="text-align: center; margin-top: 1rem; margin-right: 6rem; margin-left: 6rem;">ENTER YOUR DETAILS AND WE
       WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
-    <form method="POST" action="">
-      <article id="form-content">
-        <form>
+    <form method="POST" id="form-submission" action="/create-bookie">
+      <article class="form-content">
           <div class="form-group">
-            <label for="exampleInputEmail1">Full name</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <label for="InputName">Full name</label>
+            <input type="text" class="form-control"
               placeholder="Enter your name">
           </div>
           <div class="form-group">
-            <label for="exampleInputPassword1">E-mail</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="E-mail address">
+            <label for="InputEmail">E-mail</label>
+            <input type="email" class="form-control" placeholder="E-mail address">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Bookie title</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <label for="InputTitle">Bookie title</label>
+            <input type="text" class="form-control"
               placeholder="Add your bookie title">
           </div>
           <div class="form-group">
-            <label for="exampleInputEmail1">Bookie description</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+            <label for="InputDesc">Bookie description</label>
+            <input type="text" class="form-control"
               placeholder="Briefly describe the bookie you're planning">
+          </div>
+          <div class="form-group">
+            <label for="InputLocation">Location</label>
+            <input type="text" class="form-control"
+              placeholder="Where is it going to happen?">
           </div>
       </article>
       <article id="time-slot">
