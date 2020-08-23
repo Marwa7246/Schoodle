@@ -14,13 +14,6 @@ function landingToForm() {
 // $(document).ready(function() {
 
 
-
-
-
-
-
-
-
 //   $('#create-bookie').on('click', '#render-form-page-container', function(event) {
 
 //       $('#render-form-page-container').hide(0);
