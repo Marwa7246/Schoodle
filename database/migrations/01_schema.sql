@@ -19,7 +19,7 @@ CREATE TABLE polls (
   location TEXT,
   data_created TIMESTAMP DEFAULT CURRENT_DATE,
   url VARCHAR(60),
-  owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+  owner_id INTEGER REFERENCES owners(id) DEFAULT NULL ON DELETE CASCADE
 
 );
 
