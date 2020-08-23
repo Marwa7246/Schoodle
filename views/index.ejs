@@ -24,7 +24,11 @@
     crossorigin="anonymous"></script>
 
 
-  <body style="    background-color: antiquewhite;">
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+  <script type="text/javascript" src="/scripts/add-timeslot.js"></script>
+</head>
+<body style="    background-color: antiquewhite;">
 
 
     <div id="render-form-page-container">
@@ -78,8 +82,8 @@
               placeholder="Where is it going to happen?">
           </div>
       </article>
-      <article id="time-slot">
-        <div class="row">
+      <article id="time-slot-article">
+        <div id="time-slot-entry" class="row">
           Event starts:
           <input type="date" name="selected_date" />
           <span>
@@ -98,7 +102,7 @@
           <span>
             <button type="button">📅</button>
           </span>
-          <button type="submit" class="btn btn-primary">Add entry</button>
+          <button id="add-timeslot" class="btn btn-primary">Add entry</button>
         </div>
       </article>
       <button type="submit" class="btn btn-primary">Submit</button>
