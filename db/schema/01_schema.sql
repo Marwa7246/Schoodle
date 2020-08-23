@@ -3,7 +3,7 @@
 -----------------------------------------------
 DROP TABLE IF EXISTS owners CASCADE;
 DROP TABLE IF EXISTS polls CASCADE;
-DROP TABLE IF EXISTS time-slots CASCADE;
+DROP TABLE IF EXISTS time_slots CASCADE;
 DROP TABLE IF EXISTS votes CASCADE;
 
 CREATE TABLE owners (
@@ -19,11 +19,11 @@ CREATE TABLE polls (
   location TEXT,
   data_created TIMESTAMP DEFAULT CURRENT_DATE,
   url VARCHAR(60),
-  owner_id INTEGER REFERENCES owners(id) DEFAULT NULL ON DELETE CASCADE
+  owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
 
 );
 
-CREATE TABLE time-slots (
+CREATE TABLE time_slots (
   id SERIAL PRIMARY KEY NOT NULL,
   start_date DATE NOT NULL,
   end_date DATE NOT NULL,
@@ -39,6 +39,6 @@ CREATE TABLE votes (
   email VARCHAR(255) NOT NULL,
   choice BOOLEAN NOT NULL DEFAULT FALSE,
   token VARCHAR(4) NOT NULL,
-  time-slot_id INTEGER REFERENCES time-slots(id) ON DELETE CASCADE
+  time_slot_id INTEGER REFERENCES time_slots(id) ON DELETE CASCADE
 
  );
