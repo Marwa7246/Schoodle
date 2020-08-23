@@ -1,0 +1,44 @@
+
+
+-----------------------------------------------
+DROP TABLE IF EXISTS owners CASCADE;
+DROP TABLE IF EXISTS polls CASCADE;
+DROP TABLE IF EXISTS time_slots CASCADE;
+DROP TABLE IF EXISTS votes CASCADE;
+
+CREATE TABLE owners (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(60) NOT NULL,
+  email VARCHAR(60) NOT NULL
+);
+
+CREATE TABLE polls (
+  id SERIAL PRIMARY KEY NOT NULL,
+  title VARCHAR(60) NOT NULL,
+  description TEXT,
+  location TEXT,
+  data_created TIMESTAMP DEFAULT CURRENT_DATE,
+  url VARCHAR(60),
+  owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
+
+);
+
+CREATE TABLE time_slots (
+  id SERIAL PRIMARY KEY NOT NULL,
+  start_date DATE NOT NULL,
+  end_date DATE NOT NULL,
+  start_time TIME NOT NULL,
+  end_time TIME NOT NULL,
+  poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE
+
+);
+
+CREATE TABLE votes (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  choice BOOLEAN NOT NULL DEFAULT FALSE,
+  token VARCHAR(4) NOT NULL,
+  time_slot_id INTEGER REFERENCES time_slots(id) ON DELETE CASCADE
+
+ );
