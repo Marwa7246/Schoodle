@@ -17,3 +17,24 @@ const token = generateRandomString(4);
 // console.log(token);
 
 export { url, token };
+
+//Check if the url has any string after localhost:8080/
+//If search query found---> go to the vote page(make the botton appear )
+//If not---> load the landing page configuration
+$(document).ready(() => {
+  $('#go-to-home-page').hide(0)
+  const urlQuery = window.location.search;
+  console.log(('urlQuery: '+ urlQuery));
+  if (urlQuery) {
+    console.log(('urlQuery after if statement: '+ urlQuery));
+    $('#go-to-home-page').show();
+  }
+
+
+  $('#go-to-home-page').on('click', function() {
+    console.log( "went to landing page" );
+    $('#go-to-home-page').hide()
+    window.history.replaceState(null, null, window.location.pathname);
+  });
+
+});
