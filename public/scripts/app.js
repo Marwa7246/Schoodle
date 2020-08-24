@@ -14,29 +14,43 @@ $(document).ready(() => {
 
 // ROUTES
 
-    $.ajax({ url: '/bookie/', method: 'GET', dataType: 'JSON' })
-      .then(function(response) {
-        console.log("hello")
-      });
-
-
-
 
  console.log('connected')
-  $('#render-form-page-container').append(function() {
+  $('#html-container').append(function() {
 return landingHTML;
 })
-$('#form-container-fill').append(function() {
-return formPage;
-})
-  // $('#create-bookie').on('click', landingToForm);
+
+$('#create-bookie').on('click', landingToForm);
 
 function landingToForm() {
+  $('#create-bookie').off()
+  $('#html-container').empty()
   console.log('in')
-  // $('#render-form-page-container').empty()
+  $('#html-container').append(function() {
+    return formPage;
+    })
+
+    $('#form-submission').submit(function(event){
+      $('#form-submission').appendChild($("form"))
+      bookieObjectBuilder()
+      event.preventDefault();
+    })
+
+    $('#main-form-button').on('click', formToVote);
+
 }
 
-  $('#form-submission').submit(function(event){
+
+
+function formToVote() {
+  $('#main-form-button').off()
+  $('#html-container').empty()
+  $('#html-container').append(function() {
+    return votePage;
+    })
+}
+function bookieObjectBuilder () {
+  document.body.appendChild(form);
     event.preventDefault();
 
       let bookieData = $(this).find('.form-control').serializeArray()
@@ -74,11 +88,12 @@ function landingToForm() {
        bookieData.time_slots = timeSlots
        console.log(bookieData)
        return bookieData;
+
+  }
     })
 
-    })
 
-
+const votePage = `<h1> hello </h1>`
 
 const formPage = `
 <section id='bookie-form-page' style="justify-content: center;">
@@ -131,7 +146,7 @@ const formPage = `
           <span>
 
           </span>
-          <button class="time-slot" type="submit" class="btn btn-primary">Add entry</button>
+          <button class="time-slot" type="button" class="btn btn-primary">Add entry</button>
         </div>
       </article>
 
