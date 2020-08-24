@@ -1,32 +1,27 @@
-$(document).ready(() => {
-  $('#form-content').hide();
-  $('#create-bookie').on('click', landingToForm);
+// $(document).ready(() => {
+//   $('#form-content').hide();
+//   $('#create-bookie').on('click', landingToForm);
 
-  function deleteBookie(value) {
-    $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
-      .then(data => console.log(data));
-  }
+//   function deleteBookie(value) {
+//     $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
+//       .then(data => console.log(data));
+//   }
 
-  $('#delete-bookie').click(() => deleteBookie(1));
-});
-
-function landingToForm() {
-
-    $('#render-form-page-container').hide();
-    $('#form-content').show();
-
-};
+//   $('#delete-bookie').click(() => deleteBookie(1));
+// });
 
 
 
-$(document).ready(() => {
-
-// ROUTES
-
-// })
 
 
-// $(document).ready(function() {
+// $(document).ready(() => {
+
+// // ROUTES
+
+// // })
+
+
+$(document).ready(function() {
 
 
  console.log('connected')
@@ -39,17 +34,17 @@ $('#create-bookie').on('click', landingToForm);
 function landingToForm() {
   $('#create-bookie').off()
   $('#html-container').empty()
-  console.log('in')
+
   $('#html-container').append(formPage)
+  $('#add-timeslot').click(timeManager)
 
     $('#form-submission').submit(function(event){
       bookieObjectBuilder(event)
-      // console.log(bookieData)
       event.preventDefault();
       formToVote()
     })
 
-    // $('#main-form-button').on('click', formToVote);
+
 
 }
 
@@ -57,10 +52,9 @@ function landingToForm() {
 
 function formToVote() {
   $('#main-form-button').off()
+
   $('#html-container').empty()
-  $('#html-container').append(function() {
-    return votePage;
-    })
+  $('#html-container').append( preVotePage)
 }
 
 function bookieObjectBuilder (event) {
@@ -104,10 +98,57 @@ function bookieObjectBuilder (event) {
        return bookieData;
 
   }
-    })
+
+const timeManager = function () {
+
+    event.preventDefault();
+
+    const noOfRows = $('#time-slot-container div').length + 1;
+    console.log(noOfRows);
+
+    if (noOfRows < 5) {
+
+      $('#time-slot-container').append(function() {
 
 
-const votePage = `
+        let timeslot =
+        `  <article id="time-slot-container">
+        <div class="row">
+          Event starts:
+          <input class="time-slot" type="date" name="start_date" />
+          <span>
+
+          </span>
+          <input class="time-slot" type="time" name="start_time" />
+          <span>
+
+          </span>
+          Event ends:
+          <input class="time-slot" type="date" name="end_date" />
+          <span>
+
+          </span>
+          <input class="time-slot" type="time" name="end_time" />
+          <span>
+
+        </div>
+      </article>`;
+
+        return timeslot
+      });
+
+    }
+
+
+}
+})
+
+
+
+
+
+
+const preVotePage = `
 <h1> These are the details from your bookie </h1>
 <table>
    <tr>
@@ -171,7 +212,7 @@ const formPage = `
           <span>
 
           </span>
-          <button class="time-slot" type="button" class="btn btn-primary">Add entry</button>
+          <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
         </div>
       </article>
 
@@ -201,3 +242,5 @@ const landingHTML =
   </button>
 </div>
 </div>`
+
+
