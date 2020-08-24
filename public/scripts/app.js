@@ -1,21 +1,16 @@
-$(document).ready(() => {
-  $('#form-content').hide();
-  $('#create-bookie').on('click', landingToForm);
+// $(document).ready(() => {
+//   $('#form-content').hide();
+//   $('#create-bookie').on('click', landingToForm);
 
-  function deleteBookie(value) {
-    $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
-      .then(data => console.log(data));
-  }
+//   function deleteBookie(value) {
+//     $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
+//       .then(data => console.log(data));
+//   }
 
-  $('#delete-bookie').click(() => deleteBookie(1));
-});
+//   $('#delete-bookie').click(() => deleteBookie(1));
+// });
 
-function landingToForm() {
 
-    $('#render-form-page-container').hide();
-    $('#form-content').show();
-
-};
 
 
 
@@ -104,6 +99,62 @@ function bookieObjectBuilder (event) {
     })
 
 
+
+
+
+// $('#create-bookie').on('click', landingToForm);
+
+$(document).ready(function() {
+
+  $('#add-timeslot').click(console.log('in now'))
+  $('#add-timeslot').click(function(event) {
+    console.log('in')
+    event.preventDefault();
+
+    const noOfRows = $('#time-slot-article div').length + 1;
+    console.log(noOfRows);
+
+    if (noOfRows < 5) {
+
+      $('#time-slot-entry').append(function() {
+
+        let variable = 'test';
+
+        let timeslot =
+        `<div id="time-slot-entry" class="column">
+        Event starts:
+        <input type="date" name="selected_date" />
+        <span>
+          <button type="button">📅</button>
+        </span>
+        <input type="time" name="selected_time" />
+        <span>
+          <button type="button">📅</button>
+        </span>
+        Event ends:
+        <input type="date" name="selected_date" />
+        <span>
+          <button type="button">📅</button>
+        </span>
+        <input type="time" name="selected_time" />
+        <span>
+          <button type="button">📅</button>
+        </span>
+        </div>`;
+
+        return timeslot
+      });
+
+    }
+
+  })
+
+})
+
+
+
+
+
 const preVotePage = `
 <h1> These are the details from your bookie </h1>
 <table>
@@ -168,7 +219,7 @@ const formPage = `
           <span>
 
           </span>
-          <button class="time-slot" type="button" class="btn btn-primary">Add entry</button>
+          <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
         </div>
       </article>
 
@@ -198,3 +249,5 @@ const landingHTML =
   </button>
 </div>
 </div>`
+
+
