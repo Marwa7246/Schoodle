@@ -1,45 +1,84 @@
 
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/bookie/?:"
+//   }).done((event) => {
+//     event.preventDefault();
+//     console.log('request')
+//   });;
+// });
+
 
 $(document).ready(() => {
-  console.log('connected')
-  $('#create-bookie').on('click', landingToForm);
+
+// ROUTES
+
+    $.ajax({ url: '/bookie/', method: 'GET', dataType: 'JSON' })
+      .then(function(response) {
+        console.log("hello")
+      });
+
+
+
+
+ console.log('connected')
+  $('#render-form-page-container').append(function() {
+return landingHTML;
+})
+$('#form-container-fill').append(function() {
+return formPage;
+})
+  // $('#create-bookie').on('click', landingToForm);
 
 function landingToForm() {
   console.log('in')
-  $('#render-form-page-container').hide()
-  $('#form-container-fill').write(formPage)
-
-
-
+  // $('#render-form-page-container').empty()
 }
+
   $('#form-submission').submit(function(event){
     event.preventDefault();
 
-    $("#form-submission").each(function(){
-
-
-      const bookieData = $(this).find('.form-control').serializeArray()
-      const timeSlots = $(this).find('.time-slot').serializeArray()
-
-      const arrayToObject = (array, keyField) =>
+      let bookieData = $(this).find('.form-control').serializeArray()
+      let timeSlots = $(this).find('.time-slot').serializeArray()
+      console.log(bookieData, timeSlots)
+      const arrayToObjectBookie = (array, keyField) =>
        array.reduce((obj, item) => {
          obj[item[keyField]] = item
          return obj
        }, {})
 
-       const data1 = arrayToObject(bookieData, 'name')
-       const data2 = arrayToObject(timeSlots, 'name')
+       const arrayToObjectTime = (array, keyField1, key2) =>
+       array.reduce((obj, item) => {
+         obj[item[keyField1]+"-"+item[key2]] = item
+         return obj
+       }, {})
 
-       const arr = [];
 
-       console.log(data1, data2)
+       bookieData = arrayToObjectBookie(bookieData, 'name')
 
 
+       for (let i = 0; i < timeSlots.length; i++) {
+        if(i < 4) {
+            timeSlots[i].time_slot_id = 1
+          } else if (i > 3 && i <= 7) {
+            timeSlots[i].time_slot_id = 2
+          } else if (i > 7 && i < 12) {
+            timeSlots[i].time_slot_id = 3
+          } else {
+            timeSlots[i].time_slot_id = 4
+          }
+
+       }
+       timeSlots = arrayToObjectTime(timeSlots, 'time_slot_id', 'name')
+       bookieData.time_slots = timeSlots
+       console.log(bookieData)
+       return bookieData;
     })
 
     })
 
-})
+
 
 const formPage = `
 <section id='bookie-form-page' style="justify-content: center;">
@@ -75,44 +114,20 @@ const formPage = `
       <article id="time-slot-container">
         <div class="row">
           Event starts:
-          <input class="time-slot" type="date" name="selected_start_date" />
+          <input class="time-slot" type="date" name="start_date" />
           <span>
 
           </span>
-          <input class="time-slot" type="time" name="selected_start_time" />
-          <span>
-
-          </span>
-          Event ends:
-          <input class="time-slot" type="date" name="selected_end_date" />
-          <span>
-
-          </span>
-          <input class="time-slot" type="time" name="selected_end_time" />
-          <span>
-
-          </span>
-          <button class="time-slot" type="submit" class="btn btn-primary">Add entry</button>
-        </div>
-      </article>
-
-      <article id="time-slot-container">
-        <div class="row">
-          Event starts:
-          <input class="time-slot" type="date" name="selected_start_date" />
-          <span>
-
-          </span>
-          <input class="time-slot" type="time" name="selected_start_time" />
+          <input class="time-slot" type="time" name="start_time" />
           <span>
 
           </span>
           Event ends:
-          <input class="time-slot" type="date" name="selected_end_date" />
+          <input class="time-slot" type="date" name="end_date" />
           <span>
 
           </span>
-          <input class="time-slot" type="time" name="selected_end_time" />
+          <input class="time-slot" type="time" name="end_time" />
           <span>
 
           </span>
@@ -126,7 +141,25 @@ const formPage = `
 `
 
 
-
-
+const landingHTML =
+`<div class="grid d-flex justify-content-center">
+<div class='column'>
+<div class="row col-xs-12">
+  <img style="margin-top: 10rem; min-width: 20rem;"
+    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
+</div>
+</div>
+</div>
+<h1 style="text-align: center; margin-top: 1rem;">The New Way to Meet!</h1>
+<div class="grid d-flex justify-content-center">
+<div class='column'>
+<div class="row col-sm-12">
+  <button id="create-bookie" style="margin-top: 2rem; background: none; border: none;" type="" name="make-bookie"
+    value="">
+    <img
+      src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
+  </button>
+</div>
+</div>`
 
 
