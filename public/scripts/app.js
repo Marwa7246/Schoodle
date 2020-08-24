@@ -26,17 +26,16 @@ function landingToForm() {
   $('#create-bookie').off()
   $('#html-container').empty()
   console.log('in')
-  $('#html-container').append(function() {
-    return formPage;
-    })
+  $('#html-container').append(formPage)
 
     $('#form-submission').submit(function(event){
-      $('#form-submission').appendChild($("form"))
-      bookieObjectBuilder()
+      bookieObjectBuilder(event)
+      // console.log(bookieData)
       event.preventDefault();
+      formToVote()
     })
 
-    $('#main-form-button').on('click', formToVote);
+    // $('#main-form-button').on('click', formToVote);
 
 }
 
@@ -49,12 +48,13 @@ function formToVote() {
     return votePage;
     })
 }
-function bookieObjectBuilder () {
-  document.body.appendChild(form);
+
+function bookieObjectBuilder (event) {
+
     event.preventDefault();
 
-      let bookieData = $(this).find('.form-control').serializeArray()
-      let timeSlots = $(this).find('.time-slot').serializeArray()
+      let bookieData = $(event.target).find('.form-control').serializeArray()
+      let timeSlots = $(event.target).find('.time-slot').serializeArray()
       console.log(bookieData, timeSlots)
       const arrayToObjectBookie = (array, keyField) =>
        array.reduce((obj, item) => {
@@ -93,7 +93,18 @@ function bookieObjectBuilder () {
     })
 
 
-const votePage = `<h1> hello </h1>`
+const votePage = `
+<h1> These are the details from your bookie </h1>
+<table>
+   <tr>
+    <td>INFORMATION </td>
+    <td>INFORMATION </td>
+    <td>INFORMATION </td>
+    <td>INFORMATION </td>
+  </tr>
+</table>
+
+`
 
 const formPage = `
 <section id='bookie-form-page' style="justify-content: center;">
