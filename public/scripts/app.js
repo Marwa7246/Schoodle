@@ -1,14 +1,28 @@
+
 $(document).ready(() => {
   $('#form-content').hide();
   $('#create-bookie').on('click', landingToForm);
+
+  function deleteBookie(value) {
+    $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
+      .then(data => console.log(data));
+  }
+
+  $('#delete-bookie').click(() => deleteBookie(1));
 });
+
 function landingToForm() {
 
     $('#render-form-page-container').hide();
     $('#form-content').show();
 
-  }
+};
 
+
+
+// $(document).ready(function() {
+
+// })
 
 
 // $(document).ready(function() {
@@ -56,13 +70,13 @@ function landingToForm() {
 
 
 // added in starter files
-$(() => {
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for(user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
-    }
-  });;
-});
+// $(() => {
+//   $.ajax({
+//     method: "GET",
+//     url: "/api/users"
+//   }).done((users) => {
+//     for(user of users) {
+//       $("<div>").text(user.name).appendTo($("body"));
+//     }
+//   });;
+// });
