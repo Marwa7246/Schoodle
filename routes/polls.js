@@ -25,15 +25,15 @@ module.exports = (db) => {
   })
 
 
-  const getPollById = function(id) {
-    return db.query(`
-    SELECT title, id, location FROM polls
-    WHERE id=$1
-    `, [id])
-    .then(res => {
-      console.log('responseId: ', res.rows[0]);
-      return res.rows[0]});
-  }
+  // const getPollById = function(id) {
+  //   return db.query(`
+  //   SELECT title, id, location FROM polls
+  //   WHERE id=$1
+  //   `, [id])
+  //   .then(res => {
+  //     console.log('responseId: ', res.rows[0]);
+  //     return res.rows[0]});
+  // }
 
   //Get the information of a poll after using the url
   // router.get("/:id", (req, res) => {
@@ -49,24 +49,24 @@ module.exports = (db) => {
 
   // });
 
-  router.get("/:id", (req, res) => {
-    let query = `SELECT * FROM polls`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const polls = data.rows;
+  // router.get("/:id", (req, res) => {
+  //   let query = `SELECT * FROM polls`;
+  //   console.log(query);
+  //   db.query(query)
+  //     .then(data => {
+  //       const polls = data.rows;
 
-        const templateVars=JSON.parse(polls);
-        console.log(templateVars)
-        //res.json({ polls });
-        res.render('index', templateVars)
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-  });
+  //       const templateVars=JSON.parse(polls);
+  //       console.log(templateVars)
+  //       //res.json({ polls });
+  //       res.render('index', templateVars)
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
 
 
