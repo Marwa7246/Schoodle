@@ -1,4 +1,3 @@
-
 $(document).ready(() => {
   $('#form-content').hide();
   $('#create-bookie').on('click', landingToForm);
@@ -17,6 +16,7 @@ function landingToForm() {
     $('#form-content').show();
 
 };
+
 
 
 $(document).ready(() => {
@@ -198,16 +198,3 @@ const landingHTML =
   </button>
 </div>
 </div>`
-
-
-// added in starter files
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
