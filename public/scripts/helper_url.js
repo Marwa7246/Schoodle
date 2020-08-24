@@ -8,25 +8,31 @@ const generateRandomString= function(length) {
 };
 
 const generateRandomUrl= function(length) {
-  return 'http://localhost:8080/?'+generateRandomString(length);
+  return 'http://localhost:8080/bookies/'+generateRandomString(length);
 };
 
 const url = generateRandomUrl(32);
 const token = generateRandomString(4);
-// console.log(url);
-// console.log(token);
 
-export { url, token };
+
 
 //Check if the url has any string after localhost:8080/
 //If search query found---> go to the vote page(make the botton appear )
 //If not---> load the landing page configuration
 $(document).ready(() => {
-  $('#go-to-home-page').hide(0)
-  const urlQuery = window.location.search;
-  console.log(('urlQuery: '+ urlQuery));
-  if (urlQuery) {
-    console.log(('urlQuery after if statement: '+ urlQuery));
+
+
+
+  $('#go-to-home-page').hide(0);
+  const urlString = window.location.pathname.slice(1);
+  console.log(('urlstring: '+ urlString));
+
+  if (urlString) {
+    console.log(('urlstring after if statement: '+ urlString));
+    const $url = $(`<h5 class="card-title">${urlString}</h5>`);
+
+
+  $('.card-title').replaceWith($url);
     $('#go-to-home-page').show();
   }
 
@@ -34,7 +40,8 @@ $(document).ready(() => {
   $('#go-to-home-page').on('click', function() {
     console.log( "went to landing page" );
     $('#go-to-home-page').hide()
-    window.history.replaceState(null, null, window.location.pathname);
+    window.history.pushState("object or string", "Title", "/");
+
   });
 
 });

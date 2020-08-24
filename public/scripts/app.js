@@ -1,4 +1,3 @@
-import { url, token } from './helper_url.js';
 
 $(document).ready(() => {
   $('#form-content').hide();
