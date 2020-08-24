@@ -17,9 +17,11 @@ INSERT INTO time_slots (poll_id, start_date, end_date, start_time, end_time) VAL
 INSERT INTO votes (time_slot_id, name, email, choice, token)
 VALUES
 (1, 'Armand', 'lera@dickens.org', TRUE, '12s5'),
+(2, 'Armand', 'lera@dickens.org', TRUE, '13e5'),
+(3, 'Armand', 'lera@dickens.org', TRUE, '15t5'),
 (2, 'Stephanie', 'darius@tod.ca', FALSE, '14WE'),
 (3, 'Stan', 'mcdermott@schoen.com', TRUE, 'zxcd'),
-(1, 'Hilll', 'hahn@dickens.org', False, '12s5'),
+(1, 'Hilll', 'hahn@dickens.org', False, '1245'),
 (2, 'Wolff', 'homenick@tod.ca', TRUE, '14fE'),
 (3, 'Frank', 'frank@schoen.com', TRUE, 'zacd'),
 (1, 'David', 'david@dickens.org', FALSE, '12s6'),
