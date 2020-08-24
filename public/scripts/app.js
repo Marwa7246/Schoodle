@@ -44,12 +44,11 @@ function landingToForm() {
 
     $('#form-submission').submit(function(event){
       bookieObjectBuilder(event)
-      // console.log(bookieData)
       event.preventDefault();
       formToVote()
     })
 
-    // $('#main-form-button').on('click', formToVote);
+
 
 }
 
@@ -58,9 +57,7 @@ function landingToForm() {
 function formToVote() {
   $('#main-form-button').off()
   $('#html-container').empty()
-  $('#html-container').append(function() {
-    return votePage;
-    })
+  $('#html-container').append( preVotePage)
 }
 
 function bookieObjectBuilder (event) {
@@ -107,7 +104,7 @@ function bookieObjectBuilder (event) {
     })
 
 
-const votePage = `
+const preVotePage = `
 <h1> These are the details from your bookie </h1>
 <table>
    <tr>
