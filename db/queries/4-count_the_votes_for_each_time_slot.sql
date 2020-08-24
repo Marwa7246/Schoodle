@@ -1,4 +1,4 @@
-SELECT distict time_slot_id, count(*)
+SELECT time_slot_id, count(*)
 FROM votes
 JOIN time_slots ON time_slot_id=time_slots.id
 JOIN polls ON poll_id=polls.id

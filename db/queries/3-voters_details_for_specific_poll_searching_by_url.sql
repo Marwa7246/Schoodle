@@ -1,4 +1,4 @@
-SELECT time_slot_id, name, email, choice
+SELECT DISTINCT time_slot_id, name, email, choice
 FROM votes
 JOIN time_slots ON time_slot_id=time_slots.id
 JOIN polls ON poll_id=polls.id
