@@ -14,14 +14,14 @@
 
 
 
-$(document).ready(() => {
+// $(document).ready(() => {
 
-// ROUTES
+// // ROUTES
 
-// })
+// // })
 
 
-// $(document).ready(function() {
+$(document).ready(function() {
 
 
  console.log('connected')
@@ -34,8 +34,9 @@ $('#create-bookie').on('click', landingToForm);
 function landingToForm() {
   $('#create-bookie').off()
   $('#html-container').empty()
-  console.log('in')
+
   $('#html-container').append(formPage)
+  $('#add-timeslot').click(timeManager)
 
     $('#form-submission').submit(function(event){
       bookieObjectBuilder(event)
@@ -51,6 +52,7 @@ function landingToForm() {
 
 function formToVote() {
   $('#main-form-button').off()
+
   $('#html-container').empty()
   $('#html-container').append( preVotePage)
 }
@@ -96,60 +98,51 @@ function bookieObjectBuilder (event) {
        return bookieData;
 
   }
-    })
 
+const timeManager = function () {
 
-
-
-
-// $('#create-bookie').on('click', landingToForm);
-
-$(document).ready(function() {
-
-  $('#add-timeslot').click(console.log('in now'))
-  $('#add-timeslot').click(function(event) {
-    console.log('in')
     event.preventDefault();
 
-    const noOfRows = $('#time-slot-article div').length + 1;
+    const noOfRows = $('#time-slot-container div').length + 1;
     console.log(noOfRows);
 
     if (noOfRows < 5) {
 
-      $('#time-slot-entry').append(function() {
+      $('#time-slot-container').append(function() {
 
-        let variable = 'test';
 
         let timeslot =
-        `<div id="time-slot-entry" class="column">
-        Event starts:
-        <input type="date" name="selected_date" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        <input type="time" name="selected_time" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        Event ends:
-        <input type="date" name="selected_date" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        <input type="time" name="selected_time" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        </div>`;
+        `  <article id="time-slot-container">
+        <div class="row">
+          Event starts:
+          <input class="time-slot" type="date" name="start_date" />
+          <span>
+
+          </span>
+          <input class="time-slot" type="time" name="start_time" />
+          <span>
+
+          </span>
+          Event ends:
+          <input class="time-slot" type="date" name="end_date" />
+          <span>
+
+          </span>
+          <input class="time-slot" type="time" name="end_time" />
+          <span>
+
+        </div>
+      </article>`;
 
         return timeslot
       });
 
     }
 
-  })
 
+}
 })
+
 
 
 
