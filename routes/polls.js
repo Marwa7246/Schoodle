@@ -24,5 +24,14 @@ module.exports = (db) => {
       });
   })
 
+  router.get("/:id", (req, res) => {
+    let urlString = req.params.id;
+
+    let templateVars = { urlString }
+    console.log('templateVars: ' , templateVars);
+    res.render('index', templateVars)
+
+  });
+
   return router;
 };

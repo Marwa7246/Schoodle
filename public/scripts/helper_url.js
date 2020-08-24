@@ -8,10 +8,11 @@ const generateRandomString= function(length) {
 };
 
 const generateRandomUrl= function(length) {
-  return 'http://localhost:8080/bookies/'+generateRandomString(length);
+  return 'http://localhost:8080/api/polls/'+generateRandomString(length);
 };
 
 const url = generateRandomUrl(32);
+console.log(url)
 const token = generateRandomString(4);
 
 

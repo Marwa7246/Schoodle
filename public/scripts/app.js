@@ -1,4 +1,3 @@
-
 $(document).ready(() => {
   $('#form-content').hide();
   $('#create-bookie').on('click', landingToForm);
@@ -18,7 +17,7 @@ function landingToForm() {
 
 };
 
-  console.log('url: ', url, 'token: '+ token);
+
 
 $(document).ready(() => {
 
