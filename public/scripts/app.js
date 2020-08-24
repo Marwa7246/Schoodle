@@ -18,6 +18,7 @@ function landingToForm() {
 
 };
 
+  console.log('url: ', url, 'token: '+ token);
 
 $(document).ready(() => {
 
@@ -201,16 +202,3 @@ const landingHTML =
   </button>
 </div>
 </div>`
-
-
-// added in starter files
-// $(() => {
-//   $.ajax({
-//     method: "GET",
-//     url: "/api/users"
-//   }).done((users) => {
-//     for(user of users) {
-//       $("<div>").text(user.name).appendTo($("body"));
-//     }
-//   });;
-// });
