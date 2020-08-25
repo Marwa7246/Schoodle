@@ -34,10 +34,10 @@ $(document).ready(function () {
         url: '/api/polls',
         data: bookieObjectBuilder(event),
         success: function(response) {
-          formToVote()
         }
       });
 
+      formToVote()
     })
   }
 
@@ -48,7 +48,7 @@ $(document).ready(function () {
     $('#main-form-button').off()
     $('#create-bookie').off()
     $('#delete-bookie').on("click", function () {
-      deleteBookie(id)
+      deleteBookie(1)
     });
     $('#copy-bookie').click(function() {
       copyToClipboard('test');
