@@ -96,9 +96,8 @@ $(document).ready(function () {
     }
     timeSlots = arrayToObjectTime(timeSlots, "time_slot_id", "name");
     bookieData.time_slots = timeSlots;
-    console.log(bookieData);
     bookieData.url = generateRandomUrl(32);
-    bookieData.token = generateRandomString(4);
+    console.log(bookieData);
     return bookieData;
 
 
@@ -281,13 +280,15 @@ function formToVote(object) {
   <h5> ${object.polls[0].title}</h5>
   <h5> ${object.polls[0].description}</h5>
   <p>${object.polls[0].location}</p>
+  <p id="complete-url">http://localhost:8080?${object.polls[0].url}</p>
+
             `);
   $('#html-container').append( $preVotePage)
 }
 
 function loadPoll() {
   console.log('beeep')
-  $.ajax({url: '/api/polls/1', method: 'GET'})
+  $.ajax({url: '/api/polls/133', method: 'GET'})
     .then((response) => {
       console.log(response.polls);
       formToVote(response);

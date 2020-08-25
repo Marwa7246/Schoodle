@@ -34,9 +34,11 @@ module.exports = (db) => {
       return db.query(query, valuesOwner)
     }
     const insertPoll = (formData, ownerId) => {
-      let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, ownerId];
-      let query = ` INSERT INTO polls (title, description, location, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`;
+      let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, formData.url, ownerId];
+      console.log(valuesPoll)
+      let query = ` INSERT INTO polls (title, description, location, url, owner_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
       return db.query(query, valuesPoll);
+
     }
 
     MakeTimeSlotsObject = function(obj1) {
@@ -69,11 +71,13 @@ module.exports = (db) => {
           const ownerId = data.rows[0].id;
           insertPoll(formData, ownerId)
             .then(data => {
+              console.log(data.rows)
               const pollId = data.rows[0].id;
               for (const key in obj2) {
                 let row = obj2[key]
                 insertOneTimeSlot(row, pollId)
                 .then(data => {
+                  console.log(data)
                   res.send(data)})
                   .catch(e => {
                     console.error(e);
@@ -127,7 +131,7 @@ module.exports = (db) => {
 
     `)
     .then(data => {
-      console.log('responseReservation: ', data.rows);
+      //console.log('responseLoadPoll: ', data.rows);
       return data.rows});
   }
 
@@ -161,31 +165,7 @@ module.exports = (db) => {
 
 
 
-  // const pollPost = function (bookieData) {
-    // console.log(bookieData)
-  router.post("/", (req, res) => {
 
-
-    let query = `
-    INSERT INTO
-      polls (name, title, description, location, url)
-      VALUES ($1, $2, $3, $4, $5);`
-    for (let key in req.params.time_slots) {
-      query += `INSERT INTO
-      time_slots (poll_id, start_date, end_date, start_time, end_time)
-      VALUES ($${key.start_date}, $${key.end_date}, $${key.start_time}, $${key.end_time})`
-    };
-    console.log(query);
-    db.query(query, [req.params.name, req.params.email, req.params.title, req.params.description, req.params.location])
-      .then(data => {
-        res.json();
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-    })
   // }
 
   return router;

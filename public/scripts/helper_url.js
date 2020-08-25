@@ -9,7 +9,7 @@
 };
 
  const generateRandomUrl= function(length) {
-  return 'http://localhost:8080/api/polls/'+generateRandomString(length);
+  return generateRandomString(length);
 };
 
 
