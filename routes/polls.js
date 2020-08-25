@@ -35,7 +35,7 @@ module.exports = (db) => {
     }
     const insertPoll = (formData, ownerId) => {
       let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, formData.url, ownerId];
-      console.log(valuesPoll)
+      console.log('valuesPollInsert: ', valuesPoll)
       let query = ` INSERT INTO polls (title, description, location, url, owner_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
       return db.query(query, valuesPoll);
 
@@ -71,13 +71,13 @@ module.exports = (db) => {
           const ownerId = data.rows[0].id;
           insertPoll(formData, ownerId)
             .then(data => {
-              console.log(data.rows)
+              console.log("datat in insert: ", data.rows)
               const pollId = data.rows[0].id;
               for (const key in obj2) {
                 let row = obj2[key]
                 insertOneTimeSlot(row, pollId)
                 .then(data => {
-                  console.log(data)
+                  //console.log(data)
                   res.send(data)})
                   .catch(e => {
                     console.error(e);
@@ -123,22 +123,19 @@ module.exports = (db) => {
 
   // });
 
-  const loadPoll = function(id) {
-
-    return db.query(`
-    SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE polls.id=${id} ;
 
 
-    `)
-    .then(data => {
-      //console.log('responseLoadPoll: ', data.rows);
-      return data.rows});
-  }
-
-  router.get('/:id', (req, res) => {
-    console.log('params=', req.params.id)
-
-    loadPoll(req.params.id)
+  router.get('/:url', (req, res) => {
+    const loadPoll = function(url) {
+      return db.query(`
+      SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
+      .then(data => {
+        console.log('responseLoadPoll: ', data.rows);
+        return data.rows});
+    }
+    console.log('params=', req.params.url, typeof req.params.url)
+    const url2 = req.params.url;
+    loadPoll(url2)
     .then(polls => res.send({polls}))
     .catch(e => {
       console.error(e);

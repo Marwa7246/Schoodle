@@ -34,9 +34,11 @@ $(document).ready(function () {
         url: '/api/polls',
         data: bookieObjectBuilder(event),
         success: function(response) {
+          return loadPoll(urlRandom)
         }
+
       });
-      loadPoll()
+
 
     })
   }
@@ -61,7 +63,7 @@ $(document).ready(function () {
   }
 
 
-
+  const urlRandom = generateRandomUrl(32);
 
   function bookieObjectBuilder(event) {
     event.preventDefault();
@@ -96,7 +98,7 @@ $(document).ready(function () {
     }
     timeSlots = arrayToObjectTime(timeSlots, "time_slot_id", "name");
     bookieData.time_slots = timeSlots;
-    bookieData.url = generateRandomUrl(32);
+    bookieData.url = urlRandom;
     console.log(bookieData);
     return bookieData;
 
@@ -280,15 +282,18 @@ function formToVote(object) {
   <h5> ${object.polls[0].title}</h5>
   <h5> ${object.polls[0].description}</h5>
   <p>${object.polls[0].location}</p>
-  <p id="complete-url">http://localhost:8080?${object.polls[0].url}</p>
+  <a id="complete-url" href = "http://localhost:8080/?${object.polls[0].url}"> http://localhost:8080/?${object.polls[0].url}</a>
 
             `);
   $('#html-container').append( $preVotePage)
 }
+const x = 'RXBsu40ikKCatPcnYduLWv7LJtIHM9x9'
+function loadPoll(urlString) {
+  //const urlString = x;
+  const url =`/api/polls/${urlString}`
+  console.log(url)
 
-function loadPoll() {
-  console.log('beeep')
-  $.ajax({url: '/api/polls/133', method: 'GET'})
+  $.ajax({url: url, method: 'GET'})
     .then((response) => {
       console.log(response.polls);
       formToVote(response);
