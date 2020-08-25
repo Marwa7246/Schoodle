@@ -99,29 +99,7 @@ module.exports = (db) => {
 
   })
 
-  // const getPollById = function(id) {
-  //   return db.query(`
-  //   SELECT title, id, location FROM polls
-  //   WHERE id=$1
-  //   `, [id])
-  //   .then(res => {
-  //     console.log('responseId: ', res.rows[0]);
-  //     return res.rows[0]});
-  // }
 
-  //Get the information of a poll after using the url
-  // router.get("/:id", (req, res) => {
-  //   let id = req.params.id;
-  //   //let templateVars = getPollById(id);
-  //   getPollById(id).
-  //   then(data => {
-  //     console.log('responseId: ', data);
-  //     return data;
-  //   });
-
-  //   res.render('index', data);
-
-  // });
 
 
 
@@ -159,7 +137,29 @@ module.exports = (db) => {
   //     });
   // })
 
+  // const getPollById = function(id) {
+  //   return db.query(`
+  //   SELECT title, id, location FROM polls
+  //   WHERE id=$1
+  //   `, [id])
+  //   .then(res => {
+  //     console.log('responseId: ', res.rows[0]);
+  //     return res.rows[0]});
+  // }
 
+  //Get the information of a poll after using the url
+  // router.get("/:id", (req, res) => {
+  //   let id = req.params.id;
+  //   //let templateVars = getPollById(id);
+  //   getPollById(id).
+  //   then(data => {
+  //     console.log('responseId: ', data);
+  //     return data;
+  //   });
+
+  //   res.render('index', data);
+
+  // });
 
 
 
