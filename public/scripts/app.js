@@ -34,7 +34,6 @@ $(document).ready(function () {
         url: '/api/polls',
         data: bookieObjectBuilder(event),
         success: function(response) {
-          //formToVote()
         }
       });
       loadPoll()
@@ -49,10 +48,11 @@ $(document).ready(function () {
     $('#main-form-button').off()
     $('#create-bookie').off()
     $('#delete-bookie').on("click", function () {
-      deleteBookie(id)
+      deleteBookie(1)
     });
-    $('#copy-bookie').click(function() {
-      copyToClipboard('test');
+    $('#copy-bookie').click(function(e) {
+      e.preventDefault();
+      copyToClipboard('#bookie-link');
     })
 
 
@@ -273,9 +273,10 @@ function formToVote(object) {
       <td>INFORMATION </td>
     </tr>
   </table>
+  <input id='bookie-link' value='testing link'>
   <a href="localhost:8080://${url}">localhost:8080://${url}</a>
-  <button id='delete-bookie' type='button' class=''>hello</button>
-  <button id='copy-bookie' type='button' class=''>hello</button>
+  <button id='delete-bookie' type='button' class=''>delete</button>
+  <button id='copy-bookie' type='button' class=''>copy</button>
 
   <h5> ${object.polls[0].title}</h5>
   <h5> ${object.polls[0].description}</h5>
