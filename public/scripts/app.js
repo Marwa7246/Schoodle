@@ -51,7 +51,7 @@ $(document).ready(function () {
       deleteBookie(1)
     });
     $('#copy-bookie').click(function() {
-      copyToClipboard('test');
+      copyToClipboard($('#bookie-link'));
     })
 
 
@@ -173,9 +173,9 @@ const preVotePage = `
     <td>INFORMATION </td>
   </tr>
   </table>
-  <a href="localhost:8080://${url}">localhost:8080://${url}</a>
-  <button id='delete-bookie' type='button' class=''>hello</button>
-  <button id='copy-bookie' type='button' class=''>hello</button>
+  <input id='bookie-link' value='testing link'>localhost:8080://${url}</a>
+  <button id='delete-bookie' type='button' class=''>delete</button>
+  <button id='copy-bookie' type='button' class=''>copy</button>
 
 `;
 
