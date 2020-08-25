@@ -1,8 +1,9 @@
 // const copyToClipboard = require ('../helpers/copyToClipboard');
 
 const copyToClipboard = function(id) {
-  console.log(id);
-  let copyText = $(id).attr('value');
+
+  let copyText = $('#copy-bookie').val();
+  console.log(copyText)
   let textarea = document.createElement("textarea");
   textarea.textContent = copyText;
   textarea.style.position = "fixed";

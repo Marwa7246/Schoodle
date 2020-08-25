@@ -50,7 +50,7 @@ module.exports = (db) => {
         }
         obj2[id][x]= values
 ;
-    query += `SELECT * FROM polls WHERE url = $5`
+
       }
       return obj2
     }
@@ -124,8 +124,6 @@ module.exports = (db) => {
 
     return db.query(`
     SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE polls.id=${id} ;
-
-
     `)
     .then(data => {
       console.log('responseReservation: ', data.rows);

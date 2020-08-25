@@ -1,72 +1,90 @@
-
-
 $(document).ready(function () {
   $("#html-container").append(landingHTML);
 
   function deleteBookie(value) {
-    console.log('in delete')
-    $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
+    console.log("in delete");
+    $.ajax({ method: "DELETE", url: `/api/polls/${value}` })
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
   }
-
-
 
   console.log("connected");
 
-
-  $('#create-bookie').on('click', landingToForm);
+  $("#create-bookie").on("click", landingToForm);
 
   function landingToForm() {
-    $('#create-bookie').off()
-    $('#html-container').empty()
+    $("#create-bookie").off();
+    $("#html-container").empty();
 
-    $('#html-container').append(formPage)
-    $('#add-timeslot').click(timeManager)
+    $("#html-container").append(formPage);
+    $("#add-timeslot").click(timeManager);
 
-    $('#form-submission').submit(function(event){
+    $("#form-submission").submit(function (event) {
       event.preventDefault();
       $.ajax({
-        type: 'POST',
-        url: '/api/polls',
+        type: "POST",
+        url: "/api/polls",
         data: bookieObjectBuilder(event),
-        success: function(response) {
-          console.log('The happy', response)
-          $('#html-container').empty()
-          $('#add-timeslot').off()
-          $('#main-form-button').off()
-          $('#create-bookie').off()
-          formToVote(response.rows[0].id)
-        }
-      })
-
-      })
-    }
-
-
-
-  function formToVote(id) {
-    $.ajax({url: `/api/polls/${id}`, method: 'GET'})
-       .then((response) => {
-         console.log('req sent', response)
-        $('#html-container').append(`<h5> ${response.polls[0].title}</h5>
-         <h5> ${response.polls[0].description}</h5>
-         <p>${response[0].location}</p>`)
-       })
-    $('#html-container').append(preVotePage)
-    $('#delete-bookie').on("click", function () {
-      deleteBookie(1)
+        success: function (response) {
+          console.log("The happy", response);
+          $("#html-container").empty();
+          $("#add-timeslot").off();
+          $("#main-form-button").off();
+          $("#create-bookie").off();
+          formToPostForm(response.rows[0].id);
+        },
+      });
     });
-    $('#copy-bookie').click(function(e) {
-      e.preventDefault();
-      copyToClipboard('#bookie-link');
+  }
+
+  function formToPostForm(id) {
+    console.log(id);
+    $.ajax({ url: `/api/polls/${id}`, method: "GET" }).then((response) => {
+      console.log("req sent", response);
+      $("#html-container").append(`<h5> ${response.polls[0].title}</h5>
+         <h5> ${response.polls[0].description}</h5>
+         <p>${response[0].location}</p>`);
+    });
+    $("#html-container").append(preVotePage);
+    $("#delete-bookie").on("click", function () {
+      deleteBookie(1);
+    });
+    // still problems with the button
+    $("#copy-bookie").click(function (e) {
+      // e.preventDefault();
+      copyToClipboard();
+    });
+    $("#link-tag").click(function (e) {
+      postFormToVote()
+    });
+  }
+
+  function postFormToVote() {
+    $("#html-container").empty();
+    $("#copy-bookie").off();
+    $("#delete-bookie").off();
+    $("#link-tag").off();
+    $("#html-container").append(votesPage)
+    $("#vote-button").on('click', function (event) {
+      event.preventDefault();
+      // ajax request here to post from vote
+      voteToResult();
     })
   }
 
+  function voteToResult() {
+    $("#html-container").empty();
+    $("#vote-button").off();
+    $("#html-container").append(resultsPage)
+    $("#append-vote-button").on('click', function (event) {
+      $('#revote-container').append(formPopOut)
+    })
+    $("#revote-button").on('click', function () {
+      // ajax request here to post from vote
 
+    })
 
-
-
+  }
 
 
   function bookieObjectBuilder(event) {
@@ -107,8 +125,6 @@ $(document).ready(function () {
     bookieData.token = generateRandomString(4);
     bookieURL = bookieData.url;
     return bookieData;
-
-
   }
 
   const timeManager = function () {
@@ -124,20 +140,16 @@ $(document).ready(function () {
           Event starts:
           <input class="time-slot" type="date" name="start_date" />
           <span>
-
           </span>
           <input class="time-slot" type="time" name="start_time" />
           <span>
-
           </span>
           Event ends:
           <input class="time-slot" type="date" name="end_date" />
           <span>
-
           </span>
           <input class="time-slot" type="time" name="end_time" />
           <span>
-
         </div>
       </article>`;
 
@@ -145,138 +157,30 @@ $(document).ready(function () {
       });
     }
   };
-})
+});
 
-  //Check if the url has any string after localhost:8080/
-  //If search query found---> go to the vote page(make the botton appear )
-  //If not---> load the landing page configuration
-  // $('#go-to-home-page').hide(0);
-  // const urlString = window.location.pathname.slice(1);
-  // console.log(('urlstring: '+ urlString));
+//Check if the url has any string after localhost:8080/
+//If search query found---> go to the vote page(make the botton appear )
+//If not---> load the landing page configuration
+// $('#go-to-home-page').hide(0);
+// const urlString = window.location.pathname.slice(1);
+// console.log(('urlstring: '+ urlString));
 
-  // if (urlString) {
-  //   console.log(('urlstring after if statement: '+ urlString));
-  //   const $url = $(`<h5 class="card-title">${urlString}</h5>`);
+// if (urlString) {
+//   console.log(('urlstring after if statement: '+ urlString));
+//   const $url = $(`<h5 class="card-title">${urlString}</h5>`);
 
-  // $('.card-title').replaceWith($url);
-  // $('#go-to-home-page').show();
-  // }
+// $('.card-title').replaceWith($url);
+// $('#go-to-home-page').show();
+// }
 
-  // $('#go-to-home-page').on('click', function() {
-  //   console.log( "went to landing page" );
-  //   $('#go-to-home-page').hide()
-  //   window.history.pushState("object or string", "Title", "/");
+// $('#go-to-home-page').on('click', function() {
+//   console.log( "went to landing page" );
+//   $('#go-to-home-page').hide()
+//   window.history.pushState("object or string", "Title", "/");
 
-  // });
+// });
 
-
-
-
-
-
-
-const formPage = `
-<section id='bookie-form-page' style="justify-content: center;">
-    <h2 style="text-align: center; margin-top: 1rem; margin-right: 6rem; margin-left: 6rem;">ENTER YOUR DETAILS AND WE
-      WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
-    <form id="form-submission">
-      <article class="form-content">
-          <div class="form-group">
-            <label for="InputName">Full name</label>
-            <input type="text" class="form-control" name="name"
-              placeholder="Enter your name">
-          </div>
-          <div class="form-group">
-            <label for="InputEmail">E-mail</label>
-            <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email">
-          </div>
-          <div class="form-group">
-            <label for="InputTitle">Bookie title</label>
-            <input id="title" type="text" class="form-control" name="title"
-              placeholder="Add your bookie title">
-          </div>
-          <div class="form-group">
-            <label for="InputDesc">Bookie description</label>
-            <input id="description" type="text" class="form-control" name="description"
-              placeholder="Briefly describe the bookie you're planning">
-          </div>
-          <div class="form-group">
-            <label for="InputLocation">Location</label>
-            <input id="location" type="text" class="form-control" name="location"
-              placeholder="Where is it going to happen?">
-          </div>
-      </article>
-      <article id="time-slot-container">
-        <div class="row">
-          Event starts:
-          <input class="time-slot" type="date" name="start_date" />
-          <span>
-
-          </span>
-          <input class="time-slot" type="time" name="start_time" />
-          <span>
-
-          </span>
-          Event ends:
-          <input class="time-slot" type="date" name="end_date" />
-          <span>
-
-          </span>
-          <input class="time-slot" type="time" name="end_time" />
-          <span>
-
-          </span>
-          <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
-        </div>
-      </article>
-
-      <button id="main-form-button" type="submit" class="btn btn-primary">Submit</button>
-    </form>
-  </section>
-`;
-
-const landingHTML = `<div class="grid d-flex justify-content-center">
-<div class='column'>
-<div class="row col-xs-12">
-  <img style="margin-top: 10rem; min-width: 20rem;"
-    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
-</div>
-</div>
-</div>
-<h1 style="text-align: center; margin-top: 1rem;">The New Way to Meet!</h1>
-<div class="grid d-flex justify-content-center">
-<div class='column'>
-<div class="row col-sm-12">
-  <button id="create-bookie" style="margin-top: 2rem; background: none; border: none;" type="" name="make-bookie"
-    value="">
-    <img
-      src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
-  </button>
-</div>
-</div>`
-
-
-const preVotePage = `<h1> These are the details from your bookie </h1>
-  <table>
-     <tr>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-    </tr>
-  </table>
-  <input id='bookie-link' value='testing link'>
-  <a href="localhost:8080://">localhost:8080://</a>
-  <button id='delete-bookie' type='button' class=''>delete</button>
-  <button id='copy-bookie' type='button' class=''>copy</button>
-
-
-            `;
-
-
-
-
-
-
-
-
+{
+  /* <input id='bookie-link' value='testing link'></input> */
+}
