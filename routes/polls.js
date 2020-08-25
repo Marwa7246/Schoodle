@@ -34,9 +34,11 @@ module.exports = (db) => {
       return db.query(query, valuesOwner)
     }
     const insertPoll = (formData, ownerId) => {
-      let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, ownerId];
-      let query = ` INSERT INTO polls (title, description, location, owner_id) VALUES ($1, $2, $3, $4) RETURNING *`;
+      let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, formData.url, ownerId];
+      console.log('valuesPollInsert: ', valuesPoll)
+      let query = ` INSERT INTO polls (title, description, location, url, owner_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
       return db.query(query, valuesPoll);
+
     }
 
     MakeTimeSlotsObject = function(obj1) {
@@ -69,11 +71,13 @@ module.exports = (db) => {
           const ownerId = data.rows[0].id;
           insertPoll(formData, ownerId)
             .then(data => {
+              console.log("datat in insert: ", data.rows)
               const pollId = data.rows[0].id;
               for (const key in obj2) {
                 let row = obj2[key]
                 insertOneTimeSlot(row, pollId)
                 .then(data => {
+                  //console.log(data)
                   res.send(data)})
                   .catch(e => {
                     console.error(e);
@@ -94,6 +98,44 @@ module.exports = (db) => {
 
 
   })
+
+
+
+
+
+  router.get('/:url', (req, res) => {
+    const loadPoll = function(url) {
+      return db.query(`
+      SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
+      .then(data => {
+        console.log('responseLoadPoll: ', data.rows);
+        return data.rows});
+    }
+    console.log('params=', req.params.url, typeof req.params.url)
+    const url2 = req.params.url;
+    loadPoll(url2)
+    .then(polls => res.send({polls}))
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    });
+  });
+
+
+  // router.get("/:poll_id", (req, res) => {
+
+  //   let query = `SELECT * FROM polls WHERE id = $1`;
+  //   console.log(query);
+  //   db.query(query, [req.params.poll_id])
+  //     .then(data => {
+  //       res.json('ok');
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // })
 
   // const getPollById = function(id) {
   //   return db.query(`
@@ -119,73 +161,8 @@ module.exports = (db) => {
 
   // });
 
-  const loadPoll = function(id) {
-
-    return db.query(`
-    SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE polls.id=${id} ;
 
 
-    `)
-    .then(data => {
-      console.log('responseReservation: ', data.rows);
-      return data.rows});
-  }
-
-  router.get('/:id', (req, res) => {
-    console.log('params=', req.params.id)
-
-    loadPoll(req.params.id)
-    .then(polls => res.send({polls}))
-    .catch(e => {
-      console.error(e);
-      res.send(e)
-    });
-  });
-
-
-  // router.get("/:poll_id", (req, res) => {
-
-  //   let query = `SELECT * FROM polls WHERE id = $1`;
-  //   console.log(query);
-  //   db.query(query, [req.params.poll_id])
-  //     .then(data => {
-  //       res.json('ok');
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // })
-
-
-
-
-  // const pollPost = function (bookieData) {
-    // console.log(bookieData)
-  router.post("/", (req, res) => {
-
-
-    let query = `
-    INSERT INTO
-      polls (name, title, description, location, url)
-      VALUES ($1, $2, $3, $4, $5);`
-    for (let key in req.params.time_slots) {
-      query += `INSERT INTO
-      time_slots (poll_id, start_date, end_date, start_time, end_time)
-      VALUES ($${key.start_date}, $${key.end_date}, $${key.start_time}, $${key.end_time})`
-    };
-    console.log(query);
-    db.query(query, [req.params.name, req.params.email, req.params.title, req.params.description, req.params.location])
-      .then(data => {
-        res.json();
-      })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
-      });
-    })
   // }
 
   return router;
