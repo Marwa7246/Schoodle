@@ -41,7 +41,15 @@ function landingToForm() {
     $('#form-submission').submit(function(event){
       bookieObjectBuilder(event)
       event.preventDefault();
-      formToVote()
+      $.ajax({
+        type: 'POST',
+        url: '/api/polls',
+        data: bookieObjectBuilder(event),
+        success: function(response) {
+        }
+      });
+        formToVote()
+
     })
 
 
@@ -94,7 +102,7 @@ function bookieObjectBuilder (event) {
        }
        timeSlots = arrayToObjectTime(timeSlots, 'time_slot_id', 'name')
        bookieData.time_slots = timeSlots
-       console.log(bookieData)
+       console.log('bookieData;', bookieData)
        return bookieData;
 
   }
