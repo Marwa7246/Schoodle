@@ -33,8 +33,8 @@ $(document).ready(function () {
         success: function(response) {
         }
       });
+      loadPoll()
 
-      formToVote()
     })
   }
 
@@ -47,8 +47,9 @@ $(document).ready(function () {
     $('#delete-bookie').on("click", function () {
       deleteBookie(1)
     });
-    $('#copy-bookie').on("click", function() {
-      copyToClipboard('testing');
+    $('#copy-bookie').click(function(e) {
+      e.preventDefault();
+      copyToClipboard('#bookie-link');
     })
 
 
@@ -135,6 +136,7 @@ $(document).ready(function () {
       });
     }
   };
+});
 
   //Check if the url has any string after localhost:8080/
   //If search query found---> go to the vote page(make the botton appear )
@@ -159,22 +161,21 @@ $(document).ready(function () {
   // });
 
 
-});
-const url = 'hello'
-const preVotePage = `
-<h1> These are the details from your bookie </h1>
-<table>
-   <tr>
-    <td>INFORMATION </td>
-    <td>INFORMATION </td>
-    <td>INFORMATION </td>
-    <td>INFORMATION </td>
-  </tr>
-  </table>
-  <input id="p1" value="localhost:8080://${bookieURL}">localhost:8080://${bookieURL}</>
-  <button id='delete-bookie' type='button' class=''>Delete Your Bookie</button>
-  <button id='copy-bookie'>Copy Link</button>
-`;
+// const preVotePage = `
+// <h1> These are the details from your bookie </h1>
+// <table>
+//    <tr>
+//     <td>INFORMATION </td>
+//     <td>INFORMATION </td>
+//     <td>INFORMATION </td>
+//     <td>INFORMATION </td>
+//   </tr>
+// </table>
+
+// `
+
+
+
 
 const formPage = `
 <section id='bookie-form-page' style="justify-content: center;">
@@ -254,4 +255,43 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
       src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
   </button>
 </div>
-</div>`;
+</div>`
+
+function formToVote(object) {
+  const url = 'hello'
+  $('#main-form-button').off()
+
+  $('#html-container').empty()
+  const $preVotePage = $(`<h1> These are the details from your bookie </h1>
+  <table>
+     <tr>
+      <td>INFORMATION </td>
+      <td>INFORMATION </td>
+      <td>INFORMATION </td>
+      <td>INFORMATION </td>
+    </tr>
+  </table>
+  <input id='bookie-link' value='testing link'>
+  <a href="localhost:8080://${url}">localhost:8080://${url}</a>
+  <button id='delete-bookie' type='button' class=''>delete</button>
+  <button id='copy-bookie' type='button' class=''>copy</button>
+
+  <h5> ${object.polls[0].title}</h5>
+  <h5> ${object.polls[0].description}</h5>
+  <p>${object.polls[0].location}</p>
+            `);
+  $('#html-container').append( $preVotePage)
+}
+
+function loadPoll() {
+  console.log('beeep')
+  $.ajax({url: '/api/polls/1', method: 'GET'})
+    .then((response) => {
+      console.log(response.polls);
+      formToVote(response);
+    });
+}
+
+
+
+
