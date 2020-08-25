@@ -7,3 +7,19 @@ for (const t in times) {
   })
 }
 }
+
+function voteTable (votes) {
+  for (const vote in votes) {
+    $("#vote-table-conatiner").append(function () {
+    `<tr>
+    <td>${vote}</td>
+  </tr>`
+    })
+  }
+  }
+
+function confirmToken (token) {
+
+
+}
+

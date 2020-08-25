@@ -6,7 +6,7 @@
     />
   </div>
   <h1>Its Bookie Time!!!</h1>
-
+  <h1>${bookie.description}</h1>
   <div>
     <form id="vote-form">
       <input placeholder="Your Name" type="text" name="name" />
@@ -24,4 +24,37 @@
     facere repudiandae ab provident dignissimos ipsum temporibus, optio laborum
     consectetur.
   </p>
+</div>
+
+
+<div id="results-page">
+  <div class="row col-xs-12">
+    <img
+      style="margin-top: 10rem; min-width: 20rem;"
+      src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
+    />
+  </div>
+  <h1>The results so far!</h1>
+  <h1>If you wish to change your vote here is your code ${user.token}</h1>
+<form id="append-vote-form">
+<input type="text" name="user-token">
+<button type="submit" id="append-vote-button">SUBMIT</button>
+</form>
+
+  <table id="vote-table-conatiner">
+
+  </table>
+
+</div>
+
+<!-- form pop out for vote results -->
+<div id="form-pop-out">
+  <form id="vote-form">
+    <input placeholder="Your Name" type="text" name="name" />
+    <input placeholder="Your Email" type="email" name="email" />
+    <div class="form-check-input" id="display-time-slot-container">
+
+    </div>
+    <button type="submit">VOTE</button>
+  </form>
 </div>

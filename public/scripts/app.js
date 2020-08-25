@@ -1,4 +1,4 @@
-let bookieURL = ''
+
 
 $(document).ready(function () {
   $("#html-container").append(landingHTML);
@@ -31,19 +31,29 @@ $(document).ready(function () {
         url: '/api/polls',
         data: bookieObjectBuilder(event),
         success: function(response) {
+          console.log('The happy', response)
+          $('#html-container').empty()
+          $('#add-timeslot').off()
+          $('#main-form-button').off()
+          $('#create-bookie').off()
+          formToVote(response.rows[0].id)
         }
-      });
-      loadPoll()
+      })
 
-    })
-  }
+      })
+    }
 
-  function formToVote() {
-    $('#html-container').empty()
+
+
+  function formToVote(id) {
+    $.ajax({url: `/api/polls/${id}`, method: 'GET'})
+       .then((response) => {
+         console.log('req sent', response)
+        $('#html-container').append(`<h5> ${response.polls[0].title}</h5>
+         <h5> ${response.polls[0].description}</h5>
+         <p>${response[0].location}</p>`)
+       })
     $('#html-container').append(preVotePage)
-    $('#add-timeslot').off()
-    $('#main-form-button').off()
-    $('#create-bookie').off()
     $('#delete-bookie').on("click", function () {
       deleteBookie(1)
     });
@@ -51,11 +61,10 @@ $(document).ready(function () {
       e.preventDefault();
       copyToClipboard('#bookie-link');
     })
-
-
-    // THIS MAY BE A PROBLEM IF DB IS DIFFRENT RESPONSE
-    // $('#delete-bookie').click(,deleteBookie(id));
   }
+
+
+
 
 
 
@@ -136,7 +145,7 @@ $(document).ready(function () {
       });
     }
   };
-});
+})
 
   //Check if the url has any string after localhost:8080/
   //If search query found---> go to the vote page(make the botton appear )
@@ -161,18 +170,7 @@ $(document).ready(function () {
   // });
 
 
-// const preVotePage = `
-// <h1> These are the details from your bookie </h1>
-// <table>
-//    <tr>
-//     <td>INFORMATION </td>
-//     <td>INFORMATION </td>
-//     <td>INFORMATION </td>
-//     <td>INFORMATION </td>
-//   </tr>
-// </table>
 
-// `
 
 
 
@@ -257,12 +255,8 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
 </div>
 </div>`
 
-function formToVote(object) {
-  const url = 'hello'
-  $('#main-form-button').off()
 
-  $('#html-container').empty()
-  const $preVotePage = $(`<h1> These are the details from your bookie </h1>
+const preVotePage = `<h1> These are the details from your bookie </h1>
   <table>
      <tr>
       <td>INFORMATION </td>
@@ -272,25 +266,16 @@ function formToVote(object) {
     </tr>
   </table>
   <input id='bookie-link' value='testing link'>
-  <a href="localhost:8080://${url}">localhost:8080://${url}</a>
+  <a href="localhost:8080://">localhost:8080://</a>
   <button id='delete-bookie' type='button' class=''>delete</button>
   <button id='copy-bookie' type='button' class=''>copy</button>
 
-  <h5> ${object.polls[0].title}</h5>
-  <h5> ${object.polls[0].description}</h5>
-  <p>${object.polls[0].location}</p>
-            `);
-  $('#html-container').append( $preVotePage)
-}
 
-function loadPoll() {
-  console.log('beeep')
-  $.ajax({url: '/api/polls/1', method: 'GET'})
-    .then((response) => {
-      console.log(response.polls);
-      formToVote(response);
-    });
-}
+            `;
+
+
+
+
 
 
 

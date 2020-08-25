@@ -45,11 +45,12 @@ module.exports = (db) => {
         let x = obj1[key].name
         let values = obj1[key].value
         let id =obj1[key].time_slot_id;
-        if (!obj2[id]) {
+;        if (!obj2[id]) {
           obj2[id] ={}
         }
         obj2[id][x]= values
-
+;
+    query += `SELECT * FROM polls WHERE url = $5`
       }
       return obj2
     }
@@ -132,10 +133,13 @@ module.exports = (db) => {
   }
 
   router.get('/:id', (req, res) => {
-    console.log('params=', req.params.id)
-
-    loadPoll(req.params.id)
-    .then(polls => res.send({polls}))
+    // console.log('params=', req.params.id)
+    db.query(`SELECT * from polls;`)
+    // loadPoll(req.params.id)
+    .then(polls => {
+      console.log(polls.rows, "this is the polls")
+      res.send({polls})
+    })
     .catch(e => {
       console.error(e);
       res.send(e)
