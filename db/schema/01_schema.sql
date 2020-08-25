@@ -17,8 +17,8 @@ CREATE TABLE polls (
   title VARCHAR(60) NOT NULL,
   description TEXT,
   location TEXT,
-  name VARCHAR(60) NOT NULL,
-  email VARCHAR(60) NOT NULL,
+  name VARCHAR(60),
+  email VARCHAR(60),
   date_created TIMESTAMP DEFAULT NOW(),
   url VARCHAR(60),
   owner_id INTEGER REFERENCES owners(id) ON DELETE CASCADE
