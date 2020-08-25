@@ -1,18 +1,15 @@
-
+let bookieURL = ''
 
 $(document).ready(function () {
   $("#html-container").append(landingHTML);
 
   function deleteBookie(value) {
+    console.log('in delete')
     $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
       .then(data => console.log(data))
       .catch(err => console.log(err))
   }
 
-
-  // $.ajax({ method: 'POST', url: apiURL, data: data })
-  //     .then(() => $('#tweets-container').empty())
-  //     .then(loadTweets);
 
 
   console.log("connected");
@@ -50,8 +47,8 @@ $(document).ready(function () {
     $('#delete-bookie').on("click", function () {
       deleteBookie(1)
     });
-    $('#copy-bookie').click(function() {
-      copyToClipboard('test');
+    $('#copy-bookie').on("click", function() {
+      copyToClipboard('testing');
     })
 
 
@@ -98,6 +95,7 @@ $(document).ready(function () {
     console.log(bookieData);
     bookieData.url = generateRandomUrl(32);
     bookieData.token = generateRandomString(4);
+    bookieURL = bookieData.url;
     return bookieData;
 
 
@@ -173,10 +171,9 @@ const preVotePage = `
     <td>INFORMATION </td>
   </tr>
   </table>
-  <a href="localhost:8080://${url}">localhost:8080://${url}</a>
-  <button id='delete-bookie' type='button' class=''>hello</button>
-  <button id='copy-bookie' type='button' class=''>hello</button>
-
+  <input id="p1" value="localhost:8080://${bookieURL}">localhost:8080://${bookieURL}</>
+  <button id='delete-bookie' type='button' class=''>Delete Your Bookie</button>
+  <button id='copy-bookie'>Copy Link</button>
 `;
 
 const formPage = `
