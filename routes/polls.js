@@ -33,5 +33,33 @@ module.exports = (db) => {
 
   });
 
+
+  // const pollPost = function (bookieData) {
+    // console.log(bookieData)
+  router.post("/", (req, res) => {
+
+
+    let query = `
+    INSERT INTO
+      polls (name, title, description, location, url)
+      VALUES ($1, $2, $3, $4, $5);`
+    for (let key in req.params.time_slots) {
+      query += `INSERT INTO
+      time_slots (poll_id, start_date, end_date, start_time, end_time)
+      VALUES ($${key.start_date}, $${key.end_date}, $${key.start_time}, $${key.end_time})`
+    };
+    console.log(query);
+    db.query(query, [req.params.name, req.params.email, req.params.title, req.params.description, req.params.location])
+      .then(data => {
+        res.json();
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+    })
+  // }
+
   return router;
 };

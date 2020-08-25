@@ -2,7 +2,7 @@
 
 const copyToClipboard = function(id) {
 
-  const copyText = document.getElementById(id);
+  const copyText = document.getElementById('copy-bookie');
 
   copyText.select(); // Desktop
   copyText.setSelectionRange(0, 99999); // Mobile
@@ -11,10 +11,4 @@ const copyToClipboard = function(id) {
 
 };
 
-$(document).ready(function() {
 
-  $('#button').click(function() {
-    copyToClipboard('test');
-  })
-
-})

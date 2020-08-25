@@ -1,45 +1,36 @@
-$(document).ready(function() {
-
-  $('#add-timeslot').click(function(event) {
-
+$(document).ready(function () {
+  const timeManager = function () {
     event.preventDefault();
 
-    const noOfRows = $('#time-slot-article div').length + 1;
+    const noOfRows = $("#time-slot-container div").length + 1;
     console.log(noOfRows);
 
     if (noOfRows < 5) {
+      $("#time-slot-container").append(function () {
+        let timeslot = `  <article id="time-slot-container">
+        <div class="row">
+          Event starts:
+          <input class="time-slot" type="date" name="start_date" />
+          <span>
 
-      $('#time-slot-entry').append(function() {
+          </span>
+          <input class="time-slot" type="time" name="start_time" />
+          <span>
 
-        let variable = 'test';
+          </span>
+          Event ends:
+          <input class="time-slot" type="date" name="end_date" />
+          <span>
 
-        let timeslot =
-        `<div id="time-slot-entry" class="column">
-        Event starts:
-        <input type="date" name="selected_date" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        <input type="time" name="selected_time" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        Event ends:
-        <input type="date" name="selected_date" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        <input type="time" name="selected_time" />
-        <span>
-          <button type="button">📅</button>
-        </span>
-        </div>`;
+          </span>
+          <input class="time-slot" type="time" name="end_time" />
+          <span>
 
-        return timeslot
+        </div>
+      </article>`;
+
+        return timeslot;
       });
-
     }
-
-  })
-
-})
+  };
+});
