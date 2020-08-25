@@ -73,24 +73,22 @@ module.exports = (db) => {
               for (const key in obj2) {
                 let row = obj2[key]
                 insertOneTimeSlot(row, pollId)
-                .then(data => console.log(data.rows))
-                .catch(err => {
-                  res
-                    .status(500)
-                    .json({ error: err.message })
-                });
+                .then(data => {
+                  res.send(data)})
+                  .catch(e => {
+                    console.error(e);
+                    res.send(e)
+                  });
               }
             })
-            .catch(err => {
-              res
-                .status(500)
-                .json({ error: err.message });
+            .catch(e => {
+              console.error(e);
+              res.send(e)
             });
       })
-      .catch(err => {
-        res
-          .status(500)
-          .json({ error: err.message });
+      .catch(e => {
+        console.error(e);
+        res.send(e)
       });
 
 
@@ -121,26 +119,28 @@ module.exports = (db) => {
 
   // });
 
-  // router.get("/:id", (req, res) => {
-  //   let query = `SELECT * FROM polls`;
-  //   console.log(query);
-  //   db.query(query)
-  //     .then(data => {
-  //       const polls = data.rows;
+  const loadPoll = function(id) {
 
-  //       const templateVars=JSON.parse(polls);
-  //       console.log(templateVars)
-  //       //res.json({ polls });
-  //       res.render('index', templateVars)
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+    return db.query(`
+    SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE polls.id=${id} ;
 
 
+    `)
+    .then(data => {
+      console.log('responseReservation: ', data.rows);
+      return data.rows});
+  }
+
+  router.get('/:id', (req, res) => {
+    console.log('params=', req.params.id)
+
+    loadPoll(req.params.id)
+    .then(polls => res.send({polls}))
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    });
+  });
 
 
   // router.get("/:poll_id", (req, res) => {
