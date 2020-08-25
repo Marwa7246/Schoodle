@@ -29,8 +29,15 @@ $(document).ready(function () {
 
     $('#form-submission').submit(function(event){
       event.preventDefault();
-      bookieObjectBuilder(event)
-    formToVote();
+      $.ajax({
+        type: 'POST',
+        url: '/api/polls',
+        data: bookieObjectBuilder(event),
+        success: function(response) {
+          formToVote()
+        }
+      });
+
     })
   }
 
