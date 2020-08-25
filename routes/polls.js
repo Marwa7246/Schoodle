@@ -29,14 +29,10 @@ module.exports = (db) => {
     let formData = req.body;
     let valuesOwner=[formData.name.value, formData.email.value];
 
-    const insertOwner = (valuesOwner) => {
-      let query = ` INSERT INTO owners (name, email) VALUES ($1, $2) RETURNING *`;
-      return db.query(query, valuesOwner)
-    }
-    const insertPoll = (formData, ownerId) => {
-      let valuesPoll =[formData.title.value, formData.description.value, formData.location.value, formData.url, ownerId];
+    const insertPoll = (formData) => {
+      let valuesPoll =[formData.name.value, formData.email.value, formData.title.value, formData.description.value, formData.location.value, formData.url];
       console.log('valuesPollInsert: ', valuesPoll)
-      let query = ` INSERT INTO polls (title, description, location, url, owner_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+      let query = ` INSERT INTO polls (name, email, title, description, location, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
       return db.query(query, valuesPoll);
 
     }
@@ -65,39 +61,27 @@ module.exports = (db) => {
     }
 
 
-
-    insertOwner(valuesOwner)
-       .then(data => {
-          const ownerId = data.rows[0].id;
-          insertPoll(formData, ownerId)
-            .then(data => {
-              console.log("datat in insert: ", data.rows)
-              const pollId = data.rows[0].id;
-              for (const key in obj2) {
-                let row = obj2[key]
-                insertOneTimeSlot(row, pollId)
-                .then(data => {
-                  //console.log(data)
-                  res.send(data)})
-                  .catch(e => {
-                    console.error(e);
-                    res.send(e)
-                  });
-              }
-            })
+    insertPoll(formData)
+      .then(data => {
+        console.log("datat in insert: ", data.rows)
+        const pollId = data.rows[0].id;
+        for (const key in obj2) {
+          let row = obj2[key]
+          insertOneTimeSlot(row, pollId)
+          .then(data => {
+            //console.log(data)
+            res.send(data)})
             .catch(e => {
               console.error(e);
               res.send(e)
             });
+        }
       })
       .catch(e => {
         console.error(e);
         res.send(e)
       });
-
-
-
-  })
+ })
 
 
 

@@ -4,10 +4,10 @@ INSERT INTO owners (name, email) VALUES
 ('Stan Miller', 'mcdermott.maxie@schoen.com');
 
 
-INSERT INTO polls (owner_id, title, description, location, url) VALUES
-(1, 'Speed lamp', 'description', 'zoom', 'http://localhost:8080/?123'),
-(2, 'Blanck corner', 'description', 'google meet', 'http://localhost:8080/?456'),
-(2, 'Fun glad', 'description', 'Slack', 'http://localhost:8080/?456');
+INSERT INTO polls (owner_id, title, description, location, url, name, email) VALUES
+(1, 'Speed lamp', 'description', 'zoom', '123', 'Armand Hilll', 'lera_hahn@dickens.org'),
+(2, 'Blanck corner', 'description', 'google meet', '456', 'Stephanie Wolff', 'darius.homenick@tod.ca'),
+(2, 'Fun glad', 'description', 'Slack', '567', 'Stephanie Wolff', 'darius.homenick@tod.ca');
 
 INSERT INTO time_slots (poll_id, start_date, end_date, start_time, end_time) VALUES
 (1, '2020-09-11', '2020-09-26', '18:00', '19:00'),

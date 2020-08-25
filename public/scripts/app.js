@@ -279,6 +279,8 @@ function formToVote(object) {
   <h5> ${object.polls[0].title}</h5>
   <h5> ${object.polls[0].description}</h5>
   <p>${object.polls[0].location}</p>
+  <p>${object.polls[0].name}</p>
+  <p>${object.polls[0].email}</p>
   <a id="complete-url" href = "http://localhost:8080/?${object.polls[0].url}"> http://localhost:8080/?${object.polls[0].url}</a>
 
             `);
