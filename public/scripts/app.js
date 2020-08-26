@@ -17,7 +17,7 @@ $(document).ready(function () {
 
   $('#create-bookie').on('click', landingToForm);
   $('#delete-owner').on('click', function() {
-    deleteOwner(1);
+    deleteUser('15t5');
   })
 
   function landingToForm() {
