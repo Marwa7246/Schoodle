@@ -10,6 +10,9 @@ const router  = express.Router();
 
 module.exports = (db) => {
 
+  ////////////////////////////1- DELETE A POLL ////////////////////
+
+
   router.delete("/:poll_id", (req, res) => {
     let query = `DELETE FROM polls WHERE id = $1`;
     db.query(query, [req.params.poll_id])
@@ -23,10 +26,10 @@ module.exports = (db) => {
       });
   })
 
-
+////////////////////////////2- ADD A NEW POLL FROM THE FORM////////////////////
   router.post("/", (req, res) => {
     let formData = req.body;
-    let valuesOwner=[formData.name.value, formData.email.value];
+
 
     const insertPoll = (formData) => {
       let valuesPoll =[formData.name.value, formData.email.value, formData.title.value, formData.description.value, formData.location.value, formData.url];
@@ -85,13 +88,14 @@ module.exports = (db) => {
 
 
 
+/////////////////// 3- GET THE POLL DETAILS WHEN GOING TO THE PRE VOTE PAGE OR WHEN GOING TO THE VOTING PAGE
 
   router.get('/:url', (req, res) => {
     const loadPoll = function(url) {
       return db.query(`
       SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
       .then(data => {
-        console.log('responseLoadPoll: ', data.rows);
+        //console.log('responseLoadPoll: ', data.rows);
         return data.rows});
     }
     console.log('params=', req.params.url, typeof req.params.url)
@@ -105,48 +109,134 @@ module.exports = (db) => {
   });
 
 
-  // router.get("/:poll_id", (req, res) => {
+///////////////////////// 4- ADD NEW VOTE////////////////////
+router.post("/votes", (req, res) => {
+  let formData = req.body;
+  console.log('formdataPOSTVOTE: ', formData)
 
-  //   let query = `SELECT * FROM polls WHERE id = $1`;
-  //   console.log(query);
-  //   db.query(query, [req.params.poll_id])
-  //     .then(data => {
-  //       res.json('ok');
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // })
 
-  // const getPollById = function(id) {
-  //   return db.query(`
-  //   SELECT title, id, location FROM polls
-  //   WHERE id=$1
-  //   `, [id])
-  //   .then(res => {
-  //     console.log('responseId: ', res.rows[0]);
-  //     return res.rows[0]});
-  // }
+  const insertUser = (formData) => {
+    let valuesUser =[formData.name.value, formData.email.value, formData.token];
+    console.log('valuesUserInsert: ', valuesUser)
+    let query = ` INSERT INTO users (name, email, token) VALUES ($1, $2, $3) RETURNING *`;
+    return db.query(query, valuesUser);
 
-  //Get the information of a poll after using the url
-  // router.get("/:id", (req, res) => {
-  //   let id = req.params.id;
-  //   //let templateVars = getPollById(id);
-  //   getPollById(id).
-  //   then(data => {
-  //     console.log('responseId: ', data);
-  //     return data;
-  //   });
+  }
 
-  //   res.render('index', data);
+  MakeVotesObject = function(obj1) {
+    let obj2 = {}
+    for (const key in obj1) {
+      let x = obj1[key].name
+      let values = obj1[key].value
+      let id =obj1[key].time_slot_id;
+      if (!obj2[id]) {
+        obj2[id] ={}
+      }
+      obj2[id][x]= values
 
-  // });
+    }
+    return obj2
+  }
+
+  const obj2 = MakeVotesObject(formData.time_slots)
 
 
 
-  // }
+  const insertOneVote = (row, userId) => {
+      const valuesVote = [row.time_slot_id, userId, row.choice];
+      console.log('valuesVote: ', valuesVote)
+
+      let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
+      return db.query(query, valuesVote);
+  }
+
+
+  insertUser(formData)
+    .then(data => {
+      console.log("data in insertVOTE: ", data.rows)
+      const userId = data.rows[0].id;
+      console.log('userId: ', userId)
+      for (const key in obj2) {
+        let row = obj2[key]
+        console.log('row: ', row)
+        insertOneVote(row, userId)
+        .then(data => {
+          console.log('votes at the end: ', data)
+          res.send(data)})
+        .catch(e => {
+          console.error(e);
+          res.send(e)
+        });
+      }
+    })
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    });
+})
+
+///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
+router.put("/votes", (req, res) => {
+  let formData = req.body;
+console.log(req.body)
+  const updateUser = (formData) => {
+    let valuesUser =[formData.name, formData.email, formData.token];
+    console.log('valuesUserUpdate: ', valuesUser)
+    let query = ` UPDATE users SET name=$1, email=$2 WHERE token=$3 RETURNING *`;
+    return db.query(query, valuesUser);
+  }
+
+  const updateVote = (formData) => {
+    let valuesVote =[formData.choice, formData.token, formData.time_slot_id];
+    console.log('valuesVoteUpdate: ', valuesVote)
+    let query = ` UPDATE votes SET choice=$1 FROM users WHERE user_id=users.id AND token=$2 AND time_slot_id=$3 RETURNING *`;
+    return db.query(query, valuesVote);
+  }
+
+  updateUser(formData)
+    .then(data => {
+      console.log("data in update user: ", data.rows)
+      })
+      updateVote(formData)
+      .then(data => {
+        console.log("data in update votes: ", data.rows)
+        res.send(data)})
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    });
+})
+
+
+///////////////////////////////6-GET A SPECIFIC POOL VOTES FOR THE STATISTICS PAGE///////////////////
+
+router.get('/votes/:url', (req, res) => {
+  const countVote = function(url) {
+    return db.query(`
+    SELECT time_slots.id, count(votes.choice)
+    FROM votes
+    JOIN time_slots ON time_slot_id=time_slots.id
+    JOIN polls ON poll_id=polls.id
+    JOIN users ON user_id=users.id
+    WHERE polls.url=$1 AND choice=TRUE
+    GROUP BY time_slots.id, time_slot_id
+    ORDER BY time_slot_id;
+                       `, [url])
+    .then(data => {
+      //console.log('responseLoadPoll: ', data.rows);
+      return data.rows});
+  }
+  //console.log('params=', req.params.url, typeof req.params.url)
+  const urlVote = req.params.url;
+  countVote(urlVote)
+  .then(votes => res.send({votes}))
+  .catch(e => {
+    console.error(e);
+    res.send(e)
+  });
+});
+
+
 
   return router;
 };
