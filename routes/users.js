@@ -26,10 +26,10 @@ module.exports = (db) => {
   //     });
   // });
 
-  router.delete("/:id", (req, res) => {
-    console.log("req.params: ",req.params.id)
-    let query = `DELETE FROM owners WHERE id = $1`;
-    db.query(query, [req.params.id])
+  router.delete("/:token", (req, res) => {
+    console.log("req.params.token: ",req.params.token)
+    let query = `DELETE FROM users WHERE token = $1`;
+    db.query(query, [req.params.token])
       .then(data => {
         res.json('ok');
       })
