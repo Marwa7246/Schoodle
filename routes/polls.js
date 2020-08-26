@@ -12,7 +12,6 @@ module.exports = (db) => {
 
   router.delete("/:poll_id", (req, res) => {
     let query = `DELETE FROM polls WHERE id = $1`;
-    console.log(query);
     db.query(query, [req.params.poll_id])
       .then(data => {
         res.json('ok');

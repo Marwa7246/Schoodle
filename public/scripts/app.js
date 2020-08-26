@@ -3,12 +3,12 @@ let bookieURL = ''
 $(document).ready(function () {
   $("#html-container").append(landingHTML);
 
-  function deleteBookie(value) {
-    console.log('in delete')
-    $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
-      .then(data => console.log(data))
-      .catch(err => console.log(err))
-  }
+  // function deleteBookie(value) {
+  //   console.log('in delete')
+  //   $.ajax({method: 'DELETE', url: `/api/polls/${value}`})
+  //     .then(data => console.log(data))
+  //     .catch(err => console.log(err))
+  // }
 
 
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
     });
     $('#copy-bookie').click(function(e) {
       e.preventDefault();
-      copyToClipboard('#bookie-link');
+      copyToClipboard('#complete-url');
     })
 
 
@@ -258,33 +258,35 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
 </div>`
 
 function formToVote(object) {
-  const url = 'hello'
   $('#main-form-button').off()
 
   $('#html-container').empty()
-  const $preVotePage = $(`<h1> These are the details from your bookie </h1>
+  const $preVotePage = $(`<h2> These are the details from your bookie </h2>
   <table>
-     <tr>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-    </tr>
+    <tr><td>Bookie title</td><td>${object.polls[0].title}</td></tr>
+    <tr><td>Description</td><td>${object.polls[0].description}</td></tr>
+    <tr><td>Location</td><td>${object.polls[0].location}</td></tr>
+    <tr><td>Bookie creator</td><td>${object.polls[0].name}</td></tr>
+    <tr><td>Bookie e-mail</td><td>${object.polls[0].email}</td></tr>
   </table>
-  <input id='bookie-link' value='testing link'>
-  <a href="localhost:8080://${url}">localhost:8080://${url}</a>
-  <button id='delete-bookie' type='button' class=''>delete</button>
-  <button id='copy-bookie' type='button' class=''>copy</button>
+  <a id="complete-url" href="http://localhost:8080/?${object.polls[0].url}" value="http://localhost:8080/?${object.polls[0].url}">http://localhost:8080/?${object.polls[0].url}</a>
+  <button id='copy-bookie' type='button'>copy</button>
+  <button id='delete-bookie' type='button'>delete</button>
+  `);
 
-  <h5> ${object.polls[0].title}</h5>
-  <h5> ${object.polls[0].description}</h5>
-  <p>${object.polls[0].location}</p>
-  <p>${object.polls[0].name}</p>
-  <p>${object.polls[0].email}</p>
-  <a id="complete-url" href = "http://localhost:8080/?${object.polls[0].url}"> http://localhost:8080/?${object.polls[0].url}</a>
+  //   <input id='bookie-link' value='testing link'>
 
-            `);
-  $('#html-container').append( $preVotePage)
+  $('#html-container').append($preVotePage);
+  console.log('object.polls[0]: ', object.polls[0]);
+
+  $('#delete-bookie').on("click", function() {
+    deleteBookie(object.polls[0].poll_id)
+  });
+  $('#copy-bookie').click(function(e) {
+    e.preventDefault();
+    copyToClipboard('#complete-url');
+  })
+
 }
 const x = 'RXBsu40ikKCatPcnYduLWv7LJtIHM9x9'
 function loadPoll(urlString) {
