@@ -73,13 +73,14 @@ $(document).ready(function () {
 
 
 
-    const obj2 =   { name: { name: 'name', value: 'aaa' },
-                email: { name: 'email', value: '' },
-                time_slots:
-                 { '1-choice': { name: 'choice', value: 'false', time_slot_id: '1' },
-                   '2-choice': { name: 'choice', value: 'true', time_slot_id: '2' },
-                   '3-choice': { name: 'choice', value: 'false', time_slot_id: '3' }},
-                token: 'dCMJ' }
+
+const obj2 =   {  name: { name: 'name', value: 'aaa' },
+                  email: { name: 'email', value: '' },
+                  time_slots:
+                   { '1-choice': { name: 'choice', time_slot_id: '1' },
+                     '2-choice': { name: 'choice', time_slot_id: '2' },
+                     '3-choice': { name: 'choice', time_slot_id: '3' }},
+                  token: 'dCMJ' }
 
 
     $.ajax({
@@ -97,7 +98,7 @@ $(document).ready(function () {
       url: '/api/polls/votes',
       data: obj2,
       success: function(response) {
-        alert(response)
+        console.log(response)
       }
 
     });
