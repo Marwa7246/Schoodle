@@ -123,27 +123,9 @@ router.post("/votes", (req, res) => {
 
   }
 
-  MakeVotesObject = function(obj1) {
-    let obj2 = {}
-    for (const key in obj1) {
-      let x = obj1[key].name
-      let values = obj1[key].value
-      let id =obj1[key].time_slot_id;
-      if (!obj2[id]) {
-        obj2[id] ={}
-      }
-      obj2[id][x]= values
 
-    }
-    return obj2
-  }
-
-  const obj2 = MakeVotesObject(formData.time_slots)
-
-
-
-  const insertOneVote = (row, userId) => {
-      const valuesVote = [row.time_slot_id, userId, row.choice];
+  const insertOneVote = (arr, userId) => {
+      const valuesVote = [arr[0], userId, arr[1]];
       console.log('valuesVote: ', valuesVote)
 
       let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
@@ -151,23 +133,25 @@ router.post("/votes", (req, res) => {
   }
 
 
+  MakeVoteArray = function(obj1){
+    const arr =[];
+    for (const key in obj1.time_slots){
+      const singleRow= [obj1.time_slots[key].time_slot_id, true];
+      arr.push(singleRow);
+    //console.log(arr)
+    }
+    return arr
+  };
+
+const valuesVoteArrays = MakeVoteArray(formData);
+
   insertUser(formData)
     .then(data => {
       console.log("data in insertVOTE: ", data.rows)
       const userId = data.rows[0].id;
       console.log('userId: ', userId)
-      for (const key in obj2) {
-        let row = obj2[key]
-        console.log('row: ', row)
-        insertOneVote(row, userId)
-        .then(data => {
-          console.log('votes at the end: ', data)
-          res.send(data)})
-        .catch(e => {
-          console.error(e);
-          res.send(e)
-        });
-      }
+      Promise.all (valuesVoteArrays.map(row => insertOneVote(row, userId).then(data=>data.rows)))
+      .then(data => res.send(data))
     })
     .catch(e => {
       console.error(e);
