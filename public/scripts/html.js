@@ -31,7 +31,7 @@ const formPage = `
           </div>
       </article>
       <article id="time-slot-container">
-        <div class="row">
+        <div class="d-flex justify-content-center">
           Event starts:
           <input class="time-slot" type="date" name="start_date" />
           <span>
@@ -49,8 +49,10 @@ const formPage = `
           <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
         </div>
       </article>
+      <div class="d-flex justify-content-center">
       <button id="main-form-button" type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      </div>
+      </form>
   </section>
 `;
 
@@ -75,7 +77,13 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
 </div>`
 
 
-const preVotePage = `<h1> These are the details from your bookie </h1>
+const preVotePage = `
+<div class="justify-content-center">
+<div class="row col-xs-12">
+  <img style="margin-top: 10rem; min-width: 20rem;"
+    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
+</div>
+<h1> These are the details from your bookie </h1>
   <table>
      <tr>
       <td>INFORMATION </td>
@@ -88,9 +96,10 @@ const preVotePage = `<h1> These are the details from your bookie </h1>
   <p id="link-tag">localhost:8080://</p>
   <button id='delete-bookie' type='button' class=''>delete</button>
   <button id='copy-bookie' type='button' class=''>copy</button>
-            `;
+  </div>
+  `;
 
-const votesPage = `<div id="vote-page">
+const votesPage = `<div id="vote-page" class="justify-content-center">
 <div class="row col-xs-12">
   <img
     style="margin-top: 10rem; min-width: 20rem;"
@@ -101,10 +110,11 @@ const votesPage = `<div id="vote-page">
 <h1>bookie.description</h1>
 <div>
   <form id="vote-form">
-    <input placeholder="Your Name" type="text" name="name" />
-    <input placeholder="Your Email" type="email" name="email" />
+    <input placeholder="Your Name" type="text" class="vote-control" name="name" />
+    <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
     <div class="form-check-input" id="display-time-slot-container">
-
+    </div>
+    <div id="time-slot-container">
     </div>
     <button id="vote-button" type="submit">VOTE</button>
   </form>
@@ -132,7 +142,7 @@ const resultsPage = `
   <button id
   <form id="append-vote-form">
 <input type="text" name="user-token">
-<button type="submit" id="append-vote-button">SUBMIT</button>
+<button type="push" id="append-vote-button">SUBMIT</button>
 </form>
 
   <table id="vote-table-conatiner">
@@ -144,13 +154,14 @@ const resultsPage = `
 `
 const formPopOut = `
 <div id="form-pop-out">
-  <form id="vote-form">
-    <input placeholder="Your Name" type="text" name="name" />
-    <input placeholder="Your Email" type="email" name="email" />
-    <div class="form-check-input" id="display-time-slot-container">
-
-    </div>
-    <button id="revote-button" type="submit">VOTE</button>
-  </form>
+<form id="re-vote-form">
+<input placeholder="Your Name" type="text" class="vote-control" name="name" />
+<input placeholder="Your Email" type="email" name="email" class="vote-control"/>
+<div class="form-check-input" id="display-time-slot-container">
+</div>
+<div id="time-slot-container">
+</div>
+<button id="re-vote-button" type="submit">VOTE</button>
+</form>
 </div>
 `

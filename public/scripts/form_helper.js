@@ -1,21 +1,26 @@
 function timeSlotBuilder (times) {
-for (const t in times) {
-  $("#display-time-slot-container").append(function () {
+  console.log("in time slots ")
+let timeSlots =''
+  for (const t of times) {
+    timeSlots +=
   `<span>${t.name}
-  <input class="form-check-input" type="radio" name="${t}"/>
+  <input class="vote-control" type="radio" name="${t.name}" value="${t.value}"/>
 </span>`
-  })
+
 }
+return  timeSlots
 }
 
 function voteTable (votes) {
-  for (const vote in votes) {
-    $("#vote-table-conatiner").append(function () {
+  let votesResults = ''
+  for (const vote of votes) {
+    votesResults +=
     `<tr>
-    <td>${vote}</td>
+    <td>${vote.value}</td>
   </tr>`
-    })
+
   }
+  return votesResults;
   }
 
 function confirmToken (token) {
