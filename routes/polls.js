@@ -89,6 +89,7 @@ module.exports = (db) => {
 
 
 /////////////////// 3- GET THE POLL DETAILS WHEN GOING TO THE PRE VOTE PAGE OR WHEN GOING TO THE VOTING PAGE
+<<<<<<< HEAD
 
   router.get('/:url', (req, res) => {
     const loadPoll = function(url) {
@@ -128,6 +129,47 @@ router.post("/votes", (req, res) => {
       const valuesVote = [arr[0], userId, arr[1]];
       console.log('valuesVote: ', valuesVote)
 
+=======
+
+  router.get('/:url', (req, res) => {
+    const loadPoll = function(url) {
+      return db.query(`
+      SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
+      .then(data => {
+        //console.log('responseLoadPoll: ', data.rows);
+        return data.rows});
+    }
+    console.log('params=', req.params.url, typeof req.params.url)
+    const url2 = req.params.url;
+    loadPoll(url2)
+    .then(polls => res.send({polls}))
+    .catch(e => {
+      console.error(e);
+      res.send(e)
+    });
+  });
+
+
+///////////////////////// 4- ADD NEW VOTE////////////////////
+router.post("/votes", (req, res) => {
+  let formData = req.body;
+  console.log('formdataPOSTVOTE: ', formData)
+
+
+  const insertUser = (formData) => {
+    let valuesUser =[formData.name.value, formData.email.value, formData.token];
+    console.log('valuesUserInsert: ', valuesUser)
+    let query = ` INSERT INTO users (name, email, token) VALUES ($1, $2, $3) RETURNING *`;
+    return db.query(query, valuesUser);
+
+  }
+
+
+  const insertOneVote = (arr, userId) => {
+      const valuesVote = [arr[0], userId, arr[1]];
+      console.log('valuesVote: ', valuesVote)
+
+>>>>>>> dbacf9bc8c416333dbbdcd1f05a0a152f9bec2de
       let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
       return db.query(query, valuesVote);
   }
