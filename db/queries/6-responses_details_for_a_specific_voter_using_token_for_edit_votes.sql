@@ -1,11 +1,11 @@
-SELECT time_slot_id, start_date, start_time, end_date, end_time, choice
+SELECT votes.id, time_slot_id, start_date, start_time, end_date, end_time, choice, users.name, token
 FROM votes
 JOIN time_slots ON time_slot_id=time_slots.id
+JOIN users ON user_id=users.id
 JOIN polls ON poll_id=polls.id
-WHERE polls.url='http://localhost:8080/?123' AND name IN (
+WHERE polls.url='123' AND users.name IN (
   SELECT name
-  FROM votes
-  JOIN time_slots ON time_slot_id=time_slots.id
-  WHERE token='12s5'
+  FROM users
+  WHERE token='15t5'
 )
 ORDER BY time_slot_id;
