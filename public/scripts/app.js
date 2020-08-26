@@ -292,9 +292,7 @@ function formToVote(object) {
   })
 
 }
-const x = 'RXBsu40ikKCatPcnYduLWv7LJtIHM9x9'
 function loadPoll(urlString) {
-  //const urlString = x;
   const url =`/api/polls/${urlString}`
   console.log(url)
 
