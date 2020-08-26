@@ -33,7 +33,7 @@ app.use(express.static("public"));
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
+const ownersRoutes = require("./routes/owners");
 const widgetsRoutes = require("./routes/widgets");
 const pollsRoutes = require("./routes/polls");
 const bookiesRoutes = require("./routes/bookies");
@@ -41,7 +41,7 @@ const bookiesRoutes = require("./routes/bookies");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
+app.use("/owners", ownersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/polls", pollsRoutes(db));
 app.use("/bookies", bookiesRoutes(db));

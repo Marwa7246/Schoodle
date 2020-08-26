@@ -16,6 +16,9 @@ $(document).ready(function () {
 
 
   $('#create-bookie').on('click', landingToForm);
+  $('#delete-owner').on('click', function() {
+    deleteOwner(1);
+  })
 
   function landingToForm() {
     $('#create-bookie').off()
@@ -254,6 +257,7 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
     <img
       src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
   </button>
+  <button id="delete-owner" name="delete-owner">Delete owner</button>
 </div>
 </div>`
 
