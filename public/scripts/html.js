@@ -116,7 +116,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
     </div>
     <div id="time-slot-container">
     </div>
-    <button id="vote-button" type="submit">VOTE</button>
+    <button type="submit">VOTE</button>
   </form>
 </div>
 
@@ -139,22 +139,24 @@ const resultsPage = `
   </div>
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token">User Token</h1>
-  <button id
-  <form id="append-vote-form">
+
+  <form id="token-check" action="">
+<button type="submit" id="token-button">SUBMIT</button>
 <input type="text" name="user-token">
-<button type="push" id="append-vote-button">SUBMIT</button>
 </form>
 
   <table id="vote-table-conatiner">
 
   </table>
+
+  <form id="append-vote-form" action="">
   <div id="revote-container">
   </div>
+  </form>
 </div>
 `
 const formPopOut = `
 <div id="form-pop-out">
-<form id="re-vote-form">
 <input placeholder="Your Name" type="text" class="vote-control" name="name" />
 <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
 <div class="form-check-input" id="display-time-slot-container">
@@ -162,6 +164,5 @@ const formPopOut = `
 <div id="time-slot-container">
 </div>
 <button id="re-vote-button" type="submit">VOTE</button>
-</form>
 </div>
 `

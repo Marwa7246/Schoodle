@@ -2,10 +2,10 @@
 
 const copyToClipboard = function(id) {
 
-  let copyText = $('#copy-bookie').val();
-  console.log(copyText)
+
+
   let textarea = document.createElement("textarea");
-  textarea.textContent = copyText;
+  textarea.textContent = id;
   textarea.style.position = "fixed";
   document.body.appendChild(textarea);
   textarea.select();

@@ -1,18 +1,18 @@
-const fakeTimes = [{name: "monday 2pm -3pm", value: 'time_slot_id = 1'}, {name: "monday 2pm -3pm", value: 'time_slot_id = 2'}, {name: "monday 2pm -3pm", value: 'time_slot_id = 3'}]
+const fakeTimes = [{name: "monday 2pm -3pm", time_slot_id: 1}, {name: "monday 2pm -3pm", time_slot_id: 3}, {name: "monday 2pm -3pm", time_slot_id: 2}]
 
 
 $(document).ready(function () {
-  $("#html-container").append(landingHTML);
 
   function deleteBookie(value) {
     console.log("in delete");
     $.ajax({ method: "DELETE", url: `/api/polls/${value}` })
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
   }
 
   console.log("connected");
 
+  $("#html-container").append(landingHTML);
   $("#create-bookie").on("click", landingToForm);
 
   function landingToForm() {
@@ -43,20 +43,22 @@ $(document).ready(function () {
   }
 
   function formToPostForm(id, url) {
-    console.log('id----', id, 'url----', url);
+    const deleteId = id
+    const copyURL = 'url'
     $.ajax({ url: `/api/polls/${id}`, method: "GET" }).then((response) => {
       console.log("req sent", response);
       $("#html-container").append(`<h5> ${response.polls[0].name}</h5>
-         <h5> ${response.polls[0].description}</h5>
-         <p>${response[0].location}</p>`);
+      <h5> ${response.polls[0].description}</h5>
+      <p>${response[0].location}</p>`);
     });
     $("#html-container").append(preVotePage);
-    $("#delete-bookie").on("click", function (id) {
-      deleteBookie(id);
+    $("#delete-bookie").on("click", function () {
+      console.log('id----', deleteId, 'url----', copyURL);
+      deleteBookie(deleteId);
     });
     // still problems with the button
-    $("#copy-bookie").click(function (url) {
-      copyToClipboard(url);
+    $("#copy-bookie").click(function () {
+      copyToClipboard(copyURL);
     });
     $("#link-tag").click(function (e) {
       postFormToVote()
@@ -77,46 +79,52 @@ $(document).ready(function () {
       event.preventDefault();
       $.ajax({
         type: "POST",
-        url: "/api/polls/votes",
-        data: bookieObjectBuilder(event, ".vote-control"),
+        url: "/api/votes",
+        data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
         success: function (response) {
           console.log(response)
           $("#html-container").empty();
-          $("#add-timeslot").off();
         voteToResult();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           alert("Your vote didnt work try again");
           voteToResult();
-       }
-    })
+        }
+      })
     })
   }
 
   function voteToResult() {
+
     $("#html-container").empty();
-    $("#vote-button").off();
+    $("#vote-form").off();
     $("#html-container").append(resultsPage)
     $("#vote-table-conatiner").append(voteTable(fakeTimes))
-    $("#append-vote-button").on('click', function (event) {
+    $("#token-check").submit( function (event) {
+      event.preventDefault()
       $('#revote-container').append(formPopOut)
       $("#time-slot-container").append(timeSlotBuilder(fakeTimes))
       $("#append-vote-button").off()
     })
-    $("#re-vote-form").submit( function (event) {
+    $("#append-vote-form").submit( function (event) {
       event.preventDefault();
       $.ajax({
         type: "POST",
         url: "/api/polls/votes",
-        data: bookieObjectBuilder(event, ".vote-control"),
+        data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
         success: function (response) {
+
           console.log(response)
+          $("#re-vote-form").off()
           $("#html-container").empty();
           $("#html-container").append(resultsPage)
         voteToResult();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
+
+          console.log(errorThrown)
           alert("You re-vote didnt work try again");
+
 
        }
     })

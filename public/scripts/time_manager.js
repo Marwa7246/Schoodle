@@ -1,5 +1,5 @@
 
-$(document).ready(function () {
+
 
   const timeManager = function () {
     event.preventDefault();
@@ -32,4 +32,3 @@ $(document).ready(function () {
     }
   };
 
-})

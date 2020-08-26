@@ -2,7 +2,7 @@
 
   function bookieObjectBuilder(event, target1, target2) {
     event.preventDefault();
-console.log(event)
+
     let bookieData = $(event.target).find(target1).serializeArray();
 
     console.log(bookieData);
@@ -11,10 +11,7 @@ console.log(event)
         obj[item[keyField]] = item;
         return obj;
       }, {});
-
-      bookieData = arrayToObjectBookie(bookieData, "name");
-
-      if(target2) {
+if(target2) {
     let timeSlots = $(event.target).find(target2).serializeArray();
     const arrayToObjectTime = (array, keyField1, key2) =>
       array.reduce((obj, item) => {
@@ -22,6 +19,8 @@ console.log(event)
         return obj;
       }, {});
 
+    bookieData = arrayToObjectBookie(bookieData, "name");
+if(timeSlots.length != 0) {
     for (let i = 0; i < timeSlots.length; i++) {
       if (i < 4) {
         timeSlots[i].time_slot_id = 1;
@@ -36,11 +35,10 @@ console.log(event)
 
     timeSlots = arrayToObjectTime(timeSlots, "time_slot_id", "name");
     bookieData.time_slots = timeSlots;
-
-    // console.log(bookieData);
+  }
+    console.log(bookieData);
     bookieData.url = generateRandomUrl(32);
   }
-  console.log(bookieData)
     bookieData.token = generateRandomString(4);
     bookieURL = bookieData.url;
     return bookieData;
