@@ -15,9 +15,6 @@
   // $('.card-title').replaceWith($url);
   // }
 
-
-
-
 $(document).ready(function () {
     $('#go-to-home-page').hide()
 
@@ -72,6 +69,28 @@ $(document).ready(function () {
     const urlToVote= urlQuery.slice(1);
     loadPollToVote(urlToVote)
 
+    const obj = {name:'Wolff', token: '15t5', email: 'marwa@gmail.com', time_slot_id: 2, choice: 'true'};
+    const obj2 = {name:{value:'Omar'}, token: '1444', email: {value: 'xxx@yyyl.com'}, time_slot_id: {value: 2}, choice: {value: 'true'}}
+
+
+    // $.ajax({
+    //   type: 'PUT',
+    //   url: '/api/polls/votes',
+    //   data: obj,
+    //   success: function(response) {
+    //     alert(response)
+    //   }
+
+    // });
+    $.ajax({
+      type: 'POST',
+      url: '/api/polls/votes',
+      data: obj2,
+      success: function(response) {
+        alert(response)
+      }
+
+    });
 
 
 
