@@ -6,6 +6,6 @@ JOIN polls ON poll_id=polls.id
 WHERE polls.url='123' AND users.name IN (
   SELECT name
   FROM users
-  WHERE token='15t5'
+  WHERE token='DCMJ'
 )
 ORDER BY time_slot_id;

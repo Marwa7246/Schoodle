@@ -70,18 +70,28 @@ $(document).ready(function () {
     loadPollToVote(urlToVote)
 
     const obj = {name:'Wolff', token: '15t5', email: 'marwa@gmail.com', time_slot_id: 2, choice: 'true'};
-    const obj2 = {name:{value:'Omar'}, token: '1444', email: {value: 'xxx@yyyl.com'}, time_slot_id: {value: 2}, choice: {value: 'true'}}
 
 
-    // $.ajax({
-    //   type: 'PUT',
-    //   url: '/api/polls/votes',
-    //   data: obj,
-    //   success: function(response) {
-    //     alert(response)
-    //   }
 
-    // });
+    const obj2 =   { name: { name: 'name', value: 'aaa' },
+                email: { name: 'email', value: '' },
+                time_slots:
+                 { '1-choice': { name: 'choice', value: 'false', time_slot_id: '1' },
+                   '2-choice': { name: 'choice', value: 'true', time_slot_id: '2' },
+                   '3-choice': { name: 'choice', value: 'false', time_slot_id: '3' }},
+                token: 'dCMJ' }
+
+
+    $.ajax({
+      type: 'PUT',
+      url: '/api/polls/votes',
+      data: obj,
+      success: function(response) {
+        alert(response)
+      }
+
+    });
+
     $.ajax({
       type: 'POST',
       url: '/api/polls/votes',
