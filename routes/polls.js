@@ -199,6 +199,33 @@ router.post("/votes", (req, res) => {
 // })
 
 
+///////////////////////////////GET A SPECIFIC POOL VOTES FOR THE STATISTICS page///////////////////
+
+router.get('/votes/:url', (req, res) => {
+  const countVote = function(url) {
+    return db.query(`
+    SELECT time_slots.id, count(votes.choice)
+    FROM votes
+    JOIN time_slots ON time_slot_id=time_slots.id
+    JOIN polls ON poll_id=polls.id
+    JOIN users ON user_id=users.id
+    WHERE polls.url=$1 AND choice=TRUE
+    GROUP BY time_slots.id, time_slot_id
+    ORDER BY time_slot_id;
+                       `, [url])
+    .then(data => {
+      //console.log('responseLoadPoll: ', data.rows);
+      return data.rows});
+  }
+  console.log('params=', req.params.url, typeof req.params.url)
+  const urlVote = req.params.url;
+  countVote(urlVote)
+  .then(votes => res.send({votes}))
+  .catch(e => {
+    console.error(e);
+    res.send(e)
+  });
+});
 
 
 

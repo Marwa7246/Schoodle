@@ -92,21 +92,17 @@ $(document).ready(function () {
 
     });
 
-
-
-
-
+    const urlVote =`/api/polls/votes/${urlToVote}`
+    $.ajax({
+      type: 'GET',
+      url: urlVote})
+      .then((response) => {
+        console.log(response);
+        //fetchPollToVote(response);
+        //fetchTimeSlots(response)
+      })
 
   }
-
-
-
-
-
-
-
-
-
 
   $('#go-to-home-page').on('click', function() {
     console.log( "went to landing page" );
