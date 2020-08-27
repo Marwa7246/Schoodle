@@ -31,7 +31,6 @@ $(document).ready(function () {
 
       // $.ajax({url: url, method: 'GET'})
       //   .then((response) => {
-      //     console.log(response.polls);
       //     fetchPollToVote(response);
       //     fetchTimeSlots(response)
       //   });
@@ -60,10 +59,16 @@ $(document).ready(function () {
         <h5>end_date: ${element.end_date}</h5>
         <h5>start_time: ${element.start_time}</h5>
         <h5>end_time: ${element.end_time}</h5>
-
         `);
-        $('#html-container').append( $preVotePage)
+        $('#html-container').append($preVotePage)
       }
+      const $graph = $(`
+      <div id="chartDiv" style="width:50%; height:300px; margin:0 auto;"></div>
+      `);
+      $('#html-container').append($graph)
+      console.log('logging arr: ',arr);
+      console.log('done with appending graph')
+      // JSC.Chart('chartDiv', buildGraph(renderArrForGraph(updateType(arr.polls))));
     }
 
     const urlToVote= urlQuery.slice(1);
@@ -108,7 +113,16 @@ const obj2 =   {  name: { name: 'name', value: 'aaa' },
 
     // });
 
-
+    const urlVote =`/api/polls/votes/${urlToVote}`
+    $.ajax({
+      type: 'GET',
+      url: urlVote})
+      .then((response) => {
+        console.log("this is response", response);
+        JSC.Chart('chartDiv', buildGraph(renderArrForGraph(updateType(response.votes))));
+        //fetchPollToVote(response);
+        //fetchTimeSlots(response)
+      })
 
   }
 
