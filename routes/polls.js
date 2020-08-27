@@ -248,6 +248,7 @@ router.get('/votes/:url', (req, res) => {
 
   //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
+console.log(req.params.url)
   countVote(urlVote)
   .then(votes => {
     console.log("this is votes: ", votes);

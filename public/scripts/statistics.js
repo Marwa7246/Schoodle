@@ -4,7 +4,7 @@
 
 
 
-  console.log(('urlQuery: '+ urlQuery));
+  // console.log(('urlQuery: '+ urlQuery));
 
   // if (urlQuery) {
   //   $('#html-container').empty()
@@ -14,10 +14,11 @@
   // $('.card-title').replaceWith($url);
   // }
 
-$(document).ready(function () {
-    $('#go-to-home-page').hide()
+// $(document).ready(function () {
+//     $('#go-to-home-page').hide()
 
-  if (urlQuery) {
+  // if (urlQuery) {
+
 
 
 
@@ -35,6 +36,14 @@ $(document).ready(function () {
     }
 
 
+  //   function fetchTimeSlotsVotes(arr) {
+  //     for (const element of arr.votes) {
+  //       const $preVotePage = $(`<h1> TIME SLOTS DETAILS</h1>
+  //       <h5>start_date: ${new Date(element.start_date).toDateString()}</h5>
+  //       <h5>end_date: ${new Date(element.end_date).toDateString()}</h5>
+  //       <h5>start_time: ${element.start_time.slice(0,5)}</h5>
+  //       <h5>end_time: ${element.end_time.slice(0,5)}</h5>
+  //       <h5>Count: ${element.y}</h5>
 
     function fetchTimeSlotsVotes(arr) {
       $('#html-container').append( $(`<h2> TIME SLOTS VOTES DETAILS</h2> `))
@@ -88,11 +97,11 @@ $(document).ready(function () {
             fetchTimeSlotsVotes(response)
           })
       })
-  }
 
 
 
-});
+
+// });
 
 
 

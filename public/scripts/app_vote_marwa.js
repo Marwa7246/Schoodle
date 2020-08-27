@@ -3,12 +3,16 @@
   //If not---> load the landing page configuration
 
 
-  const urlQuery = window.location.search;
+  // const urlQuery = window.location.search;
 
-  console.log(('urlQuery: '+ urlQuery));
+  // console.log(('urlQuery: '+ urlQuery));
+
+
+$(document).ready(function () {
 
   // if (urlQuery) {
   //   $('#html-container').empty()
+  //   $('#go-to-home-page').show()
   //   console.log(('urlstring after if statement: '+ urlQuery));
   //   const $url = $(`<h5 class="card-title">${urlQuery}</h5>`);
 
