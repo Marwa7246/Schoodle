@@ -28,7 +28,7 @@ module.exports = (db) => {
 
 
 
-  ///////////////////////////////6-GET A SPECIFIC POOL VOTES FOR THE STATISTICS PAGE///////////////////
+  ///////////////////////////////2-GET A SPECIFIC POOL VOTES FOR THE STATISTICS PAGE///////////////////
 
 router.get('/:url', (req, res) => {
   const countVoteUsers = function(url) {
