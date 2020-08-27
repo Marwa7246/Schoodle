@@ -197,7 +197,7 @@ console.log(req.body)
 router.get('/votes/:url', (req, res) => {
   const countVote = function(url) {
     return db.query(`
-    SELECT time_slots.id, count(votes.choice)
+    SELECT time_slots.start_date, start_time, end_date, end_time, count(votes.choice) AS y
     FROM votes
     JOIN time_slots ON time_slot_id=time_slots.id
     JOIN polls ON poll_id=polls.id
@@ -205,15 +205,18 @@ router.get('/votes/:url', (req, res) => {
     WHERE polls.url=$1 AND choice=TRUE
     GROUP BY time_slots.id, time_slot_id
     ORDER BY time_slot_id;
-                       `, [url])
+    `, [url])
     .then(data => {
-      //console.log('responseLoadPoll: ', data.rows);
+      // console.log('responseLoadPoll: ', data.rows);
       return data.rows});
   }
   //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
   countVote(urlVote)
-  .then(votes => res.send({votes}))
+  .then(votes => {
+    console.log("this is votes: ", votes);
+    res.send({votes});
+  })
   .catch(e => {
     console.error(e);
     res.send(e)
