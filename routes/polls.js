@@ -228,7 +228,7 @@ router.put("/votes", (req, res) => {
 router.get('/votes/:url', (req, res) => {
   const countVote = function(url) {
     return db.query(`
-    SELECT time_slots.*, count(votes.choice) AS y
+    SELECT time_slots.*, count(votes.choice) 
       FROM votes
       RIGHT JOIN time_slots ON time_slots.id=time_slot_id
       WHERE choice=TRUE AND time_slots.id IN (
