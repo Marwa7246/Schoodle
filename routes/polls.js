@@ -29,6 +29,7 @@ module.exports = (db) => {
 ////////////////////////////2- ADD A NEW POLL FROM THE FORM////////////////////
   router.post("/", (req, res) => {
     let formData = req.body;
+    console.log('formData: ', req.body);
 
 
     const insertPoll = (formData) => {
@@ -39,12 +40,19 @@ module.exports = (db) => {
 
     }
 
-    MakeTimeSlotsObject = function(obj1) {
-      let obj2 = {}
-      for (const key in obj1) {
-        let x = obj1[key].name
-        let values = obj1[key].value
-        let id =obj1[key].time_slot_id;
+    const insertOneTimeSlot = (row, pollId) => {
+      const valuesTime = [...row , pollId];
+      console.log('valuesTime: ', valuesTime)
+        let query = ` INSERT INTO time_slots (start_date, end_date, start_time, end_time, poll_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+        return db.query(query, valuesTime);
+    }
+
+    const MakeTimeSlotsObject = function(obj1) {
+      const obj2 = {}
+      for (const key in obj1.time_slots) {
+        const x = obj1.time_slots[key].name
+        const values = obj1.time_slots[key].value
+        const id =obj1.time_slots[key].time_slot_id;
         if (!obj2[id]) {
           obj2[id] ={}
         }
@@ -54,30 +62,44 @@ module.exports = (db) => {
       return obj2
     }
 
-    const obj2 = MakeTimeSlotsObject(formData.time_slots)
-
-    const insertOneTimeSlot = (row, pollId) => {
-        const valuesTime = [row.start_date, row.end_date, row.start_time, row.end_time, pollId];
-        let query = ` INSERT INTO time_slots (start_date, end_date, start_time, end_time, poll_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-        return db.query(query, valuesTime);
+    const MakeTimeSlotArray = (obj2) => {
+      let arr =[];
+      for (const key in obj2) {
+        let valuesTime =[]
+        valuesTime = [obj2[key].start_date, obj2[key].end_date, obj2[key].start_time, obj2[key].end_time]
+        arr.push(valuesTime)
+         //insertOneTimeSlot(valuesTime)
+      }
+      //console.log(arr)
+      return arr
     }
 
 
+    const valuesTimeSlotsArrays = MakeTimeSlotArray(MakeTimeSlotsObject(formData));
+
+    console.log('MakeTimeSlotsObject: ', MakeTimeSlotsObject(formData))
+
     insertPoll(formData)
       .then(data => {
-        console.log("datat in insert: ", data.rows)
+        //console.log("dataPoll in insert: ", data.rows)
         const pollId = data.rows[0].id;
-        for (const key in obj2) {
-          let row = obj2[key]
-          insertOneTimeSlot(row, pollId)
-          .then(data => {
-            //console.log(data)
-            res.send(data)})
-            .catch(e => {
-              console.error(e);
-              res.send(e)
-            });
-        }
+        Promise.all (valuesTimeSlotsArrays.map(row => insertOneTimeSlot(row, pollId).then(data=>data.rows)))
+      .then(data => {
+        console.log("datatime in insert: ", data.rows)
+        res.send(data)})
+
+        // for (const key in obj2) {
+        //   let row = obj2[key]
+        //   insertOneTimeSlot(row, pollId)
+        //   .then(data => {
+        //     console.log(data.rows)
+        //     //res.send(data)
+        //   })
+        //     .catch(e => {
+        //       console.error(e);
+        //       res.send(e)
+        //     });
+        // }
       })
       .catch(e => {
         console.error(e);

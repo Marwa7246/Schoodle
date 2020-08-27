@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 
 
-      const urlVoteUsers =`/api/users/${urlToVote}`
+      const urlVoteUsers =`/users/${urlToVote}`
       const urlVote =`/api/polls/votes/${urlToVote}`
 
 
