@@ -64,7 +64,7 @@ $(document).ready(function () {
   }
 
   function formToPostForm(res, obj) {
-    const deleteId = res.rows[0].id
+    const deleteId = res[0].id
     const copyText = 'http://localhost:8080/?' + obj.url;
 
     loadPollToVote(obj.url, true)
