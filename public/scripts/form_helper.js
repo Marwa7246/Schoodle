@@ -34,7 +34,7 @@ function voteTable (url) {
     url: urlVote})
     .then((response) => {
       console.log(response);
-      //renderTable(response)
+      // return renderTable(response)
 
       $('#vote-table-conatiner').append(renderTable(response))
     })
@@ -50,9 +50,9 @@ function voteTable (url) {
     console.log(vote)
     votesResults +=
     `<tr>
-    <td>${vote.id}</td>
+    <td>${vote.start_date}</td>
 
-    <td>${vote.count}</td>
+    <td>${vote.start_time}</td>
     </p>
 
   </tr>`

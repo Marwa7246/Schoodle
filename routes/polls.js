@@ -218,13 +218,9 @@ router.get('/votes/:url', (req, res) => {
       // console.log('responseLoadPoll: ', data.rows);
       return data.rows});
   }
-<<<<<<< HEAD
-  // console.log('params=', req.params, typeof req.params)
-=======
 
 
   //console.log('params=', req.params.url, typeof req.params.url)
->>>>>>> 26684e8f8424e67597a77118ce38484781bd876e
   const urlVote = req.params.url;
 console.log(req.params.url)
   countVote(urlVote)

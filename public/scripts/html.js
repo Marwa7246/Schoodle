@@ -137,7 +137,7 @@ const resultsPage = `
 
   <form id="token-check" action="">
 <button type="submit" id="token-button">SUBMIT</button>
-<input type="text" name="user-token">
+
 </form>
 
   <table id="vote-table-conatiner">
@@ -152,6 +152,7 @@ const resultsPage = `
 `
 const formPopOut = `
 <div id="form-pop-out">
+<input type="text" name="user-token" placeholder="Token">
 <input placeholder="Your Name" type="text" class="vote-control" name="name" />
 <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
 <div class="form-check-input" id="display-time-slot-container">
@@ -160,4 +161,5 @@ const formPopOut = `
 </div>
 <button id="re-vote-button" type="submit">VOTE</button>
 </div>
+<button id="delete-user" type="submit">DELETE YOUR VOTES</button>
 `

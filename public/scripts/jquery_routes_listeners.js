@@ -127,8 +127,12 @@ $(document).ready(function () {
       $('#revote-container').append(formPopOut)
       $("#time-slot-container").append(getUrlData(urlToVote))
       $("#append-vote-button").off()
+      $('#delete-user').on('click', function (){
+        console.log(voteData.token)
+        deleteUser()
+      })
     })
-    $("#append-vote-form").submit( function (event) {
+    $("#re-vote-button").click( function (event) {
       event.preventDefault();
       $.ajax({
         type: "PUT",
