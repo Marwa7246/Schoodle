@@ -29,12 +29,12 @@ $(document).ready(function () {
       const url =`/api/polls/${urlString}`
       console.log(url)
 
-      $.ajax({url: url, method: 'GET'})
-        .then((response) => {
-          console.log(response.polls);
-          fetchPollToVote(response);
-          fetchTimeSlots(response)
-        });
+      // $.ajax({url: url, method: 'GET'})
+      //   .then((response) => {
+      //     console.log(response.polls);
+      //     fetchPollToVote(response);
+      //     fetchTimeSlots(response)
+      //   });
     }
 
     function fetchPollToVote(object) {
@@ -69,8 +69,13 @@ $(document).ready(function () {
     const urlToVote= urlQuery.slice(1);
     loadPollToVote(urlToVote)
 
-    const obj = {name:'Wolff', token: '15t5', email: 'marwa@gmail.com', time_slot_id: 2, choice: 'true'};
-
+    const obj =   {  name: { name: 'name', value: 'nnnn' },
+    email: { name: 'email', value: '' },
+    time_slots:
+     { '1-choice': { name: 'choice', time_slot_id: '1' },
+       '2-choice': { name: 'choice', time_slot_id: '2' },
+       '3-choice': { name: 'choice', time_slot_id: '3' }},
+    token: 'dCMJ' }
 
 
 
@@ -83,35 +88,27 @@ const obj2 =   {  name: { name: 'name', value: 'aaa' },
                   token: 'dCMJ' }
 
 
-    $.ajax({
-      type: 'PUT',
-      url: '/api/polls/votes',
-      data: obj,
-      success: function(response) {
-        alert(response)
-      }
+    // $.ajax({
+    //   type: 'PUT',
+    //   url: '/api/polls/votes',
+    //   data: obj,
+    //   success: function(response) {
+    //     alert(response)
+    //   }
 
-    });
+    // });
 
-    $.ajax({
-      type: 'POST',
-      url: '/api/polls/votes',
-      data: obj2,
-      success: function(response) {
-        console.log(response)
-      }
+    // $.ajax({
+    //   type: 'POST',
+    //   url: '/api/polls/votes',
+    //   data: obj2,
+    //   success: function(response) {
+    //     console.log(response)
+    //   }
 
-    });
+    // });
 
-    const urlVote =`/api/polls/votes/${urlToVote}`
-    $.ajax({
-      type: 'GET',
-      url: urlVote})
-      .then((response) => {
-        console.log(response);
-        //fetchPollToVote(response);
-        //fetchTimeSlots(response)
-      })
+
 
   }
 
@@ -126,16 +123,16 @@ const obj2 =   {  name: { name: 'name', value: 'aaa' },
 });
 
 
-function loadPoll(urlString) {
-  const url =`/api/polls/${urlString}`
-  console.log(url)
+// function loadPoll(urlString) {
+//   const url =`/api/polls/${urlString}`
+//   console.log(url)
 
-  $.ajax({url: url, method: 'GET'})
-    .then((response) => {
-      console.log(response.polls);
-      formToVote(response);
-    });
-}
+//   $.ajax({url: url, method: 'GET'})
+//     .then((response) => {
+//       console.log(response.polls);
+//       formToVote(response);
+//     });
+// }
 
 
 
