@@ -1,4 +1,3 @@
-
 const formPage = `
 <section id='bookie-form-page' style="justify-content: center;">
     <h2 style="text-align: center; margin-top: 1rem; margin-right: 6rem; margin-left: 6rem;">ENTER YOUR DETAILS AND WE
@@ -74,8 +73,7 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
       src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
   </button>
 </div>
-</div>`
-
+</div>`;
 
 const preVotePage = `
 <div class="justify-content-center">
@@ -94,6 +92,11 @@ const preVotePage = `
   </div>
   `;
 
+{
+  /* <div class="form-check-input" id="display-time-slot-container">
+    </div> */
+}
+
 const votesPage = `<div id="vote-page" class="justify-content-center">
 <div class="row col-xs-12">
   <img
@@ -107,9 +110,8 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
   <form id="vote-form">
     <input placeholder="Your Name" type="text" class="vote-control" name="name" />
     <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
-    <div class="form-check-input" id="display-time-slot-container">
-    </div>
-    <div id="time-slot-container">
+
+    <div class="time-slot-container">
     </div>
     <button type="submit">VOTE</button>
   </form>
@@ -122,7 +124,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
   consectetur.
 </p>
 </div>
-`
+`;
 
 const resultsPage = `
 <div id="results-page">
@@ -135,10 +137,13 @@ const resultsPage = `
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
 
-  <form id="token-check" action="">
-<button type="submit" id="token-button">SUBMIT</button>
+  <button type="button" id="token-button">SUBMIT</button>
 
-</form>
+
+<div id="chart-container>
+</div>
+
+
 
   <table id="vote-table-conatiner">
 
@@ -149,17 +154,21 @@ const resultsPage = `
   </div>
   </form>
 </div>
-`
+`;
 const formPopOut = `
 <div id="form-pop-out">
 <input type="text" name="user-token" placeholder="Token">
 <input placeholder="Your Name" type="text" class="vote-control" name="name" />
 <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
-<div class="form-check-input" id="display-time-slot-container">
-</div>
-<div id="time-slot-container">
+
+
+<div class="time-slot-container">
 </div>
 <button id="re-vote-button" type="submit">VOTE</button>
 </div>
 <button id="delete-user" type="submit">DELETE YOUR VOTES</button>
-`
+`;
+{
+  /* <div class="form-check-input" id="display-time-slot-container">
+</div> */
+}

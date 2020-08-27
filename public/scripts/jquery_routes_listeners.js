@@ -102,7 +102,7 @@ $(document).ready(function () {
         url: "/api/polls/votes",
         data: voteData,
         success: function (response) {
-          console.log(response)
+          // console.log(response)
           $("#html-container").empty();
         voteToResult(voteData);
         },
@@ -115,36 +115,42 @@ $(document).ready(function () {
   }
 
   function voteToResult(voteData) {
-
+    let iteration = "0"
     $("#html-container").empty();
     $("#vote-form").off();
     $("#html-container").append(resultsPage)
     $('#user-token').append(voteData.token)
-    // append token in here using voteData.token
+
     $("#vote-table-conatiner").append(voteTable(urlToVote))
-    $("#token-check").submit( function (event) {
+
+    $('[id*="jsc"]').remove()
+    $('#html-container').append(graphData(urlToVote))
+    $("#token-button").on('click', function (event) {
       event.preventDefault()
+      $("#token-button").off()
       $('#revote-container').append(formPopOut)
-      $("#time-slot-container").append(getUrlData(urlToVote))
-      $("#append-vote-button").off()
+      $('#time-slot-container').append(getUrlData(urlQuery))
       $('#delete-user').on('click', function (){
         console.log(voteData.token)
-        deleteUser()
+        deleteUser(voteData.token)
       })
     })
-    $("#re-vote-button").click( function (event) {
+    $("#append-vote-form").submit( function (event) {
       event.preventDefault();
+      const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       $.ajax({
         type: "PUT",
-        url: "/api/votes",
-        data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
+        url: `/api/polls/votes/?${voteData.token}`,
+        data: revote,
         success: function (response) {
-
-          console.log(response)
+          event.preventDefault()
+          console.log('put response',  response)
           $("#re-vote-form").off()
-          $("#html-container").empty();
-          $("#html-container").append(resultsPage)
-        voteToResult();
+          $('#chart-container').empty();
+
+          console.log(iteration)
+          voteToResult(revote)
+          return false;
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
 

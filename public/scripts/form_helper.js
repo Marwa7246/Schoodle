@@ -1,10 +1,12 @@
+
+
 function getUrlData (url, vote) {
 
   const routeUrl =`/api/polls/${url.slice(1,)}`
   $.ajax({url: routeUrl, method: 'GET'})
     .then((response) => {
 
-        $('#time-slot-container').append(timeSlotBuilder(response))
+        $('.time-slot-container').append(timeSlotBuilder(response))
 
     });
 
@@ -26,23 +28,24 @@ return  timeSlots
 }
 
 function voteTable (url) {
+  const urlVoteUsers =`/users/${url}`
 
-  const urlVote =`/api/polls/votes/${url}`
-  console.log(url)
-  $.ajax({
-    type: 'GET',
-    url: urlVote})
-    .then((response) => {
-      console.log(response);
-      // return renderTable(response)
 
-      $('#vote-table-conatiner').append(renderTable(response))
-    })
+
+$.ajax({
+  type: 'GET',
+  url: urlVoteUsers})
+  .then((response) => {
+    console.log('vote-users', response)
+    renderTable(response.votes)
+
+  })
+
 
   }
   function renderTable(votes) {
     let votesResults = ''
-  console.log()
+  console.log(votes)
   if(votes.length = 0) {
     return console.log('array is empty cant render')
   }
@@ -61,8 +64,16 @@ function voteTable (url) {
   return votesResults;
   }
 
-function confirmToken (token) {
-
+function graphData (url) {
+  const urlVote =`/api/polls/votes/${url}`
+  $.ajax({
+    type: 'GET',
+    url: urlVote})
+    .then((response) => {
+      console.log("voting response: ", response.votes);
+      JSC.Chart('chartDiv', buildGraph(renderArrForGraph(updateType(response.votes))))
+    })
 
 }
+
 

@@ -1,28 +1,8 @@
 
-// const arrayReturned = [
-//   [  {
-//     start_date: '2020-09-11T00:00:00.000Z',
-//     start_time: '18:00:00',
-//     end_date: '2020-09-27T00:00:00.000Z',
-//     end_time: '19:00:00',
-//     y: 11 },
-//    {
-//     start_date: '2020-09-11T00:00:00.000Z',
-//     start_time: '08:00:00',
-//     end_date: '2020-09-27T00:00:00.000Z',
-//     end_time: '12:00:00',
-//     y: 12 },
-//    {
-//     start_date: '2021-10-01T00:00:00.000Z',
-//     start_time: '10:00:00',
-//     end_date: '2021-10-14T00:00:00.000Z',
-//     end_time: '14:00:00',
-//     y: 13 } ]
-//    ]
 
-// updates string date from date type to string type
 function updateType(arr) {
   let newArr = [];
+  console.log('updateT mr T that is--', arr)
   for (let index of arr) {
     newArr.push({
       start_date: new Date(index.start_date).toDateString(),
@@ -39,6 +19,7 @@ function updateType(arr) {
 
 // creates objects that can be read by the graph plugin
 function renderArrForGraph(arr) {
+  console.log('rafg--', arr)
   for (let index of arr) {
     index.start_date = index.start_date.slice(0, 10);
     index.start_time = index.start_time.slice(0, 5);
@@ -57,12 +38,15 @@ function renderArrForGraph(arr) {
 
 // creates the graph using the array worked above
 function buildGraph(arr) {
+
   console.log('arr before creating graph: ', arr)
   const arg2 = {
     type: 'horizontal column',
     series: [{ points: arr }]
   };
+  console.log('arg2', arg2)
   return arg2;
 }
 
-// JSC.Chart('chartDiv', buildGraph(renderArrForGraph(arrayReturned)));
+
+
