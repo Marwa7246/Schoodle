@@ -45,7 +45,13 @@ VALUES
 (3, 6, TRUE),
 (1, 7, FALSE),
 (2, 8, FALSE),
-(3, 9, FALSE);
+(3, 9, FALSE),
+(1, 2, TRUE),
+(1, 3, TRUE),
+(1, 5, TRUE),
+(2, 3, TRUE),
+(3, 2, TRUE),
+(3, 4, TRUE);
 
 
 

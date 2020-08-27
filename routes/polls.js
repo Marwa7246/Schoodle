@@ -228,14 +228,17 @@ router.put("/votes", (req, res) => {
 router.get('/votes/:url', (req, res) => {
   const countVote = function(url) {
     return db.query(`
-    SELECT time_slots.start_date, start_time, end_date, end_time, count(votes.choice) AS y
-    FROM votes
-    JOIN time_slots ON time_slot_id=time_slots.id
-    JOIN polls ON poll_id=polls.id
-    JOIN users ON user_id=users.id
-    WHERE polls.url=$1 AND choice=TRUE
-    GROUP BY time_slots.id, time_slot_id
-    ORDER BY time_slot_id;
+    SELECT time_slots.*, count(votes.choice) AS y
+      FROM votes
+      RIGHT JOIN time_slots ON time_slots.id=time_slot_id
+      WHERE choice=TRUE AND time_slots.id IN (
+        SELECT time_slots.id
+          FROM time_slots
+          JOIN polls ON polls.id=poll_id
+          WHERE polls.url=$1
+          )
+      GROUP BY time_slots.id
+      ORDER BY time_slots.id;
     `, [url])
     .then(data => {
       // console.log('responseLoadPoll: ', data.rows);
