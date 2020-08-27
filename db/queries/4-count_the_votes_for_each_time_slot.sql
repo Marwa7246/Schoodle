@@ -11,11 +11,11 @@ ORDER BY time_slot_id;
 SELECT time_slots.*, count(votes.choice)
 FROM votes
 RIGHT JOIN time_slots ON time_slots.id=time_slot_id
-WHERE choice=TRUE AND time_slots.id IN (
+WHERE time_slots.id IN (
   SELECT time_slots.id
 FROM time_slots
 JOIN polls ON polls.id=poll_id
-WHERE polls.url='123'
+WHERE polls.url='jvAZSXkFwjbAJIRdL4WgxM5VOBeSo4DH'
 )
 GROUP BY time_slots.id
 ORDER BY time_slots.id;
@@ -23,7 +23,7 @@ ORDER BY time_slots.id;
 SELECT time_slots.id
 FROM time_slots
 JOIN polls ON polls.id=poll_id
-WHERE polls.url='L4iEjdtA0UM6Nv7zJ4OEV3n3wcgh2NPA';
+WHERE polls.url='jvAZSXkFwjbAJIRdL4WgxM5VOBeSo4DH';
 
 select * from polls;
 
