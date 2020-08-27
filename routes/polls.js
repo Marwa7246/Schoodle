@@ -163,18 +163,28 @@ const valuesVoteArrays = MakeVoteArray(formData);
 ///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
 router.put("/votes", (req, res) => {
   let formData = req.body;
-console.log(req.body)
+  console.log(req.body)
   const updateUser = (formData) => {
-    let valuesUser =[formData.name, formData.email, formData.token];
+    let valuesUser =[formData.name.value, formData.email.value, formData.token];
     console.log('valuesUserUpdate: ', valuesUser)
     let query = ` UPDATE users SET name=$1, email=$2 WHERE token=$3 RETURNING *`;
     return db.query(query, valuesUser);
   }
 
-  const updateVote = (formData) => {
-    let valuesVote =[formData.choice, formData.token, formData.time_slot_id];
+  MakeVoteArrayForUpdate = function(obj1){
+    const arr =[];
+    for (const key in obj1.time_slots){
+      const singleRow= [obj1.time_slots[key].time_slot_id, true, obj1.token];
+      arr.push(singleRow);
+    //console.log(arr)
+    }
+    return arr
+  };
+  const valuesVoteArraysUpdate = MakeVoteArrayForUpdate(formData);
+
+  const updateVote = (valuesVote) => {
     console.log('valuesVoteUpdate: ', valuesVote)
-    let query = ` UPDATE votes SET choice=$1 FROM users WHERE user_id=users.id AND token=$2 AND time_slot_id=$3 RETURNING *`;
+    let query = ` UPDATE votes SET choice=$2 FROM users WHERE user_id=users.id AND token=$3 AND time_slot_id=$1 RETURNING *`;
     return db.query(query, valuesVote);
   }
 
@@ -182,10 +192,8 @@ console.log(req.body)
     .then(data => {
       console.log("data in update user: ", data.rows)
       })
-      updateVote(formData)
-      .then(data => {
-        console.log("data in update votes: ", data.rows)
-        res.send(data)})
+      Promise.all (valuesVoteArraysUpdate.map(row => updateVote(row).then(data=>data.rows)))
+      .then(data => res.send(data))
     .catch(e => {
       console.error(e);
       res.send(e)
@@ -198,7 +206,7 @@ console.log(req.body)
 router.get('/votes/:url', (req, res) => {
   const countVote = function(url) {
     return db.query(`
-    SELECT time_slots.id, count(votes.choice)
+    SELECT time_slots.id, time_slots.start_date, start_time, end_date, end_time, count(votes.choice) AS y
     FROM votes
     JOIN time_slots ON time_slot_id=time_slots.id
     JOIN polls ON poll_id=polls.id
@@ -211,6 +219,8 @@ router.get('/votes/:url', (req, res) => {
       //console.log('responseLoadPoll: ', data.rows);
       return data.rows});
   }
+
+
   //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
   countVote(urlVote)
