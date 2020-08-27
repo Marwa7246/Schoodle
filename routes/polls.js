@@ -133,7 +133,7 @@ router.post("/votes", (req, res) => {
   }
 
 
-  MakeVoteArray = function(obj1){
+  function MakeVoteArray(obj1){
     const arr =[];
     for (const key in obj1.time_slots){
       const singleRow= [obj1.time_slots[key].time_slot_id, true];
@@ -163,6 +163,7 @@ const valuesVoteArrays = MakeVoteArray(formData);
 router.put("/votes", (req, res) => {
   let formData = req.body;
   console.log(req.body)
+
   const updateUser = (formData) => {
     let valuesUser =[formData.name.value, formData.email.value, formData.token];
     console.log('valuesUserUpdate: ', valuesUser)
@@ -170,7 +171,7 @@ router.put("/votes", (req, res) => {
     return db.query(query, valuesUser);
   }
 
-  MakeVoteArrayForUpdate = function(obj1){
+  function MakeVoteArrayForUpdate(obj1){
     const arr =[];
     for (const key in obj1.time_slots){
       const singleRow= [obj1.time_slots[key].time_slot_id, true, obj1.token];
