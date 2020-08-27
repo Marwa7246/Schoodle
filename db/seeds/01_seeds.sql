@@ -11,7 +11,7 @@ INSERT INTO polls (owner_id, title, description, location, url, name, email) VAL
 
 INSERT INTO time_slots (poll_id, start_date, end_date, start_time, end_time) VALUES
 (1, '2020-09-11', '2020-09-26', '18:00', '19:00'),
-(1, '2020-09-11', '2020-09-26', '08:00', '12:00'),
+(1, '2020-09-11', '2020-09-27', '08:00', '12:00'),
 (1, '2021-10-01', '2021-10-14', '10:00', '14:00');
 
 INSERT INTO users (name, email, token)
