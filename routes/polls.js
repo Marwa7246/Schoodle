@@ -158,7 +158,7 @@ router.post("/votes", (req, res) => {
   function MakeVoteArray(obj1){
     const arr =[];
     for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].time_slot_id, true];
+      const singleRow= [obj1.time_slots[key].value, true];
       arr.push(singleRow);
     //console.log(arr)
     }
@@ -173,7 +173,9 @@ const valuesVoteArrays = MakeVoteArray(formData);
       const userId = data.rows[0].id;
       console.log('userId: ', userId)
       Promise.all (valuesVoteArrays.map(row => insertOneVote(row, userId).then(data=>data.rows)))
-      .then(data => res.send(data))
+      .then(data => {
+        console.log('NEW VALUES!!!!!!!!:',data)
+        res.send(data)})
     })
     .catch(e => {
       console.error(e);
@@ -196,7 +198,7 @@ router.put("/votes", (req, res) => {
   function MakeVoteArrayForUpdate(obj1){
     const arr =[];
     for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].time_slot_id, true, obj1.token];
+      const singleRow= [obj1.time_slots[key].value, true, obj1.token];
       arr.push(singleRow);
     //console.log(arr)
     }
