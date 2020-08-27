@@ -1,10 +1,3 @@
-/*
- * All routes for Widgets are defined here
- * Since this file is loaded in server.js into api/widgets,
- *   these routes are mounted onto /widgets
- * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
- */
-
 const express = require('express');
 const router  = express.Router();
 
@@ -89,7 +82,6 @@ module.exports = (db) => {
 
 
 /////////////////// 3- GET THE POLL DETAILS WHEN GOING TO THE PRE VOTE PAGE OR WHEN GOING TO THE VOTING PAGE
-<<<<<<< HEAD
 
   router.get('/:url', (req, res) => {
     const loadPoll = function(url) {
@@ -124,76 +116,51 @@ router.post("/votes", (req, res) => {
 
   }
 
+  MakeVotesObject = function(obj1) {
+    let obj2 = {}
+    for (const key in obj1) {
+      let x = obj1[key].name
+      let values = obj1[key].value
+      let id =obj1[key].time_slot_id;
+      if (!obj2[id]) {
+        obj2[id] ={}
+      }
+      obj2[id][x]= values
 
-  const insertOneVote = (arr, userId) => {
-      const valuesVote = [arr[0], userId, arr[1]];
-      console.log('valuesVote: ', valuesVote)
-
-=======
-
-  router.get('/:url', (req, res) => {
-    const loadPoll = function(url) {
-      return db.query(`
-      SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
-      .then(data => {
-        //console.log('responseLoadPoll: ', data.rows);
-        return data.rows});
     }
-    console.log('params=', req.params.url, typeof req.params.url)
-    const url2 = req.params.url;
-    loadPoll(url2)
-    .then(polls => res.send({polls}))
-    .catch(e => {
-      console.error(e);
-      res.send(e)
-    });
-  });
-
-
-///////////////////////// 4- ADD NEW VOTE////////////////////
-router.post("/votes", (req, res) => {
-  let formData = req.body;
-  console.log('formdataPOSTVOTE: ', formData)
-
-
-  const insertUser = (formData) => {
-    let valuesUser =[formData.name.value, formData.email.value, formData.token];
-    console.log('valuesUserInsert: ', valuesUser)
-    let query = ` INSERT INTO users (name, email, token) VALUES ($1, $2, $3) RETURNING *`;
-    return db.query(query, valuesUser);
-
+    return obj2
   }
 
+  const obj2 = MakeVotesObject(formData.time_slots)
 
-  const insertOneVote = (arr, userId) => {
-      const valuesVote = [arr[0], userId, arr[1]];
+
+
+  const insertOneVote = (row, userId) => {
+      const valuesVote = [row.time_slot_id, userId, row.choice];
       console.log('valuesVote: ', valuesVote)
 
->>>>>>> dbacf9bc8c416333dbbdcd1f05a0a152f9bec2de
       let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
       return db.query(query, valuesVote);
   }
 
-
-  MakeVoteArray = function(obj1){
-    const arr =[];
-    for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].time_slot_id, true];
-      arr.push(singleRow);
-    //console.log(arr)
-    }
-    return arr
-  };
-
-const valuesVoteArrays = MakeVoteArray(formData);
 
   insertUser(formData)
     .then(data => {
       console.log("data in insertVOTE: ", data.rows)
       const userId = data.rows[0].id;
       console.log('userId: ', userId)
-      Promise.all (valuesVoteArrays.map(row => insertOneVote(row, userId).then(data=>data.rows)))
-      .then(data => res.send(data))
+      for (const key in obj2) {
+        let row = obj2[key]
+        console.log('row: ', row)
+        insertOneVote(row, userId)
+        .then(data => {
+          console.log('votes at the end: ', data)
+          res.send(data)})
+        .catch(e => {
+          console.error(e);
+          res.send(e)
+        });
+      }
     })
     .catch(e => {
       console.error(e);

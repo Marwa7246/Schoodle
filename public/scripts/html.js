@@ -84,16 +84,11 @@ const preVotePage = `
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
 </div>
 <h1> These are the details from your bookie </h1>
-  <table>
-     <tr>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-      <td>INFORMATION </td>
-    </tr>
-  </table>
+  <div id="bookie-info">
+</div>
+<div id="bookie-time-slots">
+</div>
 
-  <p id="link-tag">localhost:8080://</p>
   <button id='delete-bookie' type='button' class=''>delete</button>
   <button id='copy-bookie' type='button' class=''>copy</button>
   </div>
@@ -138,7 +133,7 @@ const resultsPage = `
     />
   </div>
   <h1>The results so far!</h1>
-  <h1>If you wish to change your vote here is your code <a id="user-token">User Token</h1>
+  <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
 
   <form id="token-check" action="">
 <button type="submit" id="token-button">SUBMIT</button>

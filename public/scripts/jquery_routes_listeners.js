@@ -1,7 +1,27 @@
 const fakeTimes = [{name: "monday 2pm -3pm", time_slot_id: 1}, {name: "monday 2pm -3pm", time_slot_id: 3}, {name: "monday 2pm -3pm", time_slot_id: 2}]
 
+const urlQuery = window.location.search;
+
+const urlToVote= urlQuery.slice(1);
+
 
 $(document).ready(function () {
+
+  console.log("connected");
+
+  if (urlQuery) {
+    $('#html-container').empty()
+    postFormToVote()
+    // console.log(('urlstring after if statement: '+ urlQuery));
+    // const $url = $(`<h5 class="card-title">${urlQuery}</h5>`);
+    // $('.card-title').replaceWith($url);
+  } else {
+    $("#html-container").append(landingHTML);
+    $("#create-bookie").on("click", function () {
+    landingToForm();
+    })
+  }
+
 
   function deleteBookie(value) {
     console.log("in delete");
@@ -10,10 +30,9 @@ $(document).ready(function () {
     .catch((err) => console.log(err));
   }
 
-  console.log("connected");
 
-  $("#html-container").append(landingHTML);
-  $("#create-bookie").on("click", landingToForm);
+
+
 
   function landingToForm() {
     $("#create-bookie").off();
@@ -26,90 +45,93 @@ $(document).ready(function () {
 
     $("#form-submission").submit(function (event) {
       event.preventDefault();
+      const bookieObject = bookieObjectBuilder(event, '.form-control', '.time-slot')
       $.ajax({
         type: "POST",
         url: "/api/polls",
-        data: bookieObjectBuilder(event, '.form-control', '.time-slot'),
+        data: bookieObject,
         success: function (response) {
           console.log("The happy", response);
           $("#html-container").empty();
           $("#add-timeslot").off();
           $("#main-form-button").off();
           $("#create-bookie").off();
-          formToPostForm(response.rows[0].id, response.rows[0].title);
+
+          formToPostForm(response, bookieObject);
         },
       });
     });
   }
 
-  function formToPostForm(id, url) {
-    const deleteId = id
-    const copyURL = 'url'
-    $.ajax({ url: `/api/polls/${id}`, method: "GET" }).then((response) => {
-      console.log("req sent", response);
-      $("#html-container").append(`<h5> ${response.polls[0].name}</h5>
-      <h5> ${response.polls[0].description}</h5>
-      <p>${response[0].location}</p>`);
-    });
+  function formToPostForm(res, obj) {
+    const deleteId = res.rows[0].id
+    const copyText = 'http://localhost:8080/?' + obj.url;
+
+    loadPollToVote(obj.url, true)
+
     $("#html-container").append(preVotePage);
     $("#delete-bookie").on("click", function () {
-      console.log('id----', deleteId, 'url----', copyURL);
+      console.log('id----', deleteId, 'url----', copyText);
       deleteBookie(deleteId);
     });
     // still problems with the button
     $("#copy-bookie").click(function () {
-      copyToClipboard(copyURL);
+      copyToClipboard(copyText);
     });
     $("#link-tag").click(function (e) {
-      postFormToVote()
+      postFormToVote(obj)
     });
   }
 
-  function postFormToVote() {
+  function postFormToVote(obj) {
     $("#html-container").empty();
     $("#copy-bookie").off();
     $("#delete-bookie").off();
     $("#link-tag").off();
     $("#html-container").append(votesPage)
-    $("#time-slot-container").append(timeSlotBuilder(fakeTimes))
+    getUrlData(urlQuery)
 
 
-    //NEED TO CONFIRM WHEN PG ROUTE IS WRITTEN
+
+
     $("#vote-form").submit( function (event) {
+      const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       event.preventDefault();
       $.ajax({
         type: "POST",
-        url: "/api/votes",
-        data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
+        url: "/api/polls/votes",
+        data: voteData,
         success: function (response) {
           console.log(response)
           $("#html-container").empty();
-        voteToResult();
+        voteToResult(voteData);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           alert("Your vote didnt work try again");
-          voteToResult();
+          voteToResult(voteData);
         }
       })
     })
   }
 
-  function voteToResult() {
+  function voteToResult(voteData) {
 
     $("#html-container").empty();
     $("#vote-form").off();
     $("#html-container").append(resultsPage)
-    $("#vote-table-conatiner").append(voteTable(fakeTimes))
+    $('#user-token').append(voteData.token)
+    // append token in here using voteData.token
+    $("#vote-table-conatiner").append(getUrlData (urlToVote, true))
     $("#token-check").submit( function (event) {
       event.preventDefault()
       $('#revote-container').append(formPopOut)
-      $("#time-slot-container").append(timeSlotBuilder(fakeTimes))
+      $("#time-slot-container").append(getUrlData(urlToVote))
       $("#append-vote-button").off()
     })
     $("#append-vote-form").submit( function (event) {
       event.preventDefault();
       $.ajax({
-        type: "POST",
+        type: "PUT",
         url: "/api/polls/votes",
         data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
         success: function (response) {
