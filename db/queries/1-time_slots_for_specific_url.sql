@@ -1,3 +1,6 @@
-SELECT start_date, start_time, end_date, end_time FROM time_slots
-WHERE poll_id=1
+SELECT * FROM time_slots
+JOIN polls ON polls.id=poll_id
+WHERE polls.url='f3m2HKO5u9jtxuBrdY7N8n3s2fRc7nJH'
 ORDER BY start_date, start_time;
+
+select * from polls;
