@@ -40,5 +40,44 @@ module.exports = (db) => {
       });
   });
 
+
+
+
+  ///////////////////////////////2-GET A SPECIFIC POOL VOTES FOR THE STATISTICS PAGE///////////////////
+
+router.get('/:url', (req, res) => {
+  const countVoteUsers = function(url) {
+    return db.query(`
+    SELECT time_slots.id, users.name AS user_name
+    FROM time_slots
+    JOIN votes ON time_slots.id=time_slot_id
+    JOIN users ON users.id=user_id
+    JOIN polls ON polls.id=poll_id
+    WHERE url=$1 AND choice=TRUE
+    GROUP BY time_slots.id, user_name
+    ORDER BY time_slots.id
+    ;
+                       `, [url])
+    .then(data => {
+      console.log('users: ', data.rows);
+      return data.rows});
+  }
+
+
+  //console.log('params=', req.params.url, typeof req.params.url)
+  const urlVote = req.params.url;
+  countVoteUsers(urlVote)
+  .then(users => {
+    console.log(users);
+    res.send({users})})
+  .catch(e => {
+    console.error(e);
+    res.send(e)
+  });
+});
+
+
+
+
   return router;
 };
