@@ -23,7 +23,7 @@ console.log(object)
   <p>${object.polls[0].location}</p>
   <p>${object.polls[0].name}</p>
   <p>${object.polls[0].email}</p>
-  <p>${object.polls[0].date_created}</p>
+  <p>${object.polls[0].date_created.slice(0,10)}</p>
   <a id="complete-url" href = "http://localhost:8080/?${object.polls[0].url}"> http://localhost:8080/?${object.polls[0].url}</a>
    `;
 
@@ -38,10 +38,10 @@ function fetchTimeSlots(arr) {
   for (const element of arr.polls) {
      finalTimes +=
     `<h1> TIME SLOTS DETAILS</h1>
-    <h5>start_date: ${element.start_date}</h5>
-    <h5>end_date: ${element.end_date}</h5>
-    <h5>start_time: ${element.start_time}</h5>
-    <h5>end_time: ${element.end_time}</h5>
+    <h5>start_date: ${element.start_date.slice(0,10)}</h5>
+    <h5>end_date: ${element.end_date.slice(0,10)}</h5>
+    <h5>start_time: ${element.start_time.slice(0,8)}</h5>
+    <h5>end_time: ${element.end_time.slice(0,8)}</h5>
 
     `;
 

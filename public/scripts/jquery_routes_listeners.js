@@ -89,7 +89,7 @@ $(document).ready(function () {
     $("#delete-bookie").off();
     $("#link-tag").off();
     $("#html-container").append(votesPage)
-    getUrlData(urlQuery)
+    $('#time-slot-container').append(getUrlData(urlQuery))
 
 
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
     $("#html-container").append(resultsPage)
     $('#user-token').append(voteData.token)
     // append token in here using voteData.token
-    $("#vote-table-conatiner").append(getUrlData (urlToVote, true))
+    $("#vote-table-conatiner").append(voteTable(urlToVote))
     $("#token-check").submit( function (event) {
       event.preventDefault()
       $('#revote-container').append(formPopOut)
@@ -132,7 +132,7 @@ $(document).ready(function () {
       event.preventDefault();
       $.ajax({
         type: "PUT",
-        url: "/api/polls/votes",
+        url: "/api/votes",
         data: bookieObjectBuilder(event, ".vote-control", ".vote-choices"),
         success: function (response) {
 
@@ -156,3 +156,8 @@ $(document).ready(function () {
 
 
 });
+
+
+// $('#delete-owner').on('click', function() {
+//   deleteUser('15t5');
+// })
