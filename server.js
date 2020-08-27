@@ -41,7 +41,7 @@ const bookiesRoutes = require("./routes/bookies");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/api/users", usersRoutes(db));
+app.use("/users", usersRoutes(db));
 app.use("/api/widgets", widgetsRoutes(db));
 app.use("/api/polls", pollsRoutes(db));
 app.use("/bookies", bookiesRoutes(db));

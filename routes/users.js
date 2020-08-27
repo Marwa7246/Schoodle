@@ -13,11 +13,25 @@ const router  = express.Router();
 
 
 module.exports = (db) => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
+  // router.get("/", (req, res) => {
+  //   db.query(`SELECT * FROM users;`)
+  //     .then(data => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
+
+  router.delete("/:token", (req, res) => {
+    console.log("req.params.token: ",req.params.token)
+    let query = `DELETE FROM users WHERE token = $1`;
+    db.query(query, [req.params.token])
       .then(data => {
-        const users = data.rows;
-        res.json({ users });
+        res.json('ok');
       })
       .catch(err => {
         res
@@ -25,5 +39,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
   return router;
 };
