@@ -69,13 +69,13 @@ $(document).ready(function () {
     const urlToVote= urlQuery.slice(1);
     loadPollToVote(urlToVote)
 
-    const obj =   {  name: { name: 'name', value: 'nnnn' },
-    email: { name: 'email', value: '' },
+    const obj =   {  name: { name: 'name', value: 'Maria' },
+    email: { name: 'email', value: 'maria@gmail.com' },
     time_slots:
      { '1-choice': { name: 'choice', time_slot_id: '1' },
        '2-choice': { name: 'choice', time_slot_id: '2' },
        '3-choice': { name: 'choice', time_slot_id: '3' }},
-    token: 'dCMJ' }
+    token: '15t5' }
 
 
 
@@ -88,15 +88,15 @@ const obj2 =   {  name: { name: 'name', value: 'aaa' },
                   token: 'dCMJ' }
 
 
-    // $.ajax({
-    //   type: 'PUT',
-    //   url: '/api/polls/votes',
-    //   data: obj,
-    //   success: function(response) {
-    //     alert(response)
-    //   }
+    $.ajax({
+      type: 'PUT',
+      url: '/api/polls/votes',
+      data: obj,
+      success: function(response) {
+        alert(response)
+      }
 
-    // });
+    });
 
     // $.ajax({
     //   type: 'POST',
