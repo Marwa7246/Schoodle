@@ -55,14 +55,15 @@ $(document).ready(function () {
           $("#main-form-button").off();
           $("#create-bookie").off();
 
-          formToPostForm(response, bookieObject);
+          formToPostForm(response[0], bookieObject);
         },
       });
     });
   }
 
   function formToPostForm(res, obj) {
-    const deleteId = res[0].id
+    const deleteId = res[0].poll_id
+    console.log(res[0].poll_id)
     const copyText = 'http://localhost:8080/?' + obj.url;
 
     loadPollToVote(obj.url, true)
