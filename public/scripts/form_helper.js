@@ -63,9 +63,10 @@ function renderTable(objUsers) {
   $('#html-container').append( $(`<h2> VOTERS DETAILS</h2> `))
   for (const key in objUsers) {
     const $votesResults = $(`
-    <h5>time slot id: ${key}</h5>
-    <h5>name: ${objUsers[key].name}</h5>
-    `);
+    <tr>
+    <td>time slot id: ${key}<td>
+    <td>name: ${objUsers[key].name}<td>
+    </p></tr>`);
     $('#html-container').append( $votesResults)
   }
 
