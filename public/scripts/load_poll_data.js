@@ -33,12 +33,13 @@ console.log(object)
 
 
 function fetchTimeSlots(arr) {
+  $('#html-container').append($(`<h1> TIME SLOTS DETAILS</h1>`))
   for (const element of arr.polls) {
-    const $preVotePage = $(`<h1> TIME SLOTS DETAILS</h1>
-    <h5>start_date: ${element.start_date}</h5>
-    <h5>end_date: ${element.end_date}</h5>
-    <h5>start_time: ${element.start_time}</h5>
-    <h5>end_time: ${element.end_time}</h5>
+    const $preVotePage = $(`
+    <h5>start_date: ${element.start_date.slice(0,10)}</h5>
+    <h5>end_date: ${element.end_date.slice(0,10)}</h5>
+    <h5>start_time: ${element.start_time.slice(0,10)}</h5>
+    <h5>end_time: ${element.end_time.slice(0,10)}</h5>
     `);
     $('#html-container').append($preVotePage)
   }
