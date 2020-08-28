@@ -5,32 +5,32 @@ const formPage = `
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
 </div>
 
-<h2>ENTER YOUR DETAILS AND WE WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
+<h2>ENTER THE DETAILS FOR YOUR BOOKIE</h2>
     <form id="form-submission">
       <article class="form-content col-xs-12 col-lg-12">
           <div class="form-group">
             <h6>Full name</h6>
             <input type="text" class="form-control" name="name"
-              placeholder="Enter your name">
+              placeholder="Enter your name" required>
           </div>
           <div class="form-group">
             <h6>E-mail</h6>
-            <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email">
+            <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email" required>
           </div>
           <div class="form-group">
             <h6>Bookie title</h6>
             <input id="title" type="text" class="form-control" name="title"
-              placeholder="Add your bookie title">
+              placeholder="How are you going to call it?" required>
           </div>
           <div class="form-group">
             <h6>Bookie description</h6>
             <input id="description" type="text" class="form-control" name="description"
-              placeholder="Briefly describe the bookie you're planning">
+              placeholder="Briefly describe what you're planning">
           </div>
           <div class="form-group">
             <h6>Location</h6>
             <input id="location" type="text" class="form-control" name="location"
-              placeholder="Where is it going to happen?">
+              placeholder="Where is it going to happen?" required>
           </div>
         <div id="time-slot-container" class="col-xs-10 col-lg-10">
           <div class="d-flex justify-content-center time-elements">
@@ -78,7 +78,7 @@ const preVotePage = `
 <div class="justify-content-center">
   <img id="post-form-logo"
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
-<h1> These are the details from your bookie </h1>
+<h1> The details of your bookie: </h1>
   <div id="bookie-info">
 </div>
 <div id="bookie-time-slot-container">
@@ -105,7 +105,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
   />
 </div>
-<h1>Its Bookie Time!!!</h1>
+<h1>It's Bookie Time!!!</h1>
 
 
 
