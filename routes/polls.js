@@ -184,7 +184,7 @@ const valuesVoteArrays = MakeVoteArray(formData);
 })
 
 ///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
-router.put("/votes", (req, res) => {
+router.put("/votes:token", (req, res) => {
   let formData = req.body;
   console.log(req.body)
 

@@ -63,14 +63,16 @@ $.ajax({
   }
 
 function renderTable(objUsers) {
+  let colName = 1;
   console.log('MARIO',objUsers)
   for (const key in objUsers) {
     const $votesResults = $(`
-
-
-    <p>Choice ${key} Name: ${objUsers[key].name}</p>
-    `);
+    <tr>
+    <td>time slot  ${colName}<td>
+    <td>${objUsers[key].name}<td>
+    </tr>`);
     $('#vote-table-conatiner').append( $votesResults)
+    colName++
   }
 
 }
@@ -111,7 +113,7 @@ function graphData (url) {
     url: urlVote})
     .then((response) => {
       console.log("voting response: ", response.votes);
-      JSC.Chart('chart-container', buildGraph(renderArrForGraph(updateType(response.votes))))
+      JSC.Chart('#chart-container', buildGraph(renderArrForGraph(updateType(response.votes))))
     })
 
 }

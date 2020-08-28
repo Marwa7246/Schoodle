@@ -11,35 +11,35 @@ const formPage = `
           <div class="form-group">
             <h6>Full name</h6>
             <input type="text" class="form-control" name="name"
-              placeholder="Enter your name">
+              placeholder="Enter your name" required>
           </div>
           <div class="form-group">
             <h6>E-mail</h6>
-            <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email">
+            <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email" required>
           </div>
           <div class="form-group">
             <h6>Bookie title</h6>
             <input id="title" type="text" class="form-control" name="title"
-              placeholder="Add your bookie title">
+              placeholder="Add your bookie title" required>
           </div>
           <div class="form-group">
             <h6>Bookie description</h6>
             <input id="description" type="text" class="form-control" name="description"
-              placeholder="Briefly describe the bookie you're planning">
+              placeholder="Briefly describe the bookie you're planning" required>
           </div>
           <div class="form-group">
             <h6>Location</h6>
             <input id="location" type="text" class="form-control" name="location"
-              placeholder="Where is it going to happen?">
+              placeholder="Where is it going to happen?" required>
           </div>
         <div id="time-slot-container" class="col-xs-10 col-lg-10">
           <div class="d-flex justify-content-center time-elements">
             <span>Event starts:</span>
-            <input class="time-slot" type="date" name="start_date" />
-            <input class="time-slot" type="time" name="start_time" />
+            <input class="time-slot" type="date" name="start_date" >
+            <input class="time-slot" type="time" name="start_time" >
             <span>Event ends:</span>
-            <input class="time-slot" type="date" name="end_date" />
-            <input class="time-slot" type="time" name="end_time" />
+            <input class="time-slot" type="date" name="end_date" >
+            <input class="time-slot" type="time" name="end_time" >
 
           </div>
         </div>
@@ -114,8 +114,8 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
 
 <form id="vote-form" class="row col-xs-12 justify-content-center">
   <div>
-    <input placeholder="Your Name" type="text" class="vote-control" name="name" />
-    <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
+    <input placeholder="Your Name" type="text" class="vote-control" name="name" required/>
+    <input placeholder="Your Email" type="email" name="email" class="vote-control" required/>
     <button class="btn btn-info">VOTE</button>
     </div>
     <div class="time-slot-container">
@@ -140,18 +140,18 @@ const resultsPage = `
     />
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
-
-  <button type="button" id="token-button" class="btn btn-info">SUBMIT</button>
-  <div id>
+  <button type="submit" id="token-button" class="btn btn-info">CHANGE YOUR VOTE</button>
   <div id="revote-container">
+
   </div>
+
+  <div id="results-total-container>
 <div id="chart-container" class="row col-xs-12 justify-content-center">
 </div>
-<ul id="vote-table-conatiner">
-</ul>
-
-  <form id="append-vote-form" action="">
-  </form>
+<div>
+<table id="vote-table-conatiner">
+</table>
+</div>
   </div>
 </div>
 `;
@@ -159,16 +159,16 @@ const resultsPage = `
 
 const formPopOut = `
 <div id="form-pop-out">
-<input type="text" name="user-token" placeholder="Token">
-<input placeholder="Your Name" type="text" class="vote-control" name="name" />
-<input placeholder="Your Email" type="email" name="email" class="vote-control"/>
-
-
 <div class="time-slot-container">
-</div>
-<button id="re-vote-button" type="submit" class="btn btn-info">VOTE</button>
-</div>
+<form id="append-vote-form" action="submit">
+<input type="text" name="user-token" placeholder="Token" required>
+<input placeholder="Your Name" type="text" class="vote-control" name="name" required />
+<input placeholder="Your Email" type="email" name="email" class="vote-control"/ required>
+<button id="re-vote-button" class="btn btn-info">VOTE</button>
 <button id="delete-user" type="submit" class="btn btn-danger">DELETE YOUR VOTES</button>
+</form>
+</div>
+</div>
 `;
 {
   /* <div class="form-check-input" id="display-time-slot-container">

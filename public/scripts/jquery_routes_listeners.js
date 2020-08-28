@@ -125,14 +125,14 @@ $(document).ready(function () {
 
 
     $('[id*="jsc"]').remove()
-    $('#html-container').append(graphData(urlToVote))
-    $("#token-button").on('click', function (event) {
+    $('#chart-container').append(graphData(urlToVote))
+    $("#token-button").click( function (event) {
       event.preventDefault()
-      $("#token-button").off()
       $('#revote-container').append(formPopOut)
       $('#time-slot-container').append(getUrlData(urlQuery))
       $('#delete-user').on('click', function (){
         deleteUser(voteData.token)
+        $("#token-button").off()
       })
     })
     $("#append-vote-form").submit( function (event) {
@@ -140,7 +140,7 @@ $(document).ready(function () {
       const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       $.ajax({
         type: "PUT",
-        url: `/api/polls/votes/?${voteData.token}`,
+        url: `/api/votes/${voteData.token}`,
         data: revote,
         success: function (response) {
           event.preventDefault()

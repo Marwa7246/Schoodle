@@ -31,6 +31,7 @@ module.exports = (db) => {
     let query = `DELETE FROM users WHERE token = $1`;
     db.query(query, [req.params.token])
       .then(data => {
+        console.log("successful delete")
         res.json('ok');
       })
       .catch(err => {

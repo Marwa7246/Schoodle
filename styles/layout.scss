@@ -198,11 +198,13 @@ html, body {
   }
 
   #chart-container {
-    max-width: 40%;
+    align-content: center;
+    max-width: 100%;
+
   }
 
   [id*="jsc"] {
-    max-width: 30rem;
+    min-width: 80%;
 
 
   }
@@ -240,6 +242,8 @@ html, body {
   }
 
 
-  #chart-container {
-
+  #results-total-container {
+    display: grid !important;
+    align-content: center !important;
+    text-align: center !important;
   }
