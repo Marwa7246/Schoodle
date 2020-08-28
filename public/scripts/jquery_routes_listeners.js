@@ -97,9 +97,10 @@ $(document).ready(function () {
 
 
     $("#vote-form").submit( function (event) {
-      const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
+      const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices" )
       event.preventDefault();
-      $.ajax({
+
+        $.ajax({
         type: "POST",
         url: "/api/polls/votes",
         data: voteData,

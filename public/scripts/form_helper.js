@@ -21,11 +21,9 @@ let choiceNum = 0
 for (const t of times.polls) {
 
     timeSlots +=
-  `<div>
-  <span>Start Date - ${t.start_date.slice(0,10)}, End Date - ${t.end_date.slice(0,10)}, Start Time - ${t.start_time.slice(0,8)}, End Time - ${t.end_time.slice(0,8)}
-  <input class="vote-choices" type="checkbox" name="choice-${choiceNum += 1 }" value="${t.time_slot_id}"/>
-</span>
-</div>`
+  `<span>Start Date - ${t.start_date.slice(0,10)}, End Date - ${t.end_date.slice(0,10)}, Start Time - ${t.start_time.slice(0,8)}, End Time - ${t.end_time.slice(0,8)}
+  <input class="vote-choices" type="checkbox" name="choice-${choiceNum += 1 }" value="${t.id}"/>
+</span>`
 
 }
 return  timeSlots
