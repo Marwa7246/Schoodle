@@ -2,7 +2,7 @@
 
 function updateType(arr) {
   let newArr = [];
-  console.log('updateT mr T that is--', arr)
+
   for (let index of arr) {
     newArr.push({
       start_date: new Date(index.start_date).toDateString(),
@@ -12,14 +12,14 @@ function updateType(arr) {
       y: Number(index.y)
     });
   }
-  console.log('this is updateType output: ',newArr);
+
   return newArr;
 }
 
 
 // creates objects that can be read by the graph plugin
 function renderArrForGraph(arr) {
-  console.log('rafg--', arr)
+
   for (let index of arr) {
     index.start_date = index.start_date.slice(0, 10);
     index.start_time = index.start_time.slice(0, 5);

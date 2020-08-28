@@ -81,11 +81,15 @@ const preVotePage = `
 <h1> These are the details from your bookie </h1>
   <div id="bookie-info">
 </div>
+<div id="bookie-time-slot-container">
+<h3> TIME SLOTS DETAILS</h3>
 <div id="bookie-time-slots">
 </div>
-
-  <button id='delete-bookie' type='button' class=''>delete</button>
-  <button id='copy-bookie' type='button' class=''>copy</button>
+</div>
+<div id="button-container">
+  <button id='delete-bookie' type='button' class='btn btn-danger'>delete</button>
+  <button id='copy-bookie' type='button' class='btn btn-info'>copy</button>
+  </div>
   </div>
   `;
 
@@ -95,24 +99,29 @@ const preVotePage = `
 }
 
 const votesPage = `<div id="vote-page" class="justify-content-center">
-<div>
-  <img
-    style="margin-top: 10rem; min-width: 20rem;"
+<div class="column col-xs-12">
+  <img id="vote-logo"
+
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
   />
 </div>
 <h1>Its Bookie Time!!!</h1>
 
-<div class="d-flex>
-  <form id="vote-form" type="submit">
+
+
+
+
+
+<form id="vote-form" class="row col-xs-12 justify-content-center">
+  <div>
     <input placeholder="Your Name" type="text" class="vote-control" name="name" />
     <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
-
+    <button class="btn btn-info">VOTE</button>
+    </div>
     <div class="time-slot-container">
     </div>
-    <button type="button">VOTE</button>
-  </form>
-</div>
+  </form type="submit">
+
 
 <p>
   Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
@@ -124,20 +133,18 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
 `;
 
 const resultsPage = `
-<div id="results-page">
-  <div class="row col-xs-12">
+<div id="results-page" class="col-xs-12">
     <img
       style="margin-top: 10rem; min-width: 20rem;"
       src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
     />
-  </div>
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
 
   <button type="button" id="token-button">SUBMIT</button>
 
 
-<div id="chart-container>
+<div id="chart-container" class="row col-xs-12 justify-content-center">
 </div>
 
 
@@ -152,6 +159,8 @@ const resultsPage = `
   </form>
 </div>
 `;
+
+
 const formPopOut = `
 <div id="form-pop-out">
 <input type="text" name="user-token" placeholder="Token">

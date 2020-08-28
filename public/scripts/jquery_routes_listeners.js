@@ -12,9 +12,7 @@ $(document).ready(function () {
   if (urlQuery) {
     $('#html-container').empty()
     postFormToVote()
-    // console.log(('urlstring after if statement: '+ urlQuery));
-    // const $url = $(`<h5 class="card-title">${urlQuery}</h5>`);
-    // $('.card-title').replaceWith($url);
+
   } else {
     $("#html-container").append(landingHTML);
     $("#create-bookie").on("click", function () {
@@ -46,14 +44,12 @@ $(document).ready(function () {
     $("#form-submission").submit(function (event) {
       event.preventDefault();
       const bookieObject = bookieObjectBuilder(event, '.form-control', '.time-slot')
-      console.log(`this is bookieObject.time_slots`)
-      console.log(bookieObject.time_slots)
+
       $.ajax({
         type: "POST",
         url: "/api/polls",
         data: bookieObject,
         success: function (response) {
-          console.log("The happy", response);
           $("#html-container").empty();
           $("#add-timeslot").off();
           $("#main-form-button").off();
@@ -73,7 +69,6 @@ $(document).ready(function () {
 
     $("#html-container").append(preVotePage);
     $("#delete-bookie").on("click", function () {
-      console.log('id----', deleteId, 'url----', copyText);
       deleteBookie(deleteId);
     });
     // still problems with the button
@@ -91,21 +86,22 @@ $(document).ready(function () {
     $("#delete-bookie").off();
     $("#link-tag").off();
     $("#html-container").append(votesPage)
-    $('#time-slot-container').append(getUrlData(urlQuery))
+    const newObj = getUrlData(urlQuery)
+
 
 
 
 
     $("#vote-form").submit( function (event) {
-      const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices" )
       event.preventDefault();
+      console.log("in the ")
+      const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices" )
 
         $.ajax({
         type: "POST",
         url: "/api/polls/votes",
         data: voteData,
         success: function (response) {
-          // console.log(response)
           $("#html-container").empty();
         voteToResult(voteData);
         },
@@ -118,13 +114,14 @@ $(document).ready(function () {
   }
 
   function voteToResult(voteData) {
-    let iteration = "0"
+
     $("#html-container").empty();
     $("#vote-form").off();
-    $("#html-container").append(resultsPage)
+    $("#html-container").append(resultsPage, voteTable(urlToVote) )
+
     $('#user-token').append(voteData.token)
 
-    $("#vote-table-conatiner").append(voteTable(urlToVote))
+
 
     $('[id*="jsc"]').remove()
     $('#html-container').append(graphData(urlToVote))
@@ -134,7 +131,6 @@ $(document).ready(function () {
       $('#revote-container').append(formPopOut)
       $('#time-slot-container').append(getUrlData(urlQuery))
       $('#delete-user').on('click', function (){
-        console.log(voteData.token)
         deleteUser(voteData.token)
       })
     })
@@ -147,22 +143,19 @@ $(document).ready(function () {
         data: revote,
         success: function (response) {
           event.preventDefault()
-          console.log('put response',  response)
           $("#re-vote-form").off()
           $('#chart-container').empty();
 
-          console.log(iteration)
-          voteToResult(revote)
-          return false;
+
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function(errorThrown) {
 
-          console.log(errorThrown)
+
           alert("You re-vote didnt work try again");
+        }
 
-
-       }
     })
+      voteToResult(voteData)
     })
   }
 

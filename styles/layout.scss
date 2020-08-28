@@ -35,8 +35,9 @@ html, body {
   }
 
   #post-form-logo {
-    margin-top: 10rem;
-    min-width: 20rem;
+    margin-top: 8rem;
+    min-width: 15rem;
+    max-width: 15rem;
   }
 
   #form-logo {
@@ -96,10 +97,122 @@ html, body {
 
     button {
       margin-right: 5rem;
+      margin-bottom: 1rem;
     }
 
     // #time-slot-container {
     //   display: block;
     //   text-align: center;
     // }
+  }
+
+  #poll-details {
+    border: 1px solid gray;
+    border-radius: 1rem;
+    margin: 1rem;
+
+
+    a {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    max-width: 80%;
+    overflow-wrap: break-word;
+    }
+
+    h3 {
+      margin-top: 1.2rem;
+    }
+
+
+    h4 {
+      margin: 1rem;
+    }
+
+    h5 {
+      margin: 0.5rem
+    }
+  }
+
+  #bookie-time-slot-container {
+    border: 1px solid gray;
+    border-radius: 1rem;
+    margin: 1rem;
+
+    h3 {
+      margin-top: 1.2rem;
+    }
+  }
+
+  #button-container {
+    button{
+      margin-left: 1rem;
+      margin-right: 1rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      min-width: 8rem;
+    }
+  }
+
+  .poll-times {
+    margin: 1rem;
+
+  }
+
+  #bookie-time-slots {
+    display: inline-flex;
+  }
+
+  #post-form-logo {
+    margin-top: 1rem;;
+  }
+
+
+  #vote-form {
+    .vote-control {
+      min-width: 15rem;
+      max-width: 15rem;
+      line-height: 2.5rem;
+    }
+
+    button {
+      margin-top: 1rem;
+    }
+
+
+    .inline-votes {
+      display: block;
+    }
+
+  }
+
+  #time-slot-container {
+    display: inline-table;
+    align-content: center;
+  }
+
+  #vote-logo {
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+     min-width: 20rem;
+  }
+
+  #chart-container {
+    max-width: 40%;
+  }
+
+  [id*="jsc"] {
+    max-width: 30rem;
+
+
+  }
+
+  #results-page {
+    text-align: center;
+  align-content: center;
+
+
+      form {
+        display: inline;
+      }
   }
