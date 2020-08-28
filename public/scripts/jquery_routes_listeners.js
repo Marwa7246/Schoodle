@@ -55,14 +55,13 @@ $(document).ready(function () {
           $("#main-form-button").off();
           $("#create-bookie").off();
 
-          formToPostForm(response[0], bookieObject);
+          formToPostForm(response, bookieObject);
         },
       });
     });
   }
 
   function formToPostForm(res, obj) {
-
     const deleteId = res[0].id
     const copyText = 'http://localhost:8080/?' + obj.url;
 
@@ -136,11 +135,16 @@ $(document).ready(function () {
       })
     })
     $("#append-vote-form").submit( function (event) {
+      console.log(voteData.token)
       event.preventDefault();
       const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       $.ajax({
         type: "PUT",
+<<<<<<< HEAD
         url: `/api/votes/${voteData.token}`,
+=======
+        url: `/api/polls/votes/${voteData.token}`,
+>>>>>>> 43049bff99094f64d86e2361e9359150a03d8f21
         data: revote,
         success: function (response) {
           event.preventDefault()

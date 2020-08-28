@@ -29,12 +29,10 @@ module.exports = (db) => {
 ////////////////////////////2- ADD A NEW POLL FROM THE FORM////////////////////
   router.post("/", (req, res) => {
     let formData = req.body;
-    console.log('formData: ', req.body);
 
 
     const insertPoll = (formData) => {
       let valuesPoll =[formData.name.value, formData.email.value, formData.title.value, formData.description.value, formData.location.value, formData.url];
-      console.log('valuesPollInsert: ', valuesPoll)
       let query = ` INSERT INTO polls (name, email, title, description, location, url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
       return db.query(query, valuesPoll);
 
@@ -42,7 +40,6 @@ module.exports = (db) => {
 
     const insertOneTimeSlot = (row, pollId) => {
       const valuesTime = [...row , pollId];
-      console.log('valuesTime: ', valuesTime)
         let query = ` INSERT INTO time_slots (start_date, end_date, start_time, end_time, poll_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
         return db.query(query, valuesTime);
     }
@@ -77,7 +74,6 @@ module.exports = (db) => {
 
     const valuesTimeSlotsArrays = MakeTimeSlotArray(MakeTimeSlotsObject(formData));
 
-    console.log('MakeTimeSlotsObject: ', MakeTimeSlotsObject(formData))
 
     insertPoll(formData)
       .then(data => {
@@ -134,12 +130,10 @@ module.exports = (db) => {
 ///////////////////////// 4- ADD NEW VOTE////////////////////
 router.post("/votes", (req, res) => {
   let formData = req.body;
-  console.log('formdataPOSTVOTE: ', formData)
 
 
   const insertUser = (formData) => {
     let valuesUser =[formData.name.value, formData.email.value, formData.token];
-    console.log('valuesUserInsert: ', valuesUser)
     let query = ` INSERT INTO users (name, email, token) VALUES ($1, $2, $3) RETURNING *`;
     return db.query(query, valuesUser);
 
@@ -148,7 +142,6 @@ router.post("/votes", (req, res) => {
 
   const insertOneVote = (arr, userId) => {
       const valuesVote = [arr[0], userId, arr[1]];
-      console.log('valuesVote: ', valuesVote)
 
       let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
       return db.query(query, valuesVote);
@@ -169,12 +162,9 @@ const valuesVoteArrays = MakeVoteArray(formData);
 
   insertUser(formData)
     .then(data => {
-      console.log("data in insertVOTE: ", data.rows)
       const userId = data.rows[0].id;
-      console.log('userId: ', userId)
       Promise.all (valuesVoteArrays.map(row => insertOneVote(row, userId).then(data=>data.rows)))
       .then(data => {
-        console.log('NEW VALUES!!!!!!!!:',data)
         res.send(data)})
     })
     .catch(e => {
@@ -184,12 +174,16 @@ const valuesVoteArrays = MakeVoteArray(formData);
 })
 
 ///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
+<<<<<<< HEAD
 router.put("/votes:token", (req, res) => {
+=======
+router.put("/votes/:token", (req, res) => {
+>>>>>>> 43049bff99094f64d86e2361e9359150a03d8f21
   let formData = req.body;
-  console.log(req.body)
+  console.log('HELLLOOOOOO', req.params.token)
 
   const updateUser = (formData) => {
-    let valuesUser =[formData.name.value, formData.email.value, formData.token];
+    let valuesUser =[formData.name.value, formData.email.value, req.params.token];
     console.log('valuesUserUpdate: ', valuesUser)
     let query = ` UPDATE users SET name=$1, email=$2 WHERE token=$3 RETURNING *`;
     return db.query(query, valuesUser);
@@ -198,7 +192,7 @@ router.put("/votes:token", (req, res) => {
   function MakeVoteArrayForUpdate(obj1){
     const arr =[];
     for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].value, true, obj1.token];
+      const singleRow= [obj1.time_slots[key].value, true];
       arr.push(singleRow);
     //console.log(arr)
     }
@@ -206,17 +200,15 @@ router.put("/votes:token", (req, res) => {
   };
   const valuesVoteArraysUpdate = MakeVoteArrayForUpdate(formData);
 
-  const updateVote = (valuesVote) => {
-    console.log('valuesVoteUpdate: ', valuesVote)
+  const updateVote = (valuesVote, token) => {
     let query = ` UPDATE votes SET choice=$2 FROM users WHERE user_id=users.id AND token=$3 AND time_slot_id=$1 RETURNING *`;
-    return db.query(query, valuesVote);
+    return db.query(query, [valuesVote[0], valuesVote[1], token]);
   }
 
   updateUser(formData)
     .then(data => {
-      console.log("data in update user: ", data.rows)
       })
-      Promise.all (valuesVoteArraysUpdate.map(row => updateVote(row).then(data=>data.rows)))
+      Promise.all (valuesVoteArraysUpdate.map(row => updateVote(row, req.params.token).then(data=>data.rows)))
       .then(data => res.send(data))
     .catch(e => {
       console.error(e);
@@ -250,10 +242,10 @@ router.get('/votes/:url', (req, res) => {
 
   //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
-console.log(req.params.url)
+//console.log(req.params.url)
   countVote(urlVote)
   .then(votes => {
-    console.log("this is votes: ", votes);
+    //console.log("this is votes: ", votes);
     res.send({votes});
   })
   .catch(e => {

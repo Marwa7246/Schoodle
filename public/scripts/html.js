@@ -124,10 +124,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
 
 
 <p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
-  placeat obcaecati quos nam fugit minus aliquam recusandae quibusdam illo, at
-  facere repudiandae ab provident dignissimos ipsum temporibus, optio laborum
-  consectetur.
+  Please enter your name and email, along with your availabilities.
 </p>
 </div>
 `;
@@ -140,7 +137,14 @@ const resultsPage = `
     />
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
+<<<<<<< HEAD
   <button type="submit" id="token-button" class="btn btn-info">CHANGE YOUR VOTE</button>
+=======
+
+  <button type="button" id="token-button" class="btn btn-info">SUBMIT</button>
+  <div id>
+  <form id="append-vote-form" action="">
+>>>>>>> 43049bff99094f64d86e2361e9359150a03d8f21
   <div id="revote-container">
 
   </div>
@@ -148,10 +152,18 @@ const resultsPage = `
   <div id="results-total-container>
 <div id="chart-container" class="row col-xs-12 justify-content-center">
 </div>
+<<<<<<< HEAD
 <div>
 <table id="vote-table-conatiner">
 </table>
 </div>
+=======
+<ul id="vote-table-conatiner">
+</ul>
+
+
+  </form>
+>>>>>>> 43049bff99094f64d86e2361e9359150a03d8f21
   </div>
 </div>
 `;
