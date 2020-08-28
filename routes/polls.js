@@ -8,6 +8,18 @@
 const express = require('express');
 const router  = express.Router();
 
+
+
+////////////TRANSFORM DATA OBJECT INTO ARRAY TO USE IN THE QUERIES////////////////////
+function MakeVoteArray(obj1){
+const arr =[];
+for (const key in obj1.time_slots){
+  const singleRow= [obj1.time_slots[key].value, true];
+  arr.push(singleRow);
+}
+return arr
+};
+
 module.exports = (db) => {
 
   ////////////////////////////1- DELETE A POLL ////////////////////
@@ -65,9 +77,7 @@ module.exports = (db) => {
         let valuesTime =[]
         valuesTime = [obj2[key].start_date, obj2[key].end_date, obj2[key].start_time, obj2[key].end_time]
         arr.push(valuesTime)
-         //insertOneTimeSlot(valuesTime)
       }
-      //console.log(arr)
       return arr
     }
 
@@ -77,25 +87,12 @@ module.exports = (db) => {
 
     insertPoll(formData)
       .then(data => {
-        //console.log("dataPoll in insert: ", data.rows)
         const pollId = data.rows[0].id;
         Promise.all (valuesTimeSlotsArrays.map(row => insertOneTimeSlot(row, pollId).then(data=>data.rows)))
       .then(data => {
-        console.log("datatime in insert: ", data.rows)
         res.send(data)})
 
-        // for (const key in obj2) {
-        //   let row = obj2[key]
-        //   insertOneTimeSlot(row, pollId)
-        //   .then(data => {
-        //     console.log(data.rows)
-        //     //res.send(data)
-        //   })
-        //     .catch(e => {
-        //       console.error(e);
-        //       res.send(e)
-        //     });
-        // }
+
       })
       .catch(e => {
         console.error(e);
@@ -113,10 +110,8 @@ module.exports = (db) => {
       return db.query(`
       SELECT polls.*, time_slots.* FROM polls JOIN time_slots ON polls.id=poll_id WHERE url=$1 `, [url])
       .then(data => {
-        //console.log('responseLoadPoll: ', data.rows);
         return data.rows});
     }
-    console.log('params=', req.params.url, typeof req.params.url)
     const url2 = req.params.url;
     loadPoll(url2)
     .then(polls => res.send({polls}))
@@ -141,22 +136,12 @@ router.post("/votes", (req, res) => {
 
 
   const insertOneVote = (arr, userId) => {
-      const valuesVote = [arr[0], userId, arr[1]];
+    const valuesVote = [arr[0], userId, arr[1]];
 
-      let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
-      return db.query(query, valuesVote);
+    let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
+    return db.query(query, valuesVote);
   }
 
-
-  function MakeVoteArray(obj1){
-    const arr =[];
-    for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].value, true];
-      arr.push(singleRow);
-    //console.log(arr)
-    }
-    return arr
-  };
 
 const valuesVoteArrays = MakeVoteArray(formData);
 
@@ -173,45 +158,59 @@ const valuesVoteArrays = MakeVoteArray(formData);
     });
 })
 
-///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
+//////////////////////////////////5- UPDATE A VOTE//////////////////////////////////////////////
 router.put("/votes/:token", (req, res) => {
   let formData = req.body;
-  console.log('HELLLOOOOOO', req.params.token)
 
   const updateUser = (formData) => {
     let valuesUser =[formData.name.value, formData.email.value, req.params.token];
-    console.log('valuesUserUpdate: ', valuesUser)
     let query = ` UPDATE users SET name=$1, email=$2 WHERE token=$3 RETURNING *`;
     return db.query(query, valuesUser);
   }
+  const insertOneVote = (arr, userId) => {
+    const valuesVote = [arr[0], userId, arr[1]];
 
-  function MakeVoteArrayForUpdate(obj1){
-    const arr =[];
-    for (const key in obj1.time_slots){
-      const singleRow= [obj1.time_slots[key].value, true];
-      arr.push(singleRow);
-    //console.log(arr)
-    }
-    return arr
-  };
-  const valuesVoteArraysUpdate = MakeVoteArrayForUpdate(formData);
-
-  const updateVote = (valuesVote, token) => {
-    let query = ` UPDATE votes SET choice=$2 FROM users WHERE user_id=users.id AND token=$3 AND time_slot_id=$1 RETURNING *`;
-    return db.query(query, [valuesVote[0], valuesVote[1], token]);
+    let query = ` INSERT INTO votes (time_slot_id, user_id, choice) VALUES ($1, $2, $3) RETURNING *`;
+    return db.query(query, valuesVote);
   }
+
+
+
+const valuesVoteArrays = MakeVoteArray(formData);
+
+
+
+
+  const deleteVotes =  (token) => {
+    let query = `DELETE FROM votes WHERE user_id IN (SELECT users.id FROM users WHERE token = $1) `;
+    return db.query(query, [token])
+  }
+
+  const getUserId =  (token) => {
+    let query = ` SELECT users.id FROM users WHERE token = $1 `;
+    return db.query(query, [token])
+  }
+
 
   updateUser(formData)
     .then(data => {
       })
-      Promise.all (valuesVoteArraysUpdate.map(row => updateVote(row, req.params.token).then(data=>data.rows)))
-      .then(data => res.send(data))
+      deleteVotes(req.params.token)
+      .then(data => {
+        console.log('deleting ended')
+        res.json('ok');
+      })
+      getUserId(req.params.token)
+      .then(data => {
+      Promise.all (valuesVoteArrays.map(row => insertOneVote(row, data.rows[0].id).then(data=>data.rows)))
+      .then(data => {
+        })
+      })
     .catch(e => {
       console.error(e);
       res.send(e)
     });
 })
-
 
 ///////////////////////////////6-GET A SPECIFIC POOL VOTES FOR THE STATISTICS PAGE///////////////////
 
@@ -231,17 +230,13 @@ router.get('/votes/:url', (req, res) => {
       ORDER BY time_slots.id;
     `, [url])
     .then(data => {
-      // console.log('responseLoadPoll: ', data.rows);
       return data.rows});
   }
 
 
-  //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
-//console.log(req.params.url)
   countVote(urlVote)
   .then(votes => {
-    //console.log("this is votes: ", votes);
     res.send({votes});
   })
   .catch(e => {
