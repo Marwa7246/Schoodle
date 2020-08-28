@@ -46,6 +46,8 @@ $(document).ready(function () {
     $("#form-submission").submit(function (event) {
       event.preventDefault();
       const bookieObject = bookieObjectBuilder(event, '.form-control', '.time-slot')
+      console.log(`this is bookieObject.time_slots`)
+      console.log(bookieObject.time_slots)
       $.ajax({
         type: "POST",
         url: "/api/polls",

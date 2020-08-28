@@ -1,59 +1,58 @@
 const formPage = `
-<section id='bookie-form-page' style="justify-content: center;">
-    <h2 style="text-align: center; margin-top: 1rem; margin-right: 6rem; margin-left: 6rem;">ENTER YOUR DETAILS AND WE
-      WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
+<section id='bookie-form-page' class="d-flex-column justify-content-around">
+<div class="d-flex-column justify-content-around" id="form-logo">
+  <img
+    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
+</div>
+
+<h2>ENTER YOUR DETAILS AND WE WILL PROVIDE YOU WITH A LINK FOR YOUR BOOKIE POLL</h2>
     <form id="form-submission">
-      <article class="form-content">
+      <article class="form-content col-xs-12 col-lg-12">
           <div class="form-group">
-            <label for="InputName">Full name</label>
+            <h6>Full name</h6>
             <input type="text" class="form-control" name="name"
               placeholder="Enter your name">
           </div>
           <div class="form-group">
-            <label for="InputEmail">E-mail</label>
+            <h6>E-mail</h6>
             <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email">
           </div>
           <div class="form-group">
-            <label for="InputTitle">Bookie title</label>
+            <h6>Bookie title</h6>
             <input id="title" type="text" class="form-control" name="title"
               placeholder="Add your bookie title">
           </div>
           <div class="form-group">
-            <label for="InputDesc">Bookie description</label>
+            <h6>Bookie description</h6>
             <input id="description" type="text" class="form-control" name="description"
               placeholder="Briefly describe the bookie you're planning">
           </div>
           <div class="form-group">
-            <label for="InputLocation">Location</label>
+            <h6>Location</h6>
             <input id="location" type="text" class="form-control" name="location"
               placeholder="Where is it going to happen?">
           </div>
-      </article>
-      <article id="time-slot-container">
-        <div class="d-flex justify-content-center">
-          Event starts:
-          <input class="time-slot" type="date" name="start_date" />
-          <span>
-          </span>
-          <input class="time-slot" type="time" name="start_time" />
-          <span>
-          </span>
-          Event ends:
-          <input class="time-slot" type="date" name="end_date" />
-          <span>
-          </span>
-          <input class="time-slot" type="time" name="end_time" />
-          <span>
-          </span>
-          <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
+        <div id="time-slot-container" class="col-xs-10 col-lg-10">
+          <div class="d-flex justify-content-center time-elements">
+            <span>Event starts:</span>
+            <input class="time-slot" type="date" name="start_date" />
+            <input class="time-slot" type="time" name="start_time" />
+            <span>Event ends:</span>
+            <input class="time-slot" type="date" name="end_date" />
+            <input class="time-slot" type="time" name="end_time" />
+
+          </div>
         </div>
-      </article>
-      <div class="d-flex justify-content-center">
+      <div>
+      <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
       <button id="main-form-button" type="submit" class="btn btn-primary">Submit</button>
       </div>
+      </article>
       </form>
   </section>
 `;
+
+
 
 const landingHTML = `<div class="grid d-flex justify-content-center">
 <div class='column'>
@@ -70,17 +69,15 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
   <button id="create-bookie" style="margin-top: 2rem; background: none; border: none;" type="" name="make-bookie"
     value="">
     <img
-      src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598058350" />
+      src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/809/3576559809_ced2e008-9de3-42c9-9468-a0d63ecbb98a.png?cb=1598560144" />
   </button>
 </div>
 </div>`;
 
 const preVotePage = `
 <div class="justify-content-center">
-<div class="row col-xs-12">
-  <img style="margin-top: 10rem; min-width: 20rem;"
+  <img id="post-form-logo"
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
-</div>
 <h1> These are the details from your bookie </h1>
   <div id="bookie-info">
 </div>
@@ -98,22 +95,22 @@ const preVotePage = `
 }
 
 const votesPage = `<div id="vote-page" class="justify-content-center">
-<div class="row col-xs-12">
+<div>
   <img
     style="margin-top: 10rem; min-width: 20rem;"
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
   />
 </div>
 <h1>Its Bookie Time!!!</h1>
-<h1>bookie.description</h1>
-<div>
-  <form id="vote-form">
+
+<div class="d-flex>
+  <form id="vote-form" type="submit">
     <input placeholder="Your Name" type="text" class="vote-control" name="name" />
     <input placeholder="Your Email" type="email" name="email" class="vote-control"/>
 
     <div class="time-slot-container">
     </div>
-    <button type="submit">VOTE</button>
+    <button type="button">VOTE</button>
   </form>
 </div>
 

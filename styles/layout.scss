@@ -1,21 +1,55 @@
 // See: https://sass-lang.com/
 
-body {
+html {
+  background-color:  rgb(241, 199, 183);
+  height: 100%;
+  margin: auto;
+  width: 100%;
+}
 
-  padding-left: 2rem;
-  padding-right: 2rem;
-  padding-bottom: 4rem;
-  background-color: #EEE;
+html, body {
+  margin: 0;
+  height: 100%;
+  margin: 1rem;
+}
 
-  h1, h2, h3, p {
+#html-container {
+    min-height: 100%;
+    height: 100%;
+
+  display: block;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color:  rgb(241, 199, 183);
+  text-align: center;
+  align-content: center;
+
+  padding: 2rem;
+
+}
+
+  h1, h2, h3, h4, h5, h6, p {
   color: #244751;
+
   }
 
-  .form-content {
+  #post-form-logo {
+    margin-top: 10rem;
+    min-width: 20rem;
+  }
 
-    margin: auto;
-    width: 40rem;
+  #form-logo {
+    margin-bottom: 2rem;
+  }
 
+  .time-elements {
+    flex-wrap: wrap;
+  }
+
+  #create-bookie > img {
+    max-height: 10rem;
+    margin-bottom: 3rem;
   }
 
   article > button {
@@ -24,4 +58,48 @@ body {
 
   }
 
-}
+  form {
+    padding-left: 3rem;
+    display: flex;
+
+    h2 {
+
+      text-align: center;
+    }
+
+    h6 {
+      margin-left: 2 rem;
+      text-align: left;
+      font-weight: 300;
+    }
+
+    label {
+      padding-left: 10 rem;
+    }
+
+    input {
+      line-height: 1.75rem;
+      border-radius: 5px;
+      // justify-content:center;
+      border: none;
+      margin: 0.5rem;
+      text-align: center;
+      max-width: 90%;
+
+    }
+
+    span {
+      margin-top: 0.7rem;
+      // margin-left: 0.5rem;
+      line-height: 1rem;
+    }
+
+    button {
+      margin-right: 5rem;
+    }
+
+    // #time-slot-container {
+    //   display: block;
+    //   text-align: center;
+    // }
+  }
