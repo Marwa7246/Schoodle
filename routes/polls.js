@@ -185,12 +185,12 @@ const valuesVoteArrays = MakeVoteArray(formData);
 })
 
 ///////////////////////////5- UPDATE A VOTE WITH TOKEN////////////////////////
-router.put("/votes", (req, res) => {
+router.put("/votes/:token", (req, res) => {
   let formData = req.body;
-  console.log(req.body)
+  console.log('token', req.param)
 
   const updateUser = (formData) => {
-    let valuesUser =[formData.name.value, formData.email.value, formData.token];
+    let valuesUser =[formData.name.value, formData.email.value, req.param.token];
     console.log('valuesUserUpdate: ', valuesUser)
     let query = ` UPDATE users SET name=$1, email=$2 WHERE token=$3 RETURNING *`;
     return db.query(query, valuesUser);

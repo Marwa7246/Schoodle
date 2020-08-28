@@ -137,12 +137,13 @@ $(document).ready(function () {
         deleteUser(voteData.token)
       })
     })
-    $("#append-vote-form").submit( function (event) {
+    $("#form-pop-out").submit( function (event) {
+      console.log(voteData.token)
       event.preventDefault();
       const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       $.ajax({
         type: "PUT",
-        url: `/api/polls/votes/?${voteData.token}`,
+        url: `/api/polls/votes/${voteData.token}`,
         data: revote,
         success: function (response) {
           event.preventDefault()
