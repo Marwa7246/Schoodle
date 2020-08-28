@@ -34,9 +34,8 @@ console.log(object)
 }
 
 
-
 function fetchTimeSlots(arr) {
-  let finalTimes = ""
+  $('#html-container').append($(`<h1> TIME SLOTS DETAILS</h1>`))
   for (const element of arr.polls) {
      finalTimes +=
 

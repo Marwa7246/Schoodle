@@ -23,13 +23,27 @@
 
 
 
+    function Usersobj(objUsers) {
+      let obj = [];
+      for (const element of objUsers.users) {
+        let x=element.id
+        if (!obj[x]){
+          obj[x] ={}
+        }
+        if (!obj[x].name) obj[x].name=[];
+        obj[x].name.push(element.user_name)
+      }
+        console.log('x:', obj)
+      return obj
+    }
 
-    function fetchUsersVotes(x) {
+
+    function fetchUsersVotes(objUsers) {
       $('#html-container').append( $(`<h2> VOTERS DETAILS</h2> `))
-      for (const key in x) {
+      for (const key in objUsers) {
         const $preVotePage = $(`
         <h5>time slot id: ${key}</h5>
-        <h5>name: ${x[key].name}</h5>
+        <h5>name: ${objUsers[key].name}</h5>
         `);
         $('#html-container').append( $preVotePage)
       }
@@ -58,20 +72,6 @@
         `);
         $('#html-container').append( $preVotePage)
       }
-    }
-
-    function Usersobj(objUsers) {
-      let obj = [];
-      for (const element of objUsers.users) {
-        let x=element.id
-        if (!obj[x]){
-          obj[x] ={}
-        }
-        if (!obj[x].name)        obj[x].name=[];
-        obj[x].name.push(element.user_name)
-      }
-        console.log('x:', obj)
-      return obj
     }
 
 
