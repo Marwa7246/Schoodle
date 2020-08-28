@@ -1,0 +1,58 @@
+form {
+  padding-left: 3rem;
+  display: flex;
+
+  h2 {
+
+    text-align: center;
+  }
+
+  h6 {
+    margin-left: 2 rem;
+    text-align: left;
+    font-weight: 300;
+  }
+
+  label {
+    padding-left: 10 rem;
+  }
+
+  input {
+    line-height: 1.75rem;
+    border-radius: 5px;
+    // justify-content:center;
+    border: none;
+    margin: 0.5rem;
+    text-align: center;
+    max-width: 90%;
+
+  }
+
+  span {
+    margin-top: 0.7rem;
+    // margin-left: 0.5rem;
+    line-height: 1rem;
+  }
+
+  button {
+    margin-right: 5rem;
+    margin-bottom: 1rem;
+  }
+
+  // #time-slot-container {
+  //   display: block;
+  //   text-align: center;
+  // }
+}
+
+article > button {
+
+  margin-left: 1rem;
+
+}
+
+
+
+.time-elements {
+  flex-wrap: wrap;
+}

@@ -1,0 +1,60 @@
+
+#poll-details {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  margin: 1rem;
+
+
+  a {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  max-width: 80%;
+  overflow-wrap: break-word;
+  }
+
+  h3 {
+    margin-top: 1.2rem;
+  }
+
+
+  h4 {
+    margin: 1rem;
+  }
+
+  h5 {
+    margin: 0.5rem
+  }
+}
+
+
+#bookie-time-slot-container {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  margin: 1rem;
+
+  h3 {
+    margin-top: 1.2rem;
+  }
+}
+
+
+#post-form-logo {
+  margin-top: 8rem;
+  min-width: 15rem;
+  max-width: 15rem;
+}
+
+#button-container {
+  button{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    min-width: 8rem;
+  }
+}
+
+#post-form-logo {
+  margin-top: 1rem;;
+}
