@@ -25,7 +25,7 @@ const formPage = `
           <div class="form-group">
             <h6>Bookie description</h6>
             <input id="description" type="text" class="form-control" name="description"
-              placeholder="Briefly describe what you're planning">
+              placeholder="Briefly describe what you're planning" required>
           </div>
           <div class="form-group">
             <h6>Location</h6>
