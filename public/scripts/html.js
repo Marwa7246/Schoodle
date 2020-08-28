@@ -135,28 +135,24 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
 const resultsPage = `
 <div id="results-page" class="col-xs-12">
     <img
-      style="margin-top: 10rem; min-width: 20rem;"
+      id="results-logo";"
       src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
     />
   <h1>The results so far!</h1>
   <h1>If you wish to change your vote here is your code <a id="user-token"></h1>
 
-  <button type="button" id="token-button">SUBMIT</button>
-
-
-<div id="chart-container" class="row col-xs-12 justify-content-center">
-</div>
-
-
-
-  <table id="vote-table-conatiner">
-
-  </table>
-
-  <form id="append-vote-form" action="">
+  <button type="button" id="token-button" class="btn btn-info">SUBMIT</button>
+  <div id>
   <div id="revote-container">
   </div>
+<div id="chart-container" class="row col-xs-12 justify-content-center">
+</div>
+<ul id="vote-table-conatiner">
+</ul>
+
+  <form id="append-vote-form" action="">
   </form>
+  </div>
 </div>
 `;
 
@@ -170,9 +166,9 @@ const formPopOut = `
 
 <div class="time-slot-container">
 </div>
-<button id="re-vote-button" type="submit">VOTE</button>
+<button id="re-vote-button" type="submit" class="btn btn-info">VOTE</button>
 </div>
-<button id="delete-user" type="submit">DELETE YOUR VOTES</button>
+<button id="delete-user" type="submit" class="btn btn-danger">DELETE YOUR VOTES</button>
 `;
 {
   /* <div class="form-check-input" id="display-time-slot-container">

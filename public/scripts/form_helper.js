@@ -56,41 +56,21 @@ $.ajax({
   type: 'GET',
   url: urlVoteUsers})
   .then((response) => {
-<<<<<<< HEAD
-    console.log('vote-users_______________', response)
-    renderTable(response)
 
-=======
-    console.log('vote-users', response)
     renderTable(Usersobj(response))
->>>>>>> 9d62d8d3159055735e3ae00e8fea82545e6ec85c
   })
 
   }
-<<<<<<< HEAD
-  function renderTable(votes) {
-    let votesResults = ''
-  console.log('vote results____________________________', votes)
-
-  for (const vote in votes.users) {
-
-    votesResults +=
-    `<tr>
-    <td>${vote.user_name}Happy</td>
-    </tr>`
-=======
-
->>>>>>> 9d62d8d3159055735e3ae00e8fea82545e6ec85c
 
 function renderTable(objUsers) {
-  $('#html-container').append( $(`<h2> VOTERS DETAILS</h2> `))
+  console.log('MARIO',objUsers)
   for (const key in objUsers) {
     const $votesResults = $(`
-    <tr>
-    <td>time slot id: ${key}<td>
-    <td>name: ${objUsers[key].name}<td>
-    </p></tr>`);
-    $('#html-container').append( $votesResults)
+
+
+    <p>Choice ${key} Name: ${objUsers[key].name}</p>
+    `);
+    $('#vote-table-conatiner').append( $votesResults)
   }
 
 }
@@ -131,7 +111,7 @@ function graphData (url) {
     url: urlVote})
     .then((response) => {
       console.log("voting response: ", response.votes);
-      JSC.Chart('chartDiv', buildGraph(renderArrForGraph(updateType(response.votes))))
+      JSC.Chart('chart-container', buildGraph(renderArrForGraph(updateType(response.votes))))
     })
 
 }

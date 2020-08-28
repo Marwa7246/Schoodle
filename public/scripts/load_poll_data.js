@@ -35,12 +35,11 @@ console.log(object)
 
 
 function fetchTimeSlots(arr) {
-  $('#html-container').append($(`<h1> TIME SLOTS DETAILS</h1>`))
+  let finalTimes;
   for (const element of arr.polls) {
      finalTimes +=
 
     `
-
     <div class="poll-times">
     <h5>start_date: ${element.start_date.slice(0,10)}</h5>
     <h5>end_date: ${element.end_date.slice(0,10)}</h5>
@@ -50,5 +49,5 @@ function fetchTimeSlots(arr) {
     `;
 
   }
-  $('#bookie-time-slots').append( finalTimes)
+  $('#bookie-time-slots').append(finalTimes)
 }
