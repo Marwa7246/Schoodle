@@ -1,12 +1,10 @@
-
-
 function updateType(arr) {
   let newArr = [];
   console.log('updateT mr T that is--', arr)
   for (let index of arr) {
     newArr.push({
-      start_date: new Date(index.start_date).toDateString(),
-      end_date: new Date(index.end_date).toDateString(),
+      start_date: new Date(index.start_date).toLocaleDateString(),
+      end_date: new Date(index.end_date).toLocaleDateString(),
       start_time: index.start_time,
       end_time: index.end_time,
       y: Number(index.y)
@@ -15,7 +13,6 @@ function updateType(arr) {
   console.log('this is updateType output: ',newArr);
   return newArr;
 }
-
 
 // creates objects that can be read by the graph plugin
 function renderArrForGraph(arr) {
@@ -41,7 +38,7 @@ function buildGraph(arr) {
 
   console.log('arr before creating graph: ', arr)
   const arg2 = {
-    type: 'horizontal column',
+    type: 'column',
     series: [{ points: arr }]
   };
   console.log('arg2', arg2)
