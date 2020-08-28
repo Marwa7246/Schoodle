@@ -22,8 +22,7 @@ $(document).ready(function () {
 
 
   function deleteBookie(value) {
-    console.log("in delete", value);
-
+    console.log("in delete");
     $.ajax({ method: "DELETE", url: `/api/polls/${value}` })
     .then((data) => console.log(data))
     .catch((err) => console.log(err));
@@ -56,16 +55,14 @@ $(document).ready(function () {
           $("#main-form-button").off();
           $("#create-bookie").off();
 
-          formToPostForm(response[0], bookieObject);
+          formToPostForm(response, bookieObject);
         },
       });
     });
   }
 
   function formToPostForm(res, obj) {
-
-    const deleteId = res[0].poll_id
-    console.log('res', res)
+    const deleteId = res[0].id
     const copyText = 'http://localhost:8080/?' + obj.url;
 
     loadPollToVote(obj.url, true)
@@ -137,7 +134,7 @@ $(document).ready(function () {
         deleteUser(voteData.token)
       })
     })
-    $("#form-pop-out").submit( function (event) {
+    $("#append-vote-form").submit( function (event) {
       console.log(voteData.token)
       event.preventDefault();
       const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")

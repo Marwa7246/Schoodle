@@ -140,6 +140,7 @@ const resultsPage = `
 
   <button type="button" id="token-button" class="btn btn-info">SUBMIT</button>
   <div id>
+  <form id="append-vote-form" action="">
   <div id="revote-container">
   </div>
 <div id="chart-container" class="row col-xs-12 justify-content-center">
@@ -147,7 +148,7 @@ const resultsPage = `
 <ul id="vote-table-conatiner">
 </ul>
 
-  <form id="append-vote-form" action="">
+
   </form>
   </div>
 </div>
