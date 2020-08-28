@@ -5,7 +5,6 @@
 
     let bookieData = $(event.target).find(target1).serializeArray();
 
-    console.log(bookieData);
     const arrayToObjectBookie = (array, keyField) =>
       array.reduce((obj, item) => {
         obj[item[keyField]] = item;
@@ -36,7 +35,6 @@ if(timeSlots.length != 0) {
     timeSlots = arrayToObjectTime(timeSlots, "time_slot_id", "name");
     bookieData.time_slots = timeSlots;
   }
-    console.log(bookieData);
     bookieData.url = generateRandomUrl(32);
   }
     bookieData.token = generateRandomString(4);

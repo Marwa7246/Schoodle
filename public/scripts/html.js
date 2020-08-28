@@ -169,6 +169,5 @@ const formPopOut = `
 <button id="delete-user" type="submit" class="btn btn-danger">DELETE YOUR VOTES</button>
 `;
 {
-  /* <div class="form-check-input" id="display-time-slot-container">
-</div> */
+
 }

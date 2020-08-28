@@ -1,7 +1,4 @@
 
-
-
-
 function getUrlData (url, vote) {
       let data;
   const routeUrl =`/api/polls/${url.slice(1,)}`
@@ -16,7 +13,6 @@ function getUrlData (url, vote) {
   }
 
 function timeSlotBuilder (times) {
-  console.log("in time slots ")
 let timeSlots =''
 let choiceNum = 0
 for (const t of times.polls) {
@@ -45,7 +41,6 @@ function Usersobj(objUsers) {
     if (!obj[x].name) obj[x].name=[];
     obj[x].name.push(element.user_name)
   }
-    console.log('x:', obj)
   return obj
 }
 
@@ -63,7 +58,6 @@ $.ajax({
   }
 
 function renderTable(objUsers) {
-  console.log('MARIO',objUsers)
   let i =0;
   for (const key in objUsers) {
     i++
@@ -76,35 +70,6 @@ function renderTable(objUsers) {
   }
 
 }
-  // function renderTable(votes) {
-  //   let votesResults = ''
-  // console.log('votes:', votes)
-  // if(votes.length = 0) {
-  //   return console.log('array is empty cant render')
-  // }
-  // for (const key in votes) {
-  //   const $votesResults = $(`
-  //   <tr>
-  //   <td>time slot id: ${key}</td>
-  //   <td>name: ${votes[key].name}</td>
-  //   </p></tr>`);
-  // }
-
-
-  // for (const vote of votes.votes) {
-  //   console.log(vote)
-  //   votesResults +=
-  //   `<tr>
-  //   <td>${vote.start_date}</td>
-
-  //   <td>${vote.start_time}</td>
-  //   </p>
-
-  // </tr>`
-
-  // }
-  // return votesResults;
-  // }
 
 function graphData (url) {
   const urlVote =`/api/polls/votes/${url}`
@@ -112,7 +77,6 @@ function graphData (url) {
     type: 'GET',
     url: urlVote})
     .then((response) => {
-      console.log("voting response: ", response.votes);
       JSC.Chart('chart-container', buildGraph(renderArrForGraph(updateType(response.votes))))
     })
 

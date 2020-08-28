@@ -1,10 +1,8 @@
 function loadPollToVote(url, runTimeSlot) {
   const routeUrl =`/api/polls/${url}`
-  console.log(routeUrl)
 
   $.ajax({url: routeUrl, method: 'GET'})
     .then((response) => {
-      console.log('THIS RESPONSE HERE ---',response);
       fetchPollToVote(response);
       if (runTimeSlot) {
       fetchTimeSlots(response)
@@ -15,7 +13,6 @@ function loadPollToVote(url, runTimeSlot) {
 }
 
 function fetchPollToVote(object) {
-console.log(object)
 
   const preVotePage = `
   <div id="poll-details">
@@ -46,6 +43,5 @@ function fetchTimeSlots(arr) {
     `;
     }
   }
-  console.log(finalTimes);
   $('#bookie-time-slots').append(finalTimes);
 }

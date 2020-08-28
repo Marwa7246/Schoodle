@@ -22,7 +22,6 @@ $(document).ready(function () {
 
 
   function deleteBookie(value) {
-    console.log("in delete");
     $.ajax({ method: "DELETE", url: `/api/polls/${value}` })
     .then((data) => console.log(data))
     .catch((err) => console.log(err));
@@ -63,7 +62,6 @@ $(document).ready(function () {
 
   function formToPostForm(res, obj) {
     const deleteId = res[0].poll_id
-    console.log(res[0].poll_id)
     const copyText = 'http://localhost:8080/?' + obj.url;
 
     loadPollToVote(obj.url, true)
@@ -72,7 +70,6 @@ $(document).ready(function () {
     $("#delete-bookie").on("click", function () {
       deleteBookie(deleteId);
     });
-    // still problems with the button
     $("#copy-bookie").click(function () {
       copyToClipboard(copyText);
     });
@@ -95,7 +92,6 @@ $(document).ready(function () {
 
     $("#vote-form").submit( function (event) {
       event.preventDefault();
-      console.log("in the ")
       const voteData = bookieObjectBuilder(event, ".vote-control", ".vote-choices" )
 
         $.ajax({
@@ -136,7 +132,6 @@ $(document).ready(function () {
       })
     })
     $("#append-vote-form").submit( function (event) {
-      console.log(voteData.token)
       event.preventDefault();
       const revote = bookieObjectBuilder(event, ".vote-control", ".vote-choices")
       $.ajax({

@@ -17,7 +17,6 @@ module.exports = (db) => {
   //////////////////////DELETE A USER USING THE TOKEN/////////////////////////////
 
   router.delete("/:token", (req, res) => {
-    console.log("req.params.token: ",req.params.token)
     let query = `DELETE FROM users WHERE token = $1`;
     db.query(query, [req.params.token])
       .then(data => {
@@ -49,7 +48,7 @@ router.get('/:url', (req, res) => {
     ;
                        `, [url])
     .then(data => {
-      console.log('users: ', data.rows);
+      
       return data.rows});
   }
 

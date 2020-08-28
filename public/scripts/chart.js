@@ -29,19 +29,16 @@ function renderArrForGraph(arr) {
     `from ${index.start_date} - ${index.start_time} to ${index.end_date} - ${index.end_time}`;
     newArr.push({x: string, y: index.y})
   }
-  console.log('this is renderArrForGraph output: ',newArr);
   return newArr;
 }
 
 // creates the graph using the array worked above
 function buildGraph(arr) {
 
-  console.log('arr before creating graph: ', arr)
   const arg2 = {
     type: 'column',
     series: [{ points: arr }]
   };
-  console.log('arg2', arg2)
   return arg2;
 }
 

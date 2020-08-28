@@ -1,4 +1,4 @@
-// const copyToClipboard = require ('../helpers/copyToClipboard');
+
 
 const copyToClipboard = function(id) {
 
@@ -13,10 +13,3 @@ const copyToClipboard = function(id) {
   document.body.removeChild(textarea);
 };
 
-// $(document).ready(function() {
-
-//   $('#copy-bookie').click(function() {
-//     copyToClipboard('test');
-//   })
-
-// })

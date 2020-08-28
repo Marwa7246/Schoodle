@@ -1,6 +1,5 @@
 function checkDateInput(object) {
   const entries = Object.keys(object);
-  console.log(entries);
 }
 
 const example = {

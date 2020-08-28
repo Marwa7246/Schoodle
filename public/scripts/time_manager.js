@@ -5,8 +5,6 @@
     event.preventDefault();
 
     const noOfRows = $("#time-slot-container div").length + 1;
-    console.log(noOfRows);
-    console.log('test if read');
     if (noOfRows < 5) {
       $("#time-slot-container").append(function () {
         let timeslot = `
