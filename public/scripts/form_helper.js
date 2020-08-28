@@ -64,11 +64,13 @@ $.ajax({
 
 function renderTable(objUsers) {
   console.log('MARIO',objUsers)
+  let i =0;
   for (const key in objUsers) {
+    i++
     const $votesResults = $(`
 
 
-    <p>Choice ${key} Name: ${objUsers[key].name}</p>
+    <p>Choice ${i}: ${objUsers[key].name}</p>
     `);
     $('#vote-table-conatiner').append( $votesResults)
   }

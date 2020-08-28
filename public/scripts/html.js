@@ -124,10 +124,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
 
 
 <p>
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus
-  placeat obcaecati quos nam fugit minus aliquam recusandae quibusdam illo, at
-  facere repudiandae ab provident dignissimos ipsum temporibus, optio laborum
-  consectetur.
+  Please enter your name and email, along with your availabilities.
 </p>
 </div>
 `;
