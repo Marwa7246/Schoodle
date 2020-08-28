@@ -22,7 +22,8 @@ $(document).ready(function () {
 
 
   function deleteBookie(value) {
-    console.log("in delete");
+    console.log("in delete", value);
+
     $.ajax({ method: "DELETE", url: `/api/polls/${value}` })
     .then((data) => console.log(data))
     .catch((err) => console.log(err));
@@ -63,7 +64,8 @@ $(document).ready(function () {
 
   function formToPostForm(res, obj) {
 
-    const deleteId = res[0].id
+    const deleteId = res[0].poll_id
+    console.log('res', res)
     const copyText = 'http://localhost:8080/?' + obj.url;
 
     loadPollToVote(obj.url, true)
