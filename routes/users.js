@@ -13,18 +13,8 @@ const router  = express.Router();
 
 
 module.exports = (db) => {
-  // router.get("/", (req, res) => {
-  //   db.query(`SELECT * FROM users;`)
-  //     .then(data => {
-  //       const users = data.rows;
-  //       res.json({ users });
-  //     })
-  //     .catch(err => {
-  //       res
-  //         .status(500)
-  //         .json({ error: err.message });
-  //     });
-  // });
+
+  //////////////////////DELETE A USER USING THE TOKEN/////////////////////////////
 
   router.delete("/:token", (req, res) => {
     console.log("req.params.token: ",req.params.token)
@@ -64,11 +54,9 @@ router.get('/:url', (req, res) => {
   }
 
 
-  //console.log('params=', req.params.url, typeof req.params.url)
   const urlVote = req.params.url;
   countVoteUsers(urlVote)
   .then(users => {
-    console.log(users);
     res.send({users})})
   .catch(e => {
     console.error(e);
