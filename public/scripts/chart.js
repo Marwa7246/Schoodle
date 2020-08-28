@@ -41,7 +41,7 @@ function buildGraph(arr) {
 
   console.log('arr before creating graph: ', arr)
   const arg2 = {
-    type: 'horizontal column',
+    type: 'column',
     series: [{ points: arr }]
   };
   console.log('arg2', arg2)

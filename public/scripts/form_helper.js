@@ -27,6 +27,21 @@ for (const t of times.polls) {
 return  timeSlots
 }
 
+
+function Usersobj(objUsers) {
+  let obj = [];
+  for (const element of objUsers.users) {
+    let x=element.id
+    if (!obj[x]){
+      obj[x] ={}
+    }
+    if (!obj[x].name) obj[x].name=[];
+    obj[x].name.push(element.user_name)
+  }
+    console.log('x:', obj)
+  return obj
+}
+
 function voteTable (url) {
   const urlVoteUsers =`/users/${url}`
 
@@ -37,32 +52,53 @@ $.ajax({
   url: urlVoteUsers})
   .then((response) => {
     console.log('vote-users', response)
-    renderTable(response.votes)
-
+    renderTable(Usersobj(response))
   })
 
 
   }
-  function renderTable(votes) {
-    let votesResults = ''
-  console.log(votes)
-  if(votes.length = 0) {
-    return console.log('array is empty cant render')
-  }
-  for (const vote of votes.votes) {
-    console.log(vote)
-    votesResults +=
-    `<tr>
-    <td>${vote.start_date}</td>
 
-    <td>${vote.start_time}</td>
-    </p>
 
-  </tr>`
+function renderTable(objUsers) {
+  $('#html-container').append( $(`<h2> VOTERS DETAILS</h2> `))
+  for (const key in objUsers) {
+    const $votesResults = $(`
+    <h5>time slot id: ${key}</h5>
+    <h5>name: ${objUsers[key].name}</h5>
+    `);
+    $('#html-container').append( $votesResults)
+  }
 
-  }
-  return votesResults;
-  }
+}
+  // function renderTable(votes) {
+  //   let votesResults = ''
+  // console.log('votes:', votes)
+  // if(votes.length = 0) {
+  //   return console.log('array is empty cant render')
+  // }
+  // for (const key in votes) {
+  //   const $votesResults = $(`
+  //   <tr>
+  //   <td>time slot id: ${key}</td>
+  //   <td>name: ${votes[key].name}</td>
+  //   </p></tr>`);
+  // }
+
+
+  // for (const vote of votes.votes) {
+  //   console.log(vote)
+  //   votesResults +=
+  //   `<tr>
+  //   <td>${vote.start_date}</td>
+
+  //   <td>${vote.start_time}</td>
+  //   </p>
+
+  // </tr>`
+
+  // }
+  // return votesResults;
+  // }
 
 function graphData (url) {
   const urlVote =`/api/polls/votes/${url}`
