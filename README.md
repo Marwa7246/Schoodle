@@ -9,19 +9,19 @@ Bookie is the collaborative mid-term project for the Lighthouse Labs Web Develop
 ## Screenshots
 
 Landing page.
-![landing-page]()
+![landing-page](https://github.com/Marwa7246/bookie/blob/master/docs/landing-page.png)
 
 Event form: all fields are required. The 'Add entry' button adds each time an additional time slot.
-![form]()
+![form](https://github.com/Marwa7246/bookie/blob/master/docs/form.png)
 
-Completed form: It presents the details of the event. A link to it is available, together with the options to delete it or copy the link to clipboard.
-![tweets-list]()
+Completed form: it presents the details of the event. A link to it is available, together with the options to delete it or copy the link to clipboard.
+![completed-form](https://github.com/Marwa7246/bookie/blob/master/docs/completed-form.png)
 
 Vote form: this is where the invitee provides their info and their availability.
-![guest-vote]()
+![guest-vote](https://github.com/Marwa7246/bookie/blob/master/docs/guest-vote.png)
 
 Results page: a list of participants and their availability. 
-![results]()
+![results](https://github.com/Marwa7246/bookie/blob/master/docs/results.png)
 
 ## Getting Started
 
