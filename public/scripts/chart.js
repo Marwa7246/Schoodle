@@ -1,3 +1,4 @@
+// rearranges and reformat array index values
 function updateType(arr) {
   let newArr = [];
 

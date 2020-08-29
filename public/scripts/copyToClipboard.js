@@ -1,8 +1,4 @@
-
-
 const copyToClipboard = function(id) {
-
-
 
   let textarea = document.createElement("textarea");
   textarea.textContent = id;
