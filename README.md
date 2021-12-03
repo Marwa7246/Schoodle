@@ -1,14 +1,14 @@
-# Bookie
+# Schoodle
 
 This app is single-page event scheduler, based off of [Doodle](https://doodle.com/).
 * The event creator can provide information about it, set up to 4 time-slots, and share the created event via a unique-ID link - or delete it, if unhappy with it.
 * The guests are allowed to select multiple choices, and to edit or delete their entry. Once their vote is submitted, a graph and a table are presented, to display the other guests participating and their availability.
 
-Bookie is the collaborative mid-term project for the Lighthouse Labs Web Development bootcamp. Its front-end is built through HTML, SASS and jQuery. Requests to the back-end are entirely made via AJAX. The server is built through NodeJS, and uses Express as framework. The database is managed via PostgreSQL.
+Schoodle is the collaborative mid-term project for the Lighthouse Labs Web Development bootcamp. Its front-end is built through HTML, SASS and jQuery. Requests to the back-end are entirely made via AJAX. The server is built through NodeJS, and uses Express as framework. The database is managed via PostgreSQL.
 
-## Screenshots
+<!-- ## Screenshots -->
 
-Landing page.
+<!-- Landing page.
 ![landing-page](https://github.com/Marwa7246/bookie/blob/master/docs/landing-page.png)
 
 Event form: all fields are required. The 'Add entry' button adds each time an additional time slot.
@@ -21,7 +21,7 @@ Vote form: this is where the invitee provides their info and their availability.
 ![guest-vote](https://github.com/Marwa7246/bookie/blob/master/docs/guest-vote.png)
 
 Results page: a list of participants and their availability. 
-![results](https://github.com/Marwa7246/bookie/blob/master/docs/results.png)
+![results](https://github.com/Marwa7246/bookie/blob/master/docs/results.png) -->
 
 ## Getting Started
 

@@ -2,12 +2,15 @@ const formPage = `
 <section id='bookie-form-page' class="d-flex-column justify-content-around">
 <div class="d-flex-column justify-content-around" id="form-logo">
   <img
-    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
+    src="../images/schoodle.png" width="400">
 </div>
 
-<h2>ENTER THE DETAILS FOR YOUR BOOKIE</h2>
-    <form id="form-submission">
-      <article class="form-content col-xs-12 col-lg-12">
+<h4>Enter The Details of Your Meeting</h4>
+    <form id="form-submission" class="mt-3">
+      <div class="col">
+
+      </div>
+      <article class="form-content col-xs-12 col-md-6">
           <div class="form-group">
             <h6>Full name</h6>
             <input type="text" class="form-control" name="name"
@@ -18,12 +21,12 @@ const formPage = `
             <input id="email" type="email" class="form-control" placeholder="E-mail address" name="email" required>
           </div>
           <div class="form-group">
-            <h6>Bookie title</h6>
+            <h6>Meeting title</h6>
             <input id="title" type="text" class="form-control" name="title"
               placeholder="How are you going to call it?" required>
           </div>
           <div class="form-group">
-            <h6>Bookie description</h6>
+            <h6>Meeting description</h6>
             <input id="description" type="text" class="form-control" name="description"
               placeholder="Briefly describe what you're planning" required>
           </div>
@@ -32,22 +35,29 @@ const formPage = `
             <input id="location" type="text" class="form-control" name="location"
               placeholder="Where is it going to happen?" required>
           </div>
-        <div id="time-slot-container" class="col-xs-10 col-lg-10">
+
+        <div id="time-slot-container" class="col-xs-12 mt-2">
           <div class="d-flex justify-content-center time-elements">
             <span>Event starts:</span>
             <input class="time-slot" type="date" name="start_date" />
             <input class="time-slot" type="time" name="start_time" />
+          </div>
+          <div class="d-flex justify-content-center time-elements">
             <span>Event ends:</span>
             <input class="time-slot" type="date" name="end_date" />
             <input class="time-slot" type="time" name="end_time" />
 
           </div>
         </div>
-      <div>
-      <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
-      <button id="main-form-button" type="submit" class="btn btn-primary">Submit</button>
-      </div>
+
+        <div class="btn-group mt-5" role="group" aria-label="submit">
+          <button id="add-timeslot" type="button" class="btn btn-primary">Add entry</button>
+          <button id="main-form-button" type="submit" class="btn btn-primary">Submit</button>
+        </div>
       </article>
+      <div class="col">
+
+    </div>
       </form>
   </section>
 `;
@@ -58,7 +68,7 @@ const landingHTML = `<div class="grid d-flex justify-content-center">
 <div class='column'>
 <div class="row col-xs-12">
   <img style="margin-top: 10rem; min-width: 20rem;"
-    src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511">
+    src="../images/schoodle.png" width="500">
 </div>
 </div>
 </div>
@@ -105,7 +115,7 @@ const votesPage = `<div id="vote-page" class="justify-content-center">
     src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/544/3576556544_5895c6d6-8741-40d3-9a7a-0ce2774fa4bf.png?cb=1598060511"
   />
 </div>
-<h1>It's Bookie Time!!!</h1>
+<h1>It's Meeting Time!!!</h1>
 
 
 
