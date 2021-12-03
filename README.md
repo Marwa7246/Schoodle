@@ -8,11 +8,11 @@ Schoodle is the collaborative mid-term project for the Lighthouse Labs Web Devel
 
 <!-- ## Screenshots -->
 
-<!-- Landing page.
-![landing-page](https://github.com/Marwa7246/bookie/blob/master/docs/landing-page.png)
+Landing page.
+![landing-page](https://github.com/Marwa7246/schoodle/blob/master/docs/landing-page-schoodle.jpg)
 
-Event form: all fields are required. The 'Add entry' button adds each time an additional time slot.
-![form](https://github.com/Marwa7246/bookie/blob/master/docs/form.png)
+<!-- Event form: all fields are required. The 'Add entry' button adds each time an additional time slot.
+![form](https://github.com/Marwa7246/schoodle/blob/master/docs/form.png)
 
 Completed form: it presents the details of the event. A link to it is available, together with the options to delete it or copy the link to clipboard.
 ![completed-form](https://github.com/Marwa7246/bookie/blob/master/docs/completed-form.png)
