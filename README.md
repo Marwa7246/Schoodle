@@ -6,7 +6,7 @@ This app is single-page event scheduler, based off of [Doodle](https://doodle.co
 
 Schoodle is the collaborative mid-term project for the Lighthouse Labs Web Development bootcamp. Its front-end is built through HTML, SASS and jQuery. Requests to the back-end are entirely made via AJAX. The server is built through NodeJS, and uses Express as framework. The database is managed via PostgreSQL.
 
-<!-- ## Screenshots -->
+## Screenshots 
 
 Landing page.
 ![landing-page](https://github.com/Marwa7246/schoodle/blob/master/docs/landing-page-schoodle.jpg)
